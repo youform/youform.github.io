@@ -54,18 +54,31 @@
             text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Text Link Styling */
-        #continue-link {
+        /* Button Styling */
+        #continue-button {
             margin-top: 40px;
             font-size: 1rem;
             font-weight: 600;
-            color: #fce5cd; /* Text color */
-            text-decoration: underline;
+            color: #fce5cd; /* Button text color */
+            background: transparent;
+            border: none;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        #continue-link:hover {
-            color: #ffcc99; /* Slightly brighter hover effect */
+        #continue-button span {
+            text-decoration: underline;
+        }
+
+        #continue-button:hover {
+            color: #ffcc99; /* Hover effect for button */
+        }
+
+        #continue-button::after {
+            content: "→"; /* Arrow symbol */
+            font-size: 1.2rem;
         }
     </style>
 </head>
@@ -76,7 +89,9 @@
         <span class="word">to</span>
         <span class="word">YouForm</span>
     </div>
-    <div id="continue-link" onclick="redirectToInfo()">Continue with YouForm →</div>
+    <button id="continue-button" onclick="redirectToInfo()">
+        <span>Continue with YouForm</span>
+    </button>
 
     <script>
         // JavaScript to handle the redirection
