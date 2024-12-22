@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to YouForm</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600&display=swap');
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: black; /* Background color */
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+        }
+
+        #welcome {
+            display: flex;
+            gap: 20px;
+            font-size: 3.5rem;
+            font-weight: 600;
+        }
+
+        .word {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* Smooth easing */
+        }
+
+        .word:nth-child(1) { animation-delay: 0s; }
+        .word:nth-child(2) { animation-delay: 0.3s; }
+        .word:nth-child(3) { animation-delay: 0.6s; }
+        .word:nth-child(4) { animation-delay: 0.9s; }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Subtle glow effect for text */
+        .word {
+            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Button styling */
+        .continue-btn {
+            margin-top: 40px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: black;
+            background-color: #00ffcc;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 255, 204, 0.3);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .continue-btn:hover {
+            background-color: #00e6b8;
+            box-shadow: 0px 6px 15px rgba(0, 255, 204, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="welcome">
+        <span class="word">Hi,</span>
+        <span class="word">Welcome</span>
+        <span class="word">to</span>
+        <span class="word">YouForm</span>
+    </div>
+    <a href="info.html" class="continue-btn">Continue with YouForm →</a>
+</body>
+</html>
