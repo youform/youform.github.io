@@ -6,7 +6,7 @@
     <title>Info</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600&display=swap');
-        
+
         body {
             margin: 0;
             padding: 0;
@@ -21,30 +21,32 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            color: #fff;
+            color: #fde5cc;
             text-decoration: none;
             font-size: 1rem;
             font-weight: 600;
         }
 
         .back-button:hover {
-            text-decoration: none;
+            text-decoration: underline;
         }
 
-        /* Image styling */
+        /* Header Image Styling */
         .header-image {
             margin: 80px auto 20px;
-            max-width: 1000px; /* Increased image size */
+            max-width: 90%; /* Ensure responsive scaling */
+            height: auto;
             display: block;
         }
 
         /* Tagline */
         .tagline {
-            font-size: 1.5rem;
-            margin-top: 10px;
+            font-size: 2rem;
             font-weight: 600;
+            margin-top: 10px;
         }
 
+        /* Description */
         .description {
             margin: 20px auto;
             font-size: 1rem;
@@ -52,14 +54,14 @@
             max-width: 600px;
         }
 
-        /* Button styling */
+        /* Continue Button Styling */
         .continue-button {
             margin-top: 20px;
-            padding: 8px 16px;
-            font-size: 0.9rem; /* Smaller font size */
+            padding: 12px 24px;
+            font-size: 1rem;
             font-weight: 600;
-            color: black;
-            background-color: #fde5cc;
+            color: #fff;
+            background-color: #4a56e2; /* Updated button color */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -69,45 +71,16 @@
         }
 
         .continue-button:hover {
-            background-color: #ffcc99;
+            background-color: #3944bc; /* Darker button hover color */
         }
 
         .continue-button span {
-            font-size: 1rem; /* Adjusted size */
+            font-size: 1rem;
         }
 
         .continue-button::after {
             content: "→"; /* Arrow symbol */
             font-size: 1rem;
-        }
-
-        /* Feature Section */
-        .feature-section {
-            margin-top: 60px;
-        }
-
-        .feature-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-top: 20px;
-        }
-
-        .feature-description {
-            font-size: 1rem;
-            margin-top: 10px;
-        }
-
-        .feature-icon {
-            margin: 0 auto;
-            display: inline-block;
-            width: 60px;
-            height: 60px;
-        }
-
-        .feature-icon svg {
-            width: 100%;
-            height: 100%;
-            fill: #fde5cc; /* Matches logo color */
         }
     </style>
 </head>
@@ -119,7 +92,7 @@
     <img src="youform101.png" alt="YouForm Logo" class="header-image">
 
     <!-- Tagline -->
-    <div class="tagline"><h1>The best way to browse.</h1></div>
+    <div class="tagline">The best way to browse.</div>
 
     <!-- Description -->
     <div class="description">
@@ -132,19 +105,6 @@
     <button class="continue-button" onclick="goToNextPage()">
         <span>Continue</span>
     </button>
-
-    <!-- Feature Section -->
-    <div class="feature-section">
-        <div class="feature-icon">
-            <!-- Updated search icon SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                <circle cx="28" cy="28" r="12" stroke="#fde5cc" stroke-width="4" fill="none"></circle>
-                <line x1="41" y1="41" x2="56" y2="56" stroke="#fde5cc" stroke-width="4" stroke-linecap="round"></line>
-            </svg>
-        </div>
-        <div class="feature-title">Powerful Search</div>
-        <div class="feature-description">Quickly search in under a few seconds</div>
-    </div>
 
     <script>
         // JavaScript to handle the button click
