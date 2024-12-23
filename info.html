@@ -28,7 +28,7 @@
         }
 
         .back-button:hover {
-            text-decoration: none;
+            text-decoration: underline;
         }
 
         /* Header Image Styling */
@@ -48,11 +48,11 @@
 
         /* Description */
         .description {
-            margin: 40px auto 0; /* Adjusted top margin */
+            margin: 40px auto 0;
             font-size: 1rem;
-            line-height: 1.8; /* Slightly increased for readability */
-            max-width: 700px; /* Wider text area */
-            text-align: center; /* Ensure text alignment matches the image */
+            line-height: 1.8;
+            max-width: 700px;
+            text-align: center;
         }
 
         /* Continue Button Styling */
@@ -62,7 +62,7 @@
             font-size: 1rem;
             font-weight: 600;
             color: #fff;
-            background-color: #4a56e2; /* Updated button color */
+            background-color: #4a56e2;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -72,7 +72,7 @@
         }
 
         .continue-button:hover {
-            background-color: #3944bc; /* Darker button hover color */
+            background-color: #3944bc;
         }
 
         .continue-button span {
@@ -80,7 +80,7 @@
         }
 
         .continue-button::after {
-            content: "\2192"; /* Arrow symbol */
+            content: "\2192";
             font-size: 1rem;
         }
 
@@ -123,7 +123,7 @@
     </div>
 
     <!-- Continue Button -->
-    <button class="continue-button" onclick="goToNextPage(apps.html)">
+    <button class="continue-button" onclick="goToNextPage()">
         <span>Continue</span>
     </button>
 
@@ -133,18 +133,18 @@
         <div>Powerful Search: Quickly search in under a few seconds.</div>
     </div>
     <div class="icon-text-section">
-        <img src="interface.png" alt="Settings Icon">
+        <img src="interface.png" alt="Interface Icon">
         <div>Simple Interface: Intuitive design, no tutorials needed.</div>
     </div>
     <div class="icon-text-section">
-        <img src="device.png" alt="Devices Icon">
+        <img src="device.png" alt="Device Icon">
         <div>On Any Device: Works on all browsers and devices.</div>
     </div>
 
     <script>
-        // JavaScript to handle the button click
+        // JavaScript to navigate to the apps.html page
         function goToNextPage() {
-            alert('This button can lead to the next section or page!');
+            window.location.href = "apps.html";
         }
     </script>
 </body>
