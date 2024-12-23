@@ -81,7 +81,7 @@
             font-size: 1.2rem;
         }
 
-        /* Powerful Search section */
+        /* Feature Section */
         .feature-section {
             margin-top: 60px;
         }
@@ -98,8 +98,16 @@
         }
 
         .feature-icon {
-            font-size: 3rem;
-            color: #fff;
+            margin: 0 auto;
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #fde5cc; /* Matches logo color */
         }
     </style>
 </head>
@@ -125,7 +133,13 @@
 
     <!-- Feature Section -->
     <div class="feature-section">
-        <div class="feature-icon">🔍</div>
+        <div class="feature-icon">
+            <!-- Updated search icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                <circle cx="28" cy="28" r="12" stroke="#fde5cc" stroke-width="4" fill="none"></circle>
+                <line x1="41" y1="41" x2="56" y2="56" stroke="#fde5cc" stroke-width="4" stroke-linecap="round"></line>
+            </svg>
+        </div>
         <div class="feature-title">Powerful Search</div>
         <div class="feature-description">Quickly search in under a few seconds</div>
     </div>
@@ -138,4 +152,3 @@
     </script>
 </body>
 </html>
-
