@@ -80,14 +80,21 @@
         }
 
         .continue-button::after {
-            content: "→"; /* Arrow symbol */
+            content: "\2192"; /* Arrow symbol */
             font-size: 1rem;
+        }
+
+        /* Image Below Button */
+        .below-button-image {
+            margin-top: 20px;
+            max-width: 90%;
+            height: auto;
         }
     </style>
 </head>
 <body>
     <!-- Back Button -->
-    <a href="index.html" class="back-button">↩ Back</a>
+    <a href="index.html" class="back-button">&#x21A9; Back</a>
 
     <!-- Enlarged Header Image -->
     <img src="youform101.png" alt="YouForm Logo" class="header-image">
@@ -106,6 +113,9 @@
     <button class="continue-button" onclick="goToNextPage()">
         <span>Continue</span>
     </button>
+
+    <!-- Image Below Button -->
+    <img src="image.png" alt="Additional Information" class="below-button-image">
 
     <script>
         // JavaScript to handle the button click
