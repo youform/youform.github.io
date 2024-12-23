@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="YouForm.png" type="image/png">
     <title>Info</title>
-    <link rel="icon" href="YouForm.png" type="image/png"> <!-- Favicon -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600&display=swap');
 
@@ -29,7 +29,7 @@
         }
 
         .back-button:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         /* Header Image Styling */
@@ -49,11 +49,11 @@
 
         /* Description */
         .description {
-            margin: 40px auto 0;
+            margin: 40px auto 0; /* Adjusted top margin */
             font-size: 1rem;
-            line-height: 1.8;
-            max-width: 700px;
-            text-align: center;
+            line-height: 1.8; /* Slightly increased for readability */
+            max-width: 700px; /* Wider text area */
+            text-align: center; /* Ensure text alignment matches the image */
         }
 
         /* Continue Button Styling */
@@ -63,7 +63,7 @@
             font-size: 1rem;
             font-weight: 600;
             color: #fff;
-            background-color: #4a56e2;
+            background-color: #4a56e2; /* Updated button color */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -73,7 +73,7 @@
         }
 
         .continue-button:hover {
-            background-color: #3944bc;
+            background-color: #3944bc; /* Darker button hover color */
         }
 
         .continue-button span {
@@ -81,7 +81,7 @@
         }
 
         .continue-button::after {
-            content: "\2192";
+            content: "\2192"; /* Arrow symbol */
             font-size: 1rem;
         }
 
@@ -105,16 +105,15 @@
             line-height: 1.5;
         }
 
-        /* Additional Section Styling */
+        /* Additional Image Section */
         .additional-image-section {
             margin-top: 40px;
+            text-align: center;
         }
 
-        .additional-image {
+        .additional-image-section img {
             max-width: 90%;
             height: auto;
-            display: block;
-            margin: 20px auto;
         }
     </style>
 </head>
@@ -146,23 +145,30 @@
         <div>Powerful Search: Quickly search in under a few seconds.</div>
     </div>
     <div class="icon-text-section">
-        <img src="interface.png" alt="Interface Icon">
+        <img src="interface.png" alt="Settings Icon">
         <div>Simple Interface: Intuitive design, no tutorials needed.</div>
     </div>
     <div class="icon-text-section">
-        <img src="device.png" alt="Device Icon">
+        <img src="device" alt="Devices Icon">
         <div>On Any Device: Works on all browsers and devices.</div>
     </div>
 
     <!-- Additional Section -->
     <div class="additional-image-section">
+        <div style="font-size: 1.5rem; font-weight: 600; color: white; line-height: 1.8; max-width: 700px; margin: 0 auto 20px; text-align: center;">
+            Imagine a browsing tool that adapts to you, learns from You, and makes every search smarter, faster, and more intuitive. 
+            <br>
+            <span style="font-weight: 400; color: #b0b0b0; font-size: 1rem;">
+                No longer bound by the limitations of traditional browsing experiences, YouForm offers a personalized approach to the web that cuts through the clutter, focusing only on what matters most to you.
+            </span>
+        </div>
         <img src="100.png" alt="Illustration" class="additional-image">
     </div>
 
     <script>
-        // JavaScript to navigate to the apps.html page
+        // JavaScript to handle the button click
         function goToNextPage() {
-            window.location.href = "apps.html";
+            window.location.href = 'apps.html';
         }
     </script>
 </body>
