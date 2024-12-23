@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Info</title>
-     <link rel="icon" href="YouForm.png" type="image/png">
+    <link rel="icon" href="YouForm.png" type="image/png"> <!-- Favicon -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600&display=swap');
 
@@ -29,7 +29,7 @@
         }
 
         .back-button:hover {
-            text-decoration: none;
+            text-decoration: underline;
         }
 
         /* Header Image Styling */
@@ -104,6 +104,18 @@
             text-align: left;
             line-height: 1.5;
         }
+
+        /* Additional Section Styling */
+        .additional-image-section {
+            margin-top: 40px;
+        }
+
+        .additional-image {
+            max-width: 90%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
     </style>
 </head>
 <body>
@@ -140,6 +152,11 @@
     <div class="icon-text-section">
         <img src="device.png" alt="Device Icon">
         <div>On Any Device: Works on all browsers and devices.</div>
+    </div>
+
+    <!-- Additional Section -->
+    <div class="additional-image-section">
+        <img src="100.png" alt="Illustration" class="additional-image">
     </div>
 
     <script>
