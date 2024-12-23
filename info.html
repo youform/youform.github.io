@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="YouForm.png" type="image/png">
     <title>Info</title>
+    <link rel="icon" type="image/png" href="YouForm.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600&display=swap');
 
@@ -105,15 +105,18 @@
             line-height: 1.5;
         }
 
-        /* Additional Image Section */
-        .additional-image-section {
-            margin-top: 40px;
-            text-align: center;
+        /* Left-aligned content below the device icon */
+        .left-aligned-section {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 90%;
         }
 
-        .additional-image-section img {
-            max-width: 90%;
+        .left-aligned-section img {
+            display: block;
+            max-width: 100%;
             height: auto;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -135,11 +138,11 @@
     </div>
 
     <!-- Continue Button -->
-    <button class="continue-button" onclick="goToNextPage()">
+    <button class="continue-button" onclick="window.location.href='apps.html'">
         <span>Continue</span>
     </button>
 
-    <!-- Image Below Button as HTML Content -->
+    <!-- Icon and Text Sections -->
     <div class="icon-text-section">
         <img src="search.png" alt="Search Icon">
         <div>Powerful Search: Quickly search in under a few seconds.</div>
@@ -149,27 +152,17 @@
         <div>Simple Interface: Intuitive design, no tutorials needed.</div>
     </div>
     <div class="icon-text-section">
-        <img src="device" alt="Devices Icon">
+        <img src="device.png" alt="Devices Icon">
         <div>On Any Device: Works on all browsers and devices.</div>
     </div>
 
-    <!-- Additional Section -->
-    <div class="additional-image-section">
-        <div style="font-size: 1.5rem; font-weight: 600; color: white; line-height: 1.8; max-width: 700px; margin: 0 auto 20px; text-align: center;">
-            Imagine a browsing tool that adapts to you, learns from You, and makes every search smarter, faster, and more intuitive. 
-            <br>
-            <span style="font-weight: 400; color: #b0b0b0; font-size: 1rem;">
-                No longer bound by the limitations of traditional browsing experiences, YouForm offers a personalized approach to the web that cuts through the clutter, focusing only on what matters most to you.
-            </span>
-        </div>
-        <img src="100.png" alt="Illustration" class="additional-image">
+    <!-- Left-aligned Content Below Device Icon -->
+    <div class="left-aligned-section">
+        <p>
+            Imagine a browsing tool that adapts to you, learns from You, and makes every search smarter, faster, and more intuitive. <br>
+            No longer bound by the limitations of traditional browsing experiences, YouForm offers a personalized approach to the web that cuts through the clutter, focusing only on what matters most to you.
+        </p>
+        <img src="100.png" alt="Illustration">
     </div>
-
-    <script>
-        // JavaScript to handle the button click
-        function goToNextPage() {
-            window.location.href = 'apps.html';
-        }
-    </script>
 </body>
 </html>
