@@ -6,7 +6,7 @@
     <title>Info</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600&display=swap');
-
+        
         body {
             margin: 0;
             padding: 0;
@@ -55,8 +55,8 @@
         /* Button styling */
         .continue-button {
             margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 8px 16px;
+            font-size: 0.9rem; /* Smaller font size */
             font-weight: 600;
             color: black;
             background-color: #fde5cc;
@@ -73,12 +73,12 @@
         }
 
         .continue-button span {
-            font-size: 1.2rem;
+            font-size: 1rem; /* Adjusted size */
         }
 
         .continue-button::after {
-            content: "↪"; /* Arrow symbol */
-            font-size: 1.2rem;
+            content: "→"; /* Arrow symbol */
+            font-size: 1rem;
         }
 
         /* Feature Section */
@@ -109,11 +109,21 @@
             height: 100%;
             fill: #fde5cc; /* Matches logo color */
         }
+
+        /* Image styling */
+        .header-image {
+            margin: 60px auto 20px;
+            max-width: 80%;
+            display: block;
+        }
     </style>
 </head>
 <body>
     <!-- Back Button -->
     <a href="index.html" class="back-button">↩ Back</a>
+
+    <!-- Header Image -->
+    <img src="youform101.png" alt="YouForm Logo" class="header-image">
 
     <!-- Logo and Tagline -->
     <div class="logo">YouForm</div>
@@ -121,14 +131,14 @@
 
     <!-- Description -->
     <div class="description">
-        In today's world of digital exploration, the way we interact with the web has become more than just a series of clicks and scrolls. 
-        It's an experience, a journey shaped by how we search, discover, and absorb information. And that's where YouForm steps in — 
+        In today's world of digital exploration, the way we interact with the web has become more than just a series of clicks and scrolls.
+        It's an experience, a journey shaped by how we search, discover, and absorb information. And that's where YouForm steps in —
         not just as a new tab page, but as a revolution in digital navigation. Break free from the soulless corporations, and use YouForm.
     </div>
 
     <!-- Continue Button -->
     <button class="continue-button" onclick="goToNextPage()">
-        <span>Continue</span>
+        <span>Continue ⤷</span>
     </button>
 
     <!-- Feature Section -->
