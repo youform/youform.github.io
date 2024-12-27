@@ -17,9 +17,10 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* Changed to flex-start to accommodate top content */
             align-items: center;
-            height: 100vh; /* Make the body take full viewport height */
+            min-height: 100vh; /* Changed to min-height for better content flow */
+            padding-bottom: 50px; /* Added padding at the bottom */
         }
 
         .back-button {
@@ -70,6 +71,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            transition: background-color 0.3s ease;
         }
 
         .continue-button:hover {
@@ -85,27 +87,47 @@
             font-size: 1rem;
         }
 
-        /* Adjusted left-aligned section */
+        /* Enhanced left-aligned section */
         .left-aligned-section {
             display: flex;
-            flex-direction: column; /* Stack the content vertically */
+            flex-direction: row; /* Side by side on larger screens */
             align-items: center;
             justify-content: center;
             margin: 50px auto;
             max-width: 90%;
-            gap: 20px;
+            gap: 40px;
+            padding: 20px;
+            background-color: #1a1a1a; /* Dark background for contrast */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .left-aligned-section p {
             max-width: 600px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             line-height: 1.8;
+            text-align: left; /* Align text to the left */
         }
 
         .left-aligned-section img {
-            width: 600px; /* Make the image larger */
+            width: 800px; /* Increased image size */
+            max-width: 100%; /* Responsive */
             height: auto;
-            margin-top: 20px; /* Space between text and image */
+            margin-top: 0; /* Remove top margin */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .left-aligned-section {
+                flex-direction: column; /* Stack on smaller screens */
+                gap: 20px;
+            }
+
+            .left-aligned-section img {
+                width: 100%;
+            }
         }
 
         .section {
@@ -121,6 +143,8 @@
         .section img {
             width: 400px;
             height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .section .text {
@@ -170,6 +194,7 @@
         /* Highlight "you" in the specified sentence */
         .highlight-you {
             color: #fce5cd;
+            font-weight: 700; /* Make it bold for emphasis */
         }
     </style>
 </head>
@@ -188,7 +213,21 @@
         <span>Continue</span>
     </button>
 
-    <!-- Left-aligned Section with image directly under text -->
+    <!-- Icon and Text Sections -->
+    <div class="icon-text-section">
+        <img src="search.png" alt="Search Icon">
+        <div>Powerful Search: Quickly search in under a few seconds.</div>
+    </div>
+    <div class="icon-text-section">
+        <img src="interface.png" alt="Settings Icon">
+        <div>Simple Interface: Intuitive design, no tutorials needed.</div>
+    </div>
+    <div class="icon-text-section">
+        <img src="device.png" alt="Devices Icon">
+        <div>On Any Device: Works on all browsers and devices.</div>
+    </div>
+
+    <!-- Enhanced Left-aligned Section with image directly under text -->
     <div class="left-aligned-section">
         <p>
             Imagine a browsing tool that adapts to <span class="highlight-you">you</span>, learns from <span class="highlight-you">You</span>, and makes every search smarter, faster, and more intuitive. <br>
