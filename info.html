@@ -87,30 +87,14 @@
             font-size: 1rem;
         }
 
-        /* Enhanced left-aligned section */
-        .left-aligned-section {
-            position: relative; /* Make the section a positioning context */
-            display: flex;
-            flex-direction: column; /* Stack text and image vertically */
-            align-items: center;
-            justify-content: center;
-            margin: 50px auto;
-            max-width: 90%;
-            gap: 20px;
-            padding: 20px;
-            background-color: #1a1a1a; /* Dark background for contrast */
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Overlaying text */
+        /* Centered Text Overlay */
         .text-overlay {
             position: absolute; /* Position text over the image */
-            top: 10%; /* Adjust to control how high the text is placed */
+            top: 5%; /* Adjust this value for the position from the top */
             left: 50%;
             transform: translateX(-50%); /* Center text horizontally */
             padding: 20px;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             line-height: 1.8;
             text-align: center;
             color: #fff; /* White text for contrast */
@@ -231,17 +215,16 @@
         <span>Continue</span>
     </button>
 
-    <!-- Left-aligned Content Below Device Icon -->
-    <div class="left-aligned-section">
-        <div class="text-overlay">
-            <p>
-                Imagine a browsing tool that adapts to you, learns from You, and makes every search smarter, faster, and more intuitive.
-                <br>
-                No longer bound by the limitations of traditional browsing experiences, YouForm offers a personalized approach to the web that cuts through the clutter, focusing only on what matters most to you.
-            </p>
-        </div>
+    <!-- Centered Text Overlay -->
+    <div class="text-overlay">
+        <p>
+            Imagine a browsing tool that adapts to you, learns from You, and makes every search smarter, faster, and more intuitive.
+            <br>
+            No longer bound by the limitations of traditional browsing experiences, YouForm offers a personalized approach to the web that cuts through the clutter, focusing only on what matters most to you.
+        </p>
     </div>
 
+    <!-- Existing Section -->
     <div class="section">
         <div class="text" style="text-align: left;">
             <h2>YouForm is built with <span class="highlight">You</span> in mind.</h2>
