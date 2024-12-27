@@ -103,17 +103,33 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
+        /* Styling for text */
         .left-aligned-section p {
             position: absolute; /* Position text on top of the image */
-            top: 20px; /* Adjust this to control how high the text is placed */
-            left: 0;
-            right: 0;
-            padding: 20px; /* Adjust padding for better text positioning */
+            top: 20%; /* Adjust this to control how high the text is placed */
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 20px;
             font-size: 1.1rem;
             line-height: 1.8;
-            text-align: center; /* Center align the text */
+            text-align: center;
             color: #fff;
             z-index: 1; /* Make sure the text is above the image */
+        }
+
+        .highlight-you {
+            color: #fce5cd;
+            font-weight: 700; /* Make it bold for emphasis */
+        }
+
+        /* Font size for the first text (heading) */
+        .left-aligned-section .heading {
+            font-size: 34px; /* Set font size for the first text */
+        }
+
+        /* Font size for the second text (sub-heading) */
+        .left-aligned-section .sub-heading {
+            font-size: 11px; /* Set font size for the second text */
         }
 
         .left-aligned-section img {
@@ -220,8 +236,10 @@
 
     <!-- Enhanced Left-aligned Section with image directly under text -->
     <div class="left-aligned-section">
-        <p>
-            Imagine a browsing tool that adapts to <span class="highlight-you">you</span>, learns from <span class="highlight-you">You</span>, and makes every search smarter, faster, and more intuitive. <br>
+        <p class="heading">
+            Imagine a browsing tool that adapts to <span class="highlight-you">you</span>, learns from <span class="highlight-you">You</span>, and makes every search smarter, faster, and more intuitive.
+        </p>
+        <p class="sub-heading">
             No longer bound by the limitations of traditional browsing experiences, YouForm offers a personalized approach to the web that cuts through the clutter, focusing only on what matters most to you.
         </p>
         <img src="100.png" alt="Illustration">
