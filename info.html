@@ -14,9 +14,9 @@
             font-family: 'Inter', sans-serif;
             background-color: black;
             color: #fff;
+            text-align: center;
         }
 
-        /* Back button */
         .back-button {
             position: absolute;
             top: 20px;
@@ -28,10 +28,9 @@
         }
 
         .back-button:hover {
-            text-decoration: none;
+            text-decoration: underline;
         }
 
-        /* Header Image Styling */
         .header-image {
             margin: 80px auto 20px;
             max-width: 90%;
@@ -39,24 +38,20 @@
             display: block;
         }
 
-        /* Tagline */
         .tagline {
             font-size: 2rem;
             font-weight: 600;
             margin-top: 10px;
-            text-align: center;
         }
 
-        /* Description */
         .description {
             margin: 40px auto 0;
-            font-size: 1.2rem;
+            font-size: 1rem;
             line-height: 1.8;
             max-width: 700px;
             text-align: center;
         }
 
-        /* Continue Button Styling */
         .continue-button {
             margin-top: 30px;
             padding: 12px 24px;
@@ -85,7 +80,46 @@
             font-size: 1rem;
         }
 
-        /* Icon and Text Section */
+        .section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 50px auto;
+            max-width: 90%;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .section img {
+            width: 400px;
+            height: auto;
+        }
+
+        .section .text {
+            max-width: 600px;
+        }
+
+        .section .text h2 {
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+        .section .text h2 .highlight {
+            color: #fce5cd;
+        }
+
+        .section .text p {
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .section .text blockquote {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-top: 20px;
+            text-align: left;
+        }
+
         .icon-text-section {
             display: flex;
             align-items: center;
@@ -104,91 +138,19 @@
             text-align: left;
             line-height: 1.5;
         }
-
-        /* Left-aligned content */
-        .left-align-content {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 20px;
-            margin: 50px auto;
-            max-width: 90%;
-        }
-
-        .left-align-content img {
-            width: 300px;
-            max-width: 100%;
-        }
-
-        .left-align-content .text {
-            text-align: left;
-        }
-
-        /* Right-aligned content */
-        .right-align-content {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 20px;
-            margin: 50px auto;
-            max-width: 90%;
-        }
-
-        .right-align-content img {
-            width: 300px;
-            max-width: 100%;
-        }
-
-        .right-align-content .text {
-            text-align: right;
-        }
-
-        /* General Section Styling */
-        .section {
-            margin: 50px 0;
-            color: #fff;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .section p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 20px auto;
-            line-height: 1.8;
-        }
-
-        blockquote {
-            font-style: italic;
-            margin-top: 20px;
-            font-size: 1.5rem;
-            text-align: center;
-        }
-
     </style>
 </head>
 <body>
-    <!-- Back Button -->
     <a href="index.html" class="back-button">&#x21A9; Back</a>
 
-    <!-- Enlarged Header Image -->
     <img src="youform101.png" alt="YouForm Logo" class="header-image">
 
-    <!-- Tagline -->
     <div class="tagline">The best way to browse.</div>
 
-    <!-- Centered Description -->
     <div class="description">
-        In today's world of digital exploration, the way we interact with the web has become more than just a series of clicks and scrolls.
-        It's an experience, a journey shaped by how we search, discover, and absorb information. And that's where YouForm steps in — not just
-        as a new tab page, but as a revolution in digital navigation. Break free from the soulless corporations, and use YouForm.
+        In today's world of digital exploration, the way we interact with the web has become more than just a series of clicks and scrolls. It's an experience, a journey shaped by how we search, discover, and absorb information. And that's where YouForm steps in—not just as a new tab page but as a revolution in digital navigation. Break free from the soulless corporations, and use YouForm.
     </div>
 
-    <!-- Continue Button -->
     <button class="continue-button" onclick="window.location.href='apps.html'">
         <span>Continue</span>
     </button>
@@ -207,34 +169,25 @@
         <div>On Any Device: Works on all browsers and devices.</div>
     </div>
 
-    <!-- Section: YouForm is built with You in mind -->
-    <div class="left-align-content">
-        <img src="mind.png" alt="Mind Illustration">
-        <div class="text">
-            <h2>YouForm is built with You in mind.</h2>
+    <div class="section">
+        <div class="text" style="text-align: left;">
+            <h2><span class="highlight">You</span>Form is built with <span class="highlight">You</span> in mind.</h2>
             <p>
-                At its core, YouForm is designed with you at the center. <br><br>
-                Every page, search, and interaction is thoughtfully crafted to meet your needs. It's clean, minimal, and intuitive design ensures a seamless experience
-                from start to finish—no steep learning curves or wasted time. <br><br>
-                The interface is distraction-free and straightforward, combining simplicity with the robust power of advanced features working behind the scenes.
+                At its core, YouForm is designed with you at the center. Every page, search, and interaction is thoughtfully crafted to meet your needs. It's clean, minimal, and intuitive design ensures a seamless experience from start to finish—no steep learning curves or wasted time. The interface is distraction-free and straightforward, combining simplicity with the robust power of advanced features working behind the scenes.
             </p>
             <blockquote>"It just works."</blockquote>
         </div>
+        <img src="mind.png" alt="Mind Image">
     </div>
 
-    <!-- Section: Private and Safe for You -->
-    <div class="right-align-content">
-        <div class="text">
-            <h2>Private and Safe for You</h2>
+    <div class="section">
+        <img src="privacy.png" alt="Privacy Image">
+        <div class="text" style="text-align: right;">
+            <h2>Private and Safe for <span class="highlight">You</span></h2>
             <p>
-                In a world where privacy is often overlooked, YouForm puts it first. With built-in privacy features, it ensures your data stays secure and your browsing
-                remains anonymous. Say goodbye to tracking, targeted ads, and unnecessary data collection. <br><br>
-                YouForm doesn't collect telemetry or share your information with third parties. It’s a platform that lets you browse freely, without the corporate
-                surveillance found with companies like Microsoft and Meta. <br><br>
-                Your online experience is yours alone, without the intrusion of ads or data exploitation. YouForm gives you back control over your privacy in the digital age.
+                In a world where privacy is often overlooked, YouForm puts it first. With built-in privacy features, it ensures your data stays secure and your browsing remains anonymous. Say goodbye to tracking, targeted ads, and unnecessary data collection. YouForm doesn't collect telemetry or share your information with third parties. It’s a platform that lets you browse freely, without the corporate surveillance found with companies like Microsoft and Meta. Your online experience is yours alone, without the intrusion of ads or data exploitation. YouForm gives you back control over your privacy in the digital age.
             </p>
         </div>
-        <img src="privacy.png" alt="Privacy Illustration">
     </div>
 </body>
 </html>
