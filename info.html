@@ -29,13 +29,13 @@
         }
 
         .back-button:hover {
-            text-decoration: none;
+            text-decoration: underline;
         }
 
         /* Header Image Styling */
         .header-image {
-            margin: 80px auto 20px;
-            max-width: 90%;
+            margin: 60px auto 20px;
+            max-width: 80%;
             height: auto;
             display: block;
         }
@@ -49,11 +49,21 @@
 
         /* Description */
         .description {
-            margin: 40px auto 0; /* Adjusted top margin */
+            margin: 40px auto;
             font-size: 1rem;
-            line-height: 1.8; /* Slightly increased for readability */
-            max-width: 700px; /* Wider text area */
-            text-align: center; /* Ensure text alignment matches the image */
+            line-height: 1.8;
+            max-width: 700px;
+            text-align: justify; /* Justify the text for better alignment */
+        }
+
+        /* Section Styling */
+        .centered-section {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin: 40px auto;
+            max-width: 700px;
+            text-align: center;
         }
 
         /* Continue Button Styling */
@@ -63,7 +73,7 @@
             font-size: 1rem;
             font-weight: 600;
             color: #fff;
-            background-color: #4a56e2; /* Updated button color */
+            background-color: #4a56e2;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -73,7 +83,7 @@
         }
 
         .continue-button:hover {
-            background-color: #3944bc; /* Darker button hover color */
+            background-color: #3944bc;
         }
 
         .continue-button span {
@@ -85,46 +95,27 @@
             font-size: 1rem;
         }
 
-        /* Icon and Text Section */
-        .icon-text-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .icon-text-section img {
-            width: 50px;
-            height: 50px;
-            margin-right: 20px;
-        }
-
-        .icon-text-section div {
-            font-size: 1rem;
-            text-align: left;
-            line-height: 1.5;
-        }
-
-        /* Left-aligned content below the device icon */
+        /* Left-aligned Content Section */
         .left-aligned-section {
-            text-align: left;
+            text-align: center;
             margin: 20px auto;
-            max-width: 90%;
+            max-width: 80%;
         }
 
-        .left-aligned-section p:first-child {
+        .left-aligned-section p {
             font-family: 'Inter', sans-serif;
-            font-weight: 600; /* Semi-Bold */
-            font-size: 1.5rem; /* Increased size */
+            font-weight: 600;
+            font-size: 1.5rem;
             line-height: 1.8;
             margin-bottom: 20px;
+            text-align: justify; /* Ensure justified alignment */
         }
 
         .left-aligned-section img {
             display: block;
             max-width: 100%;
             height: auto;
-            margin-top: 20px;
+            margin: 20px auto;
         }
     </style>
 </head>
@@ -138,11 +129,14 @@
     <!-- Tagline -->
     <div class="tagline">The best way to browse.</div>
 
-    <!-- Centered Description -->
+    <!-- Centered Section -->
+    <div class="centered-section">
+        Imagine a browsing tool that adapts to you, learns from You, and makes every search smarter, faster, and more intuitive.
+    </div>
+
+    <!-- Description -->
     <div class="description">
-        In today's world of digital exploration, the way we interact with the web has become more than just a series of clicks and scrolls. 
-        It's an experience, a journey shaped by how we search, discover, and absorb information. And that's where YouForm steps in — not just 
-        as a new tab page, but as a revolution in digital navigation. Break free from the soulless corporations, and use YouForm.
+        No longer bound by the limitations of traditional browsing experiences, YouForm offers a personalized approach to the web that cuts through the clutter, focusing only on what matters most to you.
     </div>
 
     <!-- Continue Button -->
@@ -150,26 +144,8 @@
         <span>Continue</span>
     </button>
 
-    <!-- Icon and Text Sections -->
-    <div class="icon-text-section">
-        <img src="search.png" alt="Search Icon">
-        <div>Powerful Search: Quickly search in under a few seconds.</div>
-    </div>
-    <div class="icon-text-section">
-        <img src="interface.png" alt="Settings Icon">
-        <div>Simple Interface: Intuitive design, no tutorials needed.</div>
-    </div>
-    <div class="icon-text-section">
-        <img src="device.png" alt="Devices Icon">
-        <div>On Any Device: Works on all browsers and devices.</div>
-    </div>
-
-    <!-- Left-aligned Content Below Device Icon -->
+    <!-- Left-aligned Content Section -->
     <div class="left-aligned-section">
-        <p>
-            Imagine a browsing tool that adapts to you, learns from You, and makes every search smarter, faster, and more intuitive. <br>
-            No longer bound by the limitations of traditional browsing experiences, YouForm offers a personalized approach to the web that cuts through the clutter, focusing only on what matters most to you.
-        </p>
         <img src="100.png" alt="Illustration">
     </div>
 </body>
