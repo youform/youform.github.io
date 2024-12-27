@@ -85,15 +85,15 @@
             font-size: 1rem;
         }
 
+        /* Adjusted left-aligned section */
         .left-aligned-section {
             display: flex;
+            flex-direction: column; /* Stack the content vertically */
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             margin: 50px auto;
             max-width: 90%;
             gap: 20px;
-            flex-wrap: wrap;
-            text-align: left;
         }
 
         .left-aligned-section p {
@@ -105,6 +105,7 @@
         .left-aligned-section img {
             width: 400px;
             height: auto;
+            margin-top: 20px; /* Space between text and image */
         }
 
         .section {
@@ -182,7 +183,7 @@
         <span>Continue</span>
     </button>
 
-    <!-- Left-aligned Section added here -->
+    <!-- Left-aligned Section with image directly under text -->
     <div class="left-aligned-section">
         <p>
             Imagine a browsing tool that adapts to you, learns from You, and makes every search smarter, faster, and more intuitive. <br>
