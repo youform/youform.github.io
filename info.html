@@ -103,7 +103,7 @@
         }
 
         .left-aligned-section img {
-            width: 400px;
+            width: 600px; /* Make the image larger */
             height: auto;
             margin-top: 20px; /* Space between text and image */
         }
@@ -166,6 +166,11 @@
             text-align: left;
             line-height: 1.5;
         }
+
+        /* Highlight "you" in the specified sentence */
+        .highlight-you {
+            color: #fce5cd;
+        }
     </style>
 </head>
 <body>
@@ -186,7 +191,7 @@
     <!-- Left-aligned Section with image directly under text -->
     <div class="left-aligned-section">
         <p>
-            Imagine a browsing tool that adapts to you, learns from You, and makes every search smarter, faster, and more intuitive. <br>
+            Imagine a browsing tool that adapts to <span class="highlight-you">you</span>, learns from <span class="highlight-you">You</span>, and makes every search smarter, faster, and more intuitive. <br>
             No longer bound by the limitations of traditional browsing experiences, YouForm offers a personalized approach to the web that cuts through the clutter, focusing only on what matters most to you.
         </p>
         <img src="100.png" alt="Illustration">
