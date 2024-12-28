@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login and Sign-Up</title>
+    <title>Advanced Login & Sign-Up</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,6 +17,12 @@
                 <button type="submit">Login</button>
                 <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
             </form>
+            
+            <!-- Google and Microsoft Login Buttons -->
+            <div id="oauth-buttons">
+                <button onclick="window.location.href='/auth/google'">Login with Google</button>
+                <button onclick="window.location.href='/auth/microsoft'">Login with Microsoft</button>
+            </div>
         </div>
 
         <!-- Sign-Up Form -->
