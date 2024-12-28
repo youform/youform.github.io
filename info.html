@@ -17,8 +17,8 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Ensure footer stays at bottom */
-            min-height: 100vh; /* Full-page height */
+            justify-content: space-between;
+            min-height: 100vh;
         }
 
         .back-button {
@@ -57,7 +57,7 @@
         }
 
         .continue-button {
-            margin: 30px auto;
+            margin-top: 30px;
             padding: 12px 24px;
             font-size: 1rem;
             font-weight: 600;
@@ -82,6 +82,25 @@
 
         .continue-button::after {
             content: "\2192";
+            font-size: 1rem;
+        }
+
+        .icon-text-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            max-width: 600px;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .icon-text-section img {
+            width: 50px;
+            height: auto;
+        }
+
+        .icon-text-section div {
             font-size: 1rem;
         }
 
@@ -128,6 +147,7 @@
         }
 
         footer {
+            margin-top: auto;
             background-color: #fff;
             padding: 20px;
             text-align: center;
@@ -135,52 +155,29 @@
             color: #000;
         }
 
-        footer .content {
+        footer .banner {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        footer img {
-            width: 60px; /* Increased size */
+        footer .banner img {
+            width: 40px;
             height: auto;
         }
 
-        footer .text {
-            font-size: 8px;
-            text-align: left;
-        }
-
-        footer .text strong {
-            font-size: 10px;
+        footer .banner .text {
+            font-size: 0.8rem;
         }
 
         footer a {
-            font-weight: bold;
             color: #4a56e2;
             text-decoration: none;
         }
 
         footer a:hover {
             text-decoration: underline;
-        }
-
-        .icon-text-section {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            gap: 15px;
-        }
-
-        .icon-text-section img {
-            width: 40px; /* Adjusted size */
-            height: auto;
-        }
-
-        .icon-text-section div {
-            font-size: 1rem;
-            color: #fff;
         }
     </style>
 </head>
@@ -198,6 +195,19 @@
     <button class="continue-button" onclick="window.location.href='apps.html'">
         <span>Continue</span>
     </button>
+
+    <div class="icon-text-section">
+        <img src="search.png" alt="Search Icon">
+        <div>Powerful Search: Quickly search in under a few seconds.</div>
+    </div>
+    <div class="icon-text-section">
+        <img src="interface.png" alt="Settings Icon">
+        <div>Simple Interface: Intuitive design, no tutorials needed.</div>
+    </div>
+    <div class="icon-text-section">
+        <img src="device.png" alt="Devices Icon">
+        <div>On Any Device: Works on all browsers and devices.</div>
+    </div>
 
     <div class="section">
         <div class="text" style="text-align: left;">
@@ -220,18 +230,7 @@
         </div>
     </div>
 
-    <div class="icon-text-section">
-        <img src="search.png" alt="Search Icon">
-        <div>Powerful Search: Quickly search in under a few seconds.</div>
-    </div>
-    <div class="icon-text-section">
-        <img src="interface.png" alt="Settings Icon">
-        <div>Simple Interface: Intuitive design, no tutorials needed.</div>
-    </div>
-    <div class="icon-text-section">
-        <img src="device.png" alt="Devices Icon">
-        <div>On Any Device: Works on all browsers and devices.</div>
-    </div>
+
    <footer>
     <div class="footer-banner">
         <img src="soda.png" alt="Soda Logo" class="footer-logo">
