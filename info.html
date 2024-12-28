@@ -57,33 +57,51 @@
         }
 
         .continue-button {
-            margin-top: 30px;
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #fff;
-            background-color: #4a56e2;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: background-color 0.3s ease;
-        }
+    margin-top: 30px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #4a56e2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+    justify-content: center; /* Center the text within the button */
+    text-align: center; /* Ensure text inside the button is centered */
+}
 
-        .continue-button:hover {
-            background-color: #3944bc;
-        }
+.continue-button:hover {
+    background-color: #3944bc;
+}
 
-        .continue-button span {
-            font-size: 1rem;
-        }
+.continue-button span {
+    font-size: 1rem;
+}
 
-        .continue-button::after {
-            content: "\2192";
-            font-size: 1rem;
-        }
+.continue-button::after {
+    content: "\2192";
+    font-size: 1rem;
+}
+
+/* Add this to center the button itself on the page */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* This centers the content vertically */
+    align-items: center; /* This centers the content horizontally */
+    min-height: 100vh;
+}
+
 
         .icon-text-section {
             display: flex;
