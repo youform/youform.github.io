@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouForm - Info</title>
+    <title>Info</title>
     <link rel="icon" type="image/png" href="YouForm.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600&display=swap');
@@ -128,37 +128,59 @@
         }
 
         footer {
-            margin-top: auto;
-            background-color: #000;
+            background-color: #fff;
             padding: 20px;
             text-align: center;
             font-size: 0.9rem;
-            color: #aaa;
+            color: #000;
         }
 
         footer .content {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
         }
 
-        footer .content img {
-            height: 30px; /* Smaller logo */
-            width: auto;
+        footer img {
+            width: 60px; /* Increased size */
+            height: auto;
         }
 
-        footer .content .text {
+        footer .text {
+            font-size: 8px;
             text-align: left;
         }
 
+        footer .text strong {
+            font-size: 10px;
+        }
+
         footer a {
+            font-weight: bold;
             color: #4a56e2;
             text-decoration: none;
         }
 
         footer a:hover {
             text-decoration: underline;
+        }
+
+        .icon-text-section {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            gap: 15px;
+        }
+
+        .icon-text-section img {
+            width: 40px; /* Adjusted size */
+            height: auto;
+        }
+
+        .icon-text-section div {
+            font-size: 1rem;
+            color: #fff;
         }
     </style>
 </head>
@@ -176,19 +198,6 @@
     <button class="continue-button" onclick="window.location.href='apps.html'">
         <span>Continue</span>
     </button>
-
-    <div class="icon-text-section">
-        <img src="search.png" alt="Search Icon">
-        <div>Powerful Search: Quickly search in under a few seconds.</div>
-    </div>
-    <div class="icon-text-section">
-        <img src="interface.png" alt="Settings Icon">
-        <div>Simple Interface: Intuitive design, no tutorials needed.</div>
-    </div>
-    <div class="icon-text-section">
-        <img src="device.png" alt="Devices Icon">
-        <div>On Any Device: Works on all browsers and devices.</div>
-    </div>
 
     <div class="section">
         <div class="text" style="text-align: left;">
@@ -211,7 +220,18 @@
         </div>
     </div>
 
-    <footer>
+    <div class="icon-text-section">
+        <img src="search.png" alt="Search Icon">
+        <div>Powerful Search: Quickly search in under a few seconds.</div>
+    </div>
+    <div class="icon-text-section">
+        <img src="interface.png" alt="Settings Icon">
+        <div>Simple Interface: Intuitive design, no tutorials needed.</div>
+    </div>
+    <div class="icon-text-section">
+        <img src="device.png" alt="Devices Icon">
+        <div>On Any Device: Works on all browsers and devices.</div>
+    </div>
    <footer>
     <div class="footer-banner">
         <img src="soda.png" alt="Soda Logo" class="footer-logo">
