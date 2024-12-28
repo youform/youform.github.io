@@ -17,10 +17,8 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Changed to flex-start to accommodate top content */
-            align-items: center;
-            min-height: 100vh; /* Changed to min-height for better content flow */
-            padding-bottom: 50px; /* Added padding at the bottom */
+            justify-content: space-between; /* Ensure footer stays at bottom */
+            min-height: 100vh; /* Full-page height */
         }
 
         .back-button {
@@ -87,51 +85,6 @@
             font-size: 1rem;
         }
 
-        /* Centered Text Overlay */
-        .text-overlay {
-            position: absolute; /* Position text over the image */
-            top: 5%; /* Adjust this value for the position from the top */
-            left: 50%;
-            transform: translateX(-50%); /* Center text horizontally */
-            padding: 20px;
-            font-size: 1.5rem;
-            line-height: 1.8;
-            text-align: center;
-            color: #fff; /* White text for contrast */
-            z-index: 1; /* Ensure text stays above the image */
-            max-width: 80%; /* Limit text width */
-        }
-
-        /* Font size for the first text (heading) */
-        .left-aligned-section .heading {
-            font-size: 34px; /* Set font size for the first text */
-        }
-
-        /* Font size for the second text (sub-heading) */
-        .left-aligned-section .sub-heading {
-            font-size: 11px; /* Set font size for the second text */
-        }
-
-        /* Image styling */
-        .left-aligned-section img {
-            width: 100%; /* Make image take full width of the container */
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1200px) {
-            .left-aligned-section {
-                flex-direction: column; /* Stack on smaller screens */
-                gap: 20px;
-            }
-
-            .left-aligned-section img {
-                width: 100%;
-            }
-        }
-
         .section {
             display: flex;
             align-items: center;
@@ -174,29 +127,22 @@
             text-align: left;
         }
 
-        .icon-text-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
+        footer {
+            margin-top: auto;
+            background-color: #000;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
         }
 
-        .icon-text-section img {
-            width: 50px;
-            height: 50px;
-            margin-right: 20px;
+        footer a {
+            color: #4a56e2;
+            text-decoration: none;
         }
 
-        .icon-text-section div {
-            font-size: 1rem;
-            text-align: left;
-            line-height: 1.5;
-        }
-
-        /* Highlight "you" in the specified sentence */
-        .highlight-you {
-            color: #fce5cd;
-            font-weight: 700; /* Make it bold for emphasis */
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -214,7 +160,7 @@
     <button class="continue-button" onclick="window.location.href='apps.html'">
         <span>Continue</span>
     </button>
-    <!-- Existing Section -->
+
     <div class="section">
         <div class="text" style="text-align: left;">
             <h2>YouForm is built with <span class="highlight">You</span> in mind.</h2>
@@ -235,5 +181,14 @@
             </p>
         </div>
     </div>
+
+    <footer>
+        <div>
+            <strong>Soda</strong><br>
+            YouForm is a part of Soda<br>
+            <small>Copyright YouForm Group. All rights reserved. You may not copy or reproduce our assets.</small><br>
+            <a href="#">Art made by dakirb</a>
+        </div>
+    </footer>
 </body>
 </html>
