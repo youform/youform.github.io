@@ -199,15 +199,59 @@
     </div>
 
     <footer>
-        <div class="content">
-            <img src="soda.png" alt="Soda Logo">
-            <div class="text">
-                <strong>Soda</strong><br>
-                YouForm is a part of Soda<br>
-                <small>Copyright YouForm Group. All rights reserved. You may not copy or reproduce our assets.</small><br>
-                <a href="#">Art made by dakirb</a>
-            </div>
+    <div class="footer-content">
+        <img src="soda.png" alt="Soda Logo" class="footer-logo">
+        <div class="footer-text">
+            <strong>Soda</strong><br>
+            YouForm is a part of Soda<br>
+            <small>Copyright YouForm Group. All rights reserved. You may not copy or reproduce our assets.</small><br>
+            <a href="#" class="footer-link">Art made by dakirb</a>
         </div>
-    </footer>
+    </div>
+</footer>
+
+<style>
+    footer {
+        margin-top: auto;
+        background-color: #000;
+        padding: 20px 0;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #aaa;
+    }
+
+    .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .footer-logo {
+        height: 40px; /* Adjust logo size */
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    .footer-text {
+        text-align: center;
+    }
+
+    .footer-text strong {
+        font-size: 1rem;
+        color: #fff;
+    }
+
+    .footer-link {
+        color: #4a56e2;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .footer-link:hover {
+        text-decoration: underline;
+    }
+</style>
 </body>
 </html>
