@@ -17,8 +17,8 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Ensure footer stays at bottom */
-            min-height: 100vh; /* Full-page height */
+            justify-content: flex-start;
+            min-height: 100vh;
         }
 
         .back-button {
@@ -35,11 +35,22 @@
             text-decoration: underline;
         }
 
-        .header-image {
-            margin: 80px auto 20px;
-            max-width: 90%;
-            height: auto;
-            display: block;
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px auto 20px;
+            gap: 10px;
+        }
+
+        .header img {
+            height: 50px;
+            width: auto;
+        }
+
+        .header .text {
+            font-size: 1.5rem;
+            font-weight: 600;
         }
 
         .tagline {
@@ -53,11 +64,10 @@
             font-size: 1rem;
             line-height: 1.8;
             max-width: 700px;
-            text-align: center;
         }
 
         .continue-button {
-            margin-top: 30px;
+            margin: 30px auto;
             padding: 12px 24px;
             font-size: 1rem;
             font-weight: 600;
@@ -128,12 +138,13 @@
         }
 
         footer {
-            margin-top: auto;
-            background-color: #000;
-            padding: 20px;
+            background-color: #fff;
+            color: black;
             text-align: center;
-            font-size: 0.9rem;
-            color: #aaa;
+            padding: 10px 20px;
+            position: relative;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
         }
 
         footer a {
@@ -144,12 +155,32 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        footer .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        footer .content img {
+            height: 30px;
+            width: auto;
+        }
+
+        footer .content .text {
+            font-size: 0.9rem;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
     <a href="index.html" class="back-button">&#x21A9; Back</a>
 
-    <img src="youform101.png" alt="YouForm Logo" class="header-image">
+    <div class="header">
+        <img src="soda.png" alt="Soda Logo">
+        <div class="text">YouForm</div>
+    </div>
 
     <div class="tagline">The best way to browse.</div>
 
@@ -183,11 +214,14 @@
     </div>
 
     <footer>
-        <div>
-            <strong>Soda</strong><br>
-            YouForm is a part of Soda<br>
-            <small>Copyright YouForm Group. All rights reserved. You may not copy or reproduce our assets.</small><br>
-            <a href="#">Art made by dakirb</a>
+        <div class="content">
+            <img src="soda.png" alt="Soda Logo">
+            <div class="text">
+                <strong>Soda</strong><br>
+                YouForm is a part of Soda<br>
+                <small>Copyright YouForm Group. All rights reserved. You may not copy or reproduce our assets.</small><br>
+                <a href="#">Art made by dakirb</a>
+            </div>
         </div>
     </footer>
 </body>
