@@ -57,7 +57,7 @@
         }
 
         .continue-button {
-            margin-top: 30px;
+            margin: 30px auto;
             padding: 12px 24px;
             font-size: 1rem;
             font-weight: 600;
@@ -136,6 +136,22 @@
             color: #aaa;
         }
 
+        footer .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        footer .content img {
+            height: 30px; /* Smaller logo */
+            width: auto;
+        }
+
+        footer .content .text {
+            text-align: left;
+        }
+
         footer a {
             color: #4a56e2;
             text-decoration: none;
@@ -183,14 +199,14 @@
     </div>
 
     <footer>
-        <div>
-            <div class="content"> 
-            <img src="soda.png" alt="Soda Logo"> 
+        <div class="content">
+            <img src="soda.png" alt="Soda Logo">
             <div class="text">
-            <strong>Soda</strong><br>
-            YouForm is a part of Soda<br>
-            <small>Copyright YouForm Group. All rights reserved. You may not copy or reproduce our assets.</small><br>
-            <a href="#">Art made by dakirb</a>
+                <strong>Soda</strong><br>
+                YouForm is a part of Soda<br>
+                <small>Copyright YouForm Group. All rights reserved. You may not copy or reproduce our assets.</small><br>
+                <a href="#">Art made by dakirb</a>
+            </div>
         </div>
     </footer>
 </body>
