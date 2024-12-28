@@ -199,13 +199,15 @@
     </div>
 
     <footer>
-    <div class="footer-content">
+   <footer>
+    <div class="footer-banner">
         <img src="soda.png" alt="Soda Logo" class="footer-logo">
         <div class="footer-text">
-            <strong>Soda</strong><br>
-            YouForm is a part of Soda<br>
-            <small>Copyright YouForm Group. All rights reserved. You may not copy or reproduce our assets.</small><br>
-            <a href="#" class="footer-link">Art made by dakirb</a>
+            <div class="footer-title">YouForm is a part of Soda</div>
+            <div class="footer-details">
+                <span class="copyright">Copyright YouForm Group. All rights reserved. You may not copy or reproduce our assets.</span><br>
+                <span class="credits"><strong>Art made by dakirb</strong></span>
+            </div>
         </div>
     </div>
 </footer>
@@ -213,45 +215,54 @@
 <style>
     footer {
         margin-top: auto;
-        background-color: #000;
+        background-color: white; /* Set background to white */
         padding: 20px 0;
         text-align: center;
         font-size: 0.9rem;
-        color: #aaa;
+        color: #000; /* Change text color to black for contrast */
+        border-top: 1px solid #ddd; /* Add subtle border for separation */
     }
 
-    .footer-content {
+    .footer-banner {
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto; /* Center the footer content */
     }
 
     .footer-logo {
-        height: 40px; /* Adjust logo size */
+        height: 70px; /* Increase size slightly */
         width: auto;
-        margin-bottom: 10px;
     }
 
     .footer-text {
-        text-align: center;
+        text-align: left;
+        max-width: 300px;
     }
 
-    .footer-text strong {
-        font-size: 1rem;
-        color: #fff;
+    .footer-title {
+        font-size: 1.2rem; /* Slightly larger title */
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 5px;
     }
 
-    .footer-link {
-        color: #4a56e2;
-        text-decoration: none;
-        font-size: 0.9rem;
+    .footer-details {
+        font-size: 8px; /* Requested small size */
+        color: #444; /* Subtle gray for secondary text */
+        line-height: 1.4;
     }
 
-    .footer-link:hover {
-        text-decoration: underline;
+    .credits {
+        color: #4a56e2; /* Accent color for the credit line */
+    }
+
+    .credits strong {
+        font-weight: bold;
     }
 </style>
+
 </body>
 </html>
