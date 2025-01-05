@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apps</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -14,6 +15,42 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 60px;
+            border: none;
+            border-radius: 30px;
+            background-color: rgba(85, 85, 85, 0.8);
+            color: #f9f9f9;
+            font-size: 1.2rem;
+            outline: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .search-input::placeholder {
+            color: #bbb;
+            text-align: center;
+        }
+        .search-input:focus {
+            background-color: rgba(68, 68, 68, 0.9);
+            box-shadow: 0 0 5px #f9f9f9;
+        }
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bbb;
+            font-size: 1.5rem;
         }
         .apps-title {
             font-size: 2rem;
@@ -42,6 +79,13 @@
 </head>
 <body>
 
+    <!-- Search Bar -->
+    <div class="search-container">
+        <span id="search-icon" class="material-symbols-outlined search-icon">search</span>
+        <input type="text" class="search-input" id="search-input" placeholder="Search Apps">
+    </div>
+
+    <!-- App Icons -->
     <div class="apps-title">Apps</div>
     
     <div class="icon-grid">
@@ -80,11 +124,11 @@
             <img src="q/folder.png" alt="Folder">
             <div class="app-label">Folder</div>
         </div>
-        <div class="app-icon">
-            <img src="q/find.png" alt="Finder">
+        <div class="app-icon" onclick="window.location.href='updates.html'">
+            <img src="q/finder.png" alt="Finder">
             <div class="app-label">Finder - Now Available</div>
         </div>
-        <div class="app-icon">
+        <div class="app-icon" onclick="window.location.href='updates.html'">
             <img src="q/developer.png" alt="Developer">
             <div class="app-label">Developer - Now Being Re-Made</div>
         </div>
@@ -97,6 +141,18 @@
             <div class="app-label">Account</div>
         </div>
     </div>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+
+        // Redirect to a new page on Enter
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                const query = searchInput.value.trim().toLowerCase();
+                window.location.href = `https://www.google.com/search?q=${query}`;
+            }
+        });
+    </script>
 
 </body>
 </html>
