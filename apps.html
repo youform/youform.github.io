@@ -69,8 +69,8 @@
             text-align: center;
         }
         .app-icon img {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
         }
         .app-label {
             margin-top: 10px;
@@ -128,16 +128,16 @@
             <img src="/icon/folder.png" alt="Folder">
             <div class="app-label">Folder</div>
         </div>
-        <div class="app-icon" onclick="window.location.href='updates.html'">
+        <div class="app-icon">
             <img src="/icon/finder.png" alt="Finder">
-            <div class="app-label">Finder - Now Available</div>
-        </div>
-        <div class="app-icon" onclick="window.location.href='updates.html'">
-            <img src="/icon/developer.png" alt="Developer">
-            <div class="app-label">Developer - Now Being Re-Made</div>
+            <div class="app-label">Finder</div>
         </div>
         <div class="app-icon">
-            <img src="/icon/ai.png" alt="YFAI">
+            <img src="/icon/developer.png" alt="Developer">
+            <div class="app-label">Developer</div>
+        </div>
+        <div class="app-icon">
+            <img src="/icon/yfai.png" alt="YFAI">
             <div class="app-label">YFAI</div>
         </div>
         <div class="app-icon">
@@ -150,24 +150,39 @@
         const searchInput = document.getElementById('search-input');
         const searchButton = document.getElementById('search-button');
 
-        // Redirect to a new page on Enter
+        // App links
+        const appLinks = {
+            "games": "https://example.com/games",
+            "calculator": "https://example.com/calculator",
+            "weather": "https://example.com/weather",
+            "earth": "https://example.com/earth",
+            "workspace": "https://example.com/workspace",
+            "settings": "https://example.com/settings",
+            "tools": "https://example.com/tools",
+            "folder": "https://example.com/folder",
+            "finder": "https://example.com/finder",
+            "developer": "https://example.com/developer",
+            "yfai": "https://example.com/yfai",
+            "account": "https://example.com/account"
+        };
+
+        // Redirect on search
+        const performSearch = () => {
+            const query = searchInput.value.trim().toLowerCase();
+            if (appLinks[query]) {
+                window.open(appLinks[query], '_blank'); // Open in new tab
+            } else {
+                window.open(`https://www.google.com/search?q=${query}`, '_blank'); // Google search fallback
+            }
+        };
+
         searchInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 performSearch();
             }
         });
 
-        // Redirect to a new page on button click
-        searchButton.addEventListener('click', () => {
-            performSearch();
-        });
-
-        function performSearch() {
-            const query = searchInput.value.trim().toLowerCase();
-            if (query) {
-                window.location.href = `https://www.google.com/search?q=${query}`;
-            }
-        }
+        searchButton.addEventListener('click', performSearch);
     </script>
 
 </body>
