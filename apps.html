@@ -68,9 +68,14 @@
         .app-icon {
             text-align: center;
         }
+        .app-icon button {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
         .app-icon img {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
         }
         .app-label {
             margin-top: 10px;
@@ -86,103 +91,111 @@
     <!-- Search Bar -->
     <div class="search-container">
         <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Search Apps">
-            <button id="search-button">Search</button>
+            <input type="text" id="search-bar-input" placeholder="Search">
+            <button id="search-bar-button">Search</button>
         </div>
     </div>
 
     <!-- App Icons -->
     <div class="icon-grid">
         <!-- First Row -->
-        <div class="app-icon" onclick="window.location.href='games.html'">
-            <img src="/icon/games.png" alt="Games">
+        <div class="app-icon">
+            <button onclick="location.href='games.html'">
+                <img src="/icon/games.png" alt="Games">
+            </button>
             <div class="app-label">Games</div>
         </div>
-        <div class="app-icon" onclick="window.open('https://calculator.apps.chrome/', '_blank')">
-            <img src="/icon/calculator.png" alt="Calculator">
+        <div class="app-icon">
+            <button onclick="window.open('https://example.com/calculator', '_blank')">
+                <img src="/icon/calculator.png" alt="Calculator">
+            </button>
             <div class="app-label">Calculator</div>
         </div>
-        <div class="apps-icon" onclick="window.open('https://weather.tomorrow.io', '_blank')">
-            <img src="/icon/weather.png" alt="Weather">
+        <div class="app-icon">
+            <button onclick="window.open('https://example.com/weather', '_blank')">
+                <img src="/icon/weather.png" alt="Weather">
+            </button>
             <div class="app-label">Weather</div>
         </div>
-        <div class="apps-icon" onclick="window.open('https://earth.google.com', '_blank')">
-            <img src="/icon/earth.png" alt="Earth">
+        <div class="app-icon">
+            <button onclick="window.open('https://example.com/earth', '_blank')">
+                <img src="/icon/earth.png" alt="Earth">
+            </button>
             <div class="app-label">Earth</div>
         </div>
-        <div class="app-icon" onclick="window.location.href='workspace.html'">
-            <img src="/icon/workspace.png" alt="Workspace">
+        <div class="app-icon">
+            <button onclick="location.href='workspace.html'">
+                <img src="/icon/workspace.png" alt="Workspace">
+            </button>
             <div class="app-label">Workspace</div>
         </div>
-        <div class="app-icon" onclick="window.location.href='settings.html'">>
-            <img src="/icon/settings.png" alt="Settings">
+        <div class="app-icon">
+            <button onclick="location.href='settings.html'">
+                <img src="/icon/settings.png" alt="Settings">
+            </button>
             <div class="app-label">Settings</div>
         </div>
-        
+
         <!-- Second Row -->
-       <div class="app-icon" onclick="window.location.href='tools.html'">>
-            <img src="/icon/tools.png" alt="Tools">
+        <div class="app-icon">
+            <button onclick="location.href='tools.html'">
+                <img src="/icon/tools.png" alt="Tools">
+            </button>
             <div class="app-label">Tools</div>
         </div>
-        <div class="app-icon" onclick="window.location.href='folder.html'">>
-            <img src="/icon/folder.png" alt="Folder">
+        <div class="app-icon">
+            <button onclick="location.href='folder.html'">
+                <img src="/icon/folder.png" alt="Folder">
+            </button>
             <div class="app-label">Folder</div>
         </div>
-        <div class="apps-icon" onclick="window.open('https://youform.github.io/finder', '_blank')">
-            <img src="/icon/finder.png" alt="Finder">
+        <div class="app-icon">
+            <button onclick="window.open('https://example.com/finder', '_blank')">
+                <img src="/icon/finder.png" alt="Finder">
+            </button>
             <div class="app-label">Finder</div>
         </div>
-        <div class="apps-icon" onclick="window.open('https://sites.google.com/view/yf-developer', '_blank')">
-            <img src="/icon/developer.png" alt="Developer">
+        <div class="app-icon">
+            <button onclick="window.open('https://example.com/developer', '_blank')">
+                <img src="/icon/developer.png" alt="Developer">
+            </button>
             <div class="app-label">Developer</div>
         </div>
-        <div class="apps-icon" onclick="window.open('https://sites.google.com/view/youformai', '_blank')">
-            <img src="/icon/ai.png" alt="YFAI">
+        <div class="app-icon">
+            <button onclick="window.open('https://example.com/yfai', '_blank')">
+                <img src="/icon/yfai.png" alt="YFAI">
+            </button>
             <div class="app-label">YFAI</div>
         </div>
-        <div class="apps-icon" onclick="window.open('https://myaccount.google.com/?utm_source=account-marketing-page&utm_medium=go-to-account-button&gar=WzEzMywiMjM2NzM2Il0&pli=1 '_blank')">
-            <img src="/icon/account.png" alt="Account">
+        <div class="app-icon">
+            <button onclick="window.open('https://example.com/account', '_blank')">
+                <img src="/icon/account.png" alt="Account">
+            </button>
             <div class="app-label">Account</div>
         </div>
     </div>
 
     <script>
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
+        const searchButton = document.getElementById('search-bar-button');
+        const searchBarInput = document.getElementById('search-bar-input');
 
-        // App links
-        const appLinks = {
-            "games": "https://example.com/games",
-            "calculator": "https://example.com/calculator",
-            "weather": "https://example.com/weather",
-            "earth": "https://example.com/earth",
-            "workspace": "https://example.com/workspace",
-            "settings": "https://example.com/settings",
-            "tools": "https://example.com/tools",
-            "folder": "https://example.com/folder",
-            "finder": "https://example.com/finder",
-            "developer": "https://example.com/developer",
-            "yfai": "https://example.com/yfai",
-            "account": "https://example.com/account"
-        };
-
-        // Redirect on search
-        const performSearch = () => {
-            const query = searchInput.value.trim().toLowerCase();
-            if (appLinks[query]) {
-                window.open(appLinks[query], '_blank'); // Open in new tab
-            } else {
-                window.open(`https://www.google.com/search?q=${query}`, '_blank'); // Google search fallback
-            }
-        };
-
-        searchInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                performSearch();
+        // Trigger search on button click
+        searchButton.addEventListener('click', () => {
+            const query = searchBarInput.value.trim().toLowerCase();
+            if (query) {
+                window.open(`https://www.google.com/search?q=${query}`, '_blank');
             }
         });
 
-        searchButton.addEventListener('click', performSearch);
+        // Trigger search on Enter key press
+        searchBarInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                const query = searchBarInput.value.trim().toLowerCase();
+                if (query) {
+                    window.open(`https://www.google.com/search?q=${query}`, '_blank');
+                }
+            }
+        });
     </script>
 
 </body>
