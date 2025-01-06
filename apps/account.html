@@ -6,49 +6,50 @@
     <title>My Account</title>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <style>
+        /* Global Styles */
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1E1E2F, #4B4B6F);
-            color: #fff;
+            background-color: #f1f3f4;
+            color: #202124;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             height: 100vh;
+            overflow: hidden;
         }
 
         .container {
-            width: 90%;
-            max-width: 1100px;
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 20px;
-            background-color: #27293D;
-            border-radius: 16px;
+            display: flex;
+            flex: 1;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
         }
 
         /* Sidebar */
         .sidebar {
-            background: #1C1C2D;
-            padding: 40px 20px;
+            background-color: #fff;
+            width: 250px;
+            padding-top: 20px;
+            border-right: 1px solid #ddd;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding-left: 20px;
+            box-shadow: 1px 0 4px rgba(0,0,0,0.1);
+            height: 100%;
         }
 
         .sidebar h3 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
+            color: #202124;
             margin-bottom: 30px;
-            color: #E1E1F1;
         }
 
         .sidebar ul {
@@ -58,51 +59,47 @@
         }
 
         .sidebar li {
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 18px;
+            width: 100%;
         }
 
         .sidebar a {
             display: block;
-            text-decoration: none;
             font-size: 1.1rem;
-            color: #9B9BBE;
-            font-weight: 600;
+            color: #5f6368;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 4px;
+            text-decoration: none;
             transition: background-color 0.3s, color 0.3s;
         }
 
         .sidebar a:hover {
-            background-color: #4C4C6D;
-            color: #fff;
+            background-color: #f1f3f4;
+            color: #202124;
         }
 
         .sidebar .logout-btn {
-            background-color: #FF5C93;
+            background-color: #db4437;
             color: white;
-            font-weight: 700;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 4px;
             margin-top: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
             text-align: center;
+            cursor: pointer;
             width: 100%;
+            transition: background-color 0.3s ease;
         }
 
         .sidebar .logout-btn:hover {
-            background-color: #FF3A73;
+            background-color: #c1351d;
         }
 
         /* Content */
         .content {
+            flex: 1;
             padding: 40px;
-            background-color: #1E1E2F;
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            background-color: #fff;
+            overflow-y: auto;
         }
 
         .header {
@@ -113,50 +110,33 @@
 
         .header h1 {
             font-size: 2rem;
-            font-weight: 700;
-            color: #E1E1F1;
-        }
-
-        .header button {
-            background-color: #FF5C93;
-            color: white;
-            font-weight: 700;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .header button:hover {
-            background-color: #FF3A73;
-        }
-
-        .profile-section, .settings-section {
-            background-color: #27293D;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            color: #202124;
         }
 
         .profile-section {
             display: flex;
             align-items: center;
             gap: 20px;
+            padding: 30px;
+            background-color: #f1f3f4;
+            border-radius: 8px;
+            margin-bottom: 40px;
         }
 
         .profile-picture {
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background-color: #4C4C6D;
+            background-color: #fbbc05;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: #fff;
             font-weight: 700;
             transition: transform 0.3s;
+            cursor: pointer;
         }
 
         .profile-picture:hover {
@@ -168,18 +148,26 @@
             font-size: 1.1rem;
         }
 
+        .settings-section {
+            background-color: #f1f3f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
         .settings-section h3 {
             font-size: 1.5rem;
+            color: #202124;
             margin-bottom: 20px;
-            color: #E1E1F1;
         }
 
         .settings-section button {
             width: 100%;
-            background-color: #007BFF;
+            background-color: #007bff;
             color: white;
             padding: 14px;
-            border-radius: 8px;
+            border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -191,17 +179,25 @@
         /* Responsive Layout */
         @media (max-width: 768px) {
             .container {
-                grid-template-columns: 1fr;
+                flex-direction: column;
             }
 
             .sidebar {
+                width: 100%;
+                height: auto;
                 flex-direction: row;
                 justify-content: space-around;
-                padding: 20px;
+                padding-top: 15px;
             }
 
             .content {
                 padding: 20px;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
             }
         }
     </style>
@@ -231,12 +227,18 @@
 
             <!-- Profile Section -->
             <div class="profile-section" id="profile">
-                <div class="profile-picture" id="profilePicture">A</div>
+                <div class="profile-picture" id="profilePicture" onclick="document.getElementById('profileImageInput').click();">
+                    <!-- Default profile letter -->
+                    <span id="profilePicInitial">A</span>
+                </div>
                 <div class="profile-details">
                     <p><strong>Name:</strong> <span id="userNameDisplay">John Doe</span></p>
                     <p><strong>Email:</strong> <span id="userEmailDisplay">johndoe@example.com</span></p>
                 </div>
             </div>
+
+            <!-- File Input (Hidden for Image Upload) -->
+            <input type="file" id="profileImageInput" style="display: none;" accept="image/*" onchange="uploadProfileImage(event)" />
 
             <!-- Settings Section -->
             <div class="settings-section" id="settings">
@@ -272,15 +274,18 @@
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
+        const storage = firebase.storage();
 
         // Populate user details
         auth.onAuthStateChanged((user) => {
             if (user) {
-                // Update user details in the profile section
                 document.getElementById("userNameDisplay").textContent = user.displayName || "User";
                 document.getElementById("userEmailDisplay").textContent = user.email;
-                document.getElementById("profilePicture").textContent = user.displayName ? user.displayName.charAt(0) : 'A';
+                document.getElementById("profilePicInitial").textContent = user.displayName ? user.displayName.charAt(0) : 'A';
                 document.getElementById("userName").textContent = user.displayName || "User"; // Update user name in header
+                if (user.photoURL) {
+                    document.getElementById("profilePicture").style.backgroundImage = `url(${user.photoURL})`;
+                }
             } else {
                 window.location.href = "login.html"; // Redirect to login if not logged in
             }
@@ -294,6 +299,30 @@
                 alert("Error logging out: " + error.message);
             });
         });
+
+        // Upload Profile Image
+        function uploadProfileImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const user = auth.currentUser;
+                const storageRef = storage.ref();
+                const profileImageRef = storageRef.child('profileImages/' + user.uid + '/' + file.name);
+
+                profileImageRef.put(file).then(() => {
+                    profileImageRef.getDownloadURL().then((url) => {
+                        user.updateProfile({
+                            photoURL: url
+                        }).then(() => {
+                            document.getElementById("profilePicture").style.backgroundImage = `url(${url})`;
+                        }).catch((error) => {
+                            alert("Error updating profile image: " + error.message);
+                        });
+                    });
+                }).catch((error) => {
+                    alert("Error uploading image: " + error.message);
+                });
+            }
+        }
     </script>
 
 </body>
