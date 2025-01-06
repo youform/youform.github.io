@@ -14,78 +14,128 @@
             background-color: #f4f4f4;
             padding: 20px;
         }
-        .form-container {
+
+        /* Main Container */
+        .main-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        /* Advanced Login Section */
+        .login-container {
+            background: linear-gradient(120deg, #a2c2e7, #7f98b2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
             max-width: 400px;
             margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        input[type="text"], input[type="password"], input[type="email"] {
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        .login-container input[type="text"], .login-container input[type="password"], .login-container input[type="email"] {
             width: calc(100% - 20px);
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s;
         }
-        button {
-    width: calc(100% - 20px);
-    padding: 12px;
-    margin: 10px auto;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
-button:hover {
-    background-color: #0056b3;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-}
+        .login-container input[type="text"]:focus, .login-container input[type="password"]:focus, .login-container input[type="email"]:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+        }
 
-button:active {
-    background-color: #003f7f;
-    transform: translateY(2px);
-}
+        .login-container button {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 10px auto;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
+        .login-container button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .login-container button:active {
+            background-color: #003f7f;
+            transform: translateY(2px);
+        }
+
+        .divider {
+            margin: 20px 0;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .divider span {
+            padding: 0 10px;
+        }
+
+        /* Navigation Buttons Container */
+        .navigation-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .navigation-container button {
+            width: 80%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navigation-container button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
-    <h1>User Login System</h1>
-    <div class="form-container">
-        <!-- Sign-Up Form -->
-        <h2>Sign Up</h2>
-        <input type="email" id="signUpEmail" placeholder="Email">
-        <input type="password" id="signUpPassword" placeholder="Password">
-        <button id="signUpButton">Sign Up</button>
-        <p>Or</p>
-        <button id="googleSignUpButton">Sign Up with Google</button>
-    </div>
+    <div class="main-container">
+        <!-- Login Section -->
+        <div class="login-container">
+            <h2>Log In</h2>
+            <input type="email" id="logInEmail" placeholder="Email">
+            <input type="password" id="logInPassword" placeholder="Password">
+            <button id="logInButton">Log In</button>
+            <p class="divider"><span>OR</span></p>
+            <button id="googleLogInButton">Log In with Google</button>
+        </div>
 
-    <div class="form-container">
-        <!-- Log-In Form -->
-        <h2>Log In</h2>
-        <input type="email" id="logInEmail" placeholder="Email">
-        <input type="password" id="logInPassword" placeholder="Password">
-        <button id="logInButton">Log In</button>
-        <p>Or</p>
-        <button id="googleLogInButton">Log In with Google</button>
-    </div>
-
-    <div class="form-container">
-        <!-- Member Access -->
-        <h2>Access with YouForm ID</h2>
-        <input type="text" id="youFormID" placeholder="Enter YouForm ID">
-        <button id="accessButton">Access</button>
+        <!-- Navigation Buttons -->
+        <div class="navigation-container">
+            <h2>Don't have an account?</h2>
+            <button onclick="window.location.href='sign-up.html'">Sign Up</button>
+            <h2>Already have a member ID?</h2>
+            <button onclick="window.location.href='member-id.html'">Enter Member ID</button>
+        </div>
     </div>
 
     <script>
@@ -102,46 +152,6 @@ button:active {
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // Sign-Up Handler
-        document.getElementById("signUpButton").addEventListener("click", async () => {
-            const email = document.getElementById("signUpEmail").value;
-            const password = document.getElementById("signUpPassword").value;
-            try {
-                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-                await db.collection("users").doc(user.uid).set({
-                    email: user.email,
-                    youFormID: `YF-${Date.now()}`,
-                    createdAt: new Date()
-                });
-                alert("Account created successfully!");
-            } catch (error) {
-                alert(error.message);
-            }
-        });
-
-        // Google Sign-Up
-        document.getElementById("googleSignUpButton").addEventListener("click", async () => {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            try {
-                const result = await auth.signInWithPopup(provider);
-                const user = result.user;
-                const userRef = db.collection("users").doc(user.uid);
-                const doc = await userRef.get();
-                if (!doc.exists) {
-                    await userRef.set({
-                        email: user.email,
-                        youFormID: `YF-${Date.now()}`,
-                        createdAt: new Date()
-                    });
-                }
-                alert("Signed up with Google successfully!");
-            } catch (error) {
-                alert(error.message);
-            }
-        });
 
         // Log-In Handler
         document.getElementById("logInButton").addEventListener("click", async () => {
@@ -161,21 +171,6 @@ button:active {
             try {
                 const result = await auth.signInWithPopup(provider);
                 alert("Logged in with Google successfully!");
-            } catch (error) {
-                alert(error.message);
-            }
-        });
-
-        // Access with YouForm ID
-        document.getElementById("accessButton").addEventListener("click", async () => {
-            const youFormID = document.getElementById("youFormID").value;
-            try {
-                const querySnapshot = await db.collection("users").where("youFormID", "==", youFormID).get();
-                if (!querySnapshot.empty) {
-                    alert("Access granted!");
-                } else {
-                    alert("Invalid YouForm ID.");
-                }
             } catch (error) {
                 alert(error.message);
             }
