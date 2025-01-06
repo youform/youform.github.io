@@ -9,9 +9,9 @@
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             text-align: center;
-            background: linear-gradient(to bottom, #7fdbff, #0074d9);
+            background: linear-gradient(to bottom, #ADD8E6, #00BFFF); /* Light blue gradient */
             color: #fff;
             padding: 20px;
         }
@@ -86,7 +86,7 @@
                     createdAt: new Date()
                 });
                 alert("Account created successfully!");
-                window.location.href = "login.html"; // Redirect to login page
+                window.location.href = "account.html"; // Redirect to account page
             } catch (error) {
                 alert(error.message);
             }
@@ -109,7 +109,7 @@
                     });
                 }
                 alert("Google sign-up successful!");
-                window.location.href = "login.html"; // Redirect to login page
+                window.location.href = "account.html"; // Redirect to account page
             } catch (error) {
                 alert(error.message);
             }
