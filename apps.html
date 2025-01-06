@@ -16,47 +16,58 @@
             flex-direction: column;
             align-items: center;
         }
-        .apps-title {
-            font-size: 2.5rem;
+        .back-button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
             margin-top: 20px;
-            margin-bottom: 10px;
-            text-align: center;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .back-button:hover {
+            color: #bbb;
+        }
+        .apps-title {
+            font-size: 2rem;
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
         .search-container {
             position: relative;
             width: 100%;
             max-width: 600px;
-            margin: 10px auto 30px;
+            margin: 10px auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
         }
-        .search-bar {
-            display: flex;
+        .search-input {
             width: 100%;
-            max-width: 500px;
-            background-color: #333;
+            padding: 15px 50px 15px 60px;
+            border: none;
             border-radius: 30px;
-            overflow: hidden;
-        }
-        .search-bar input {
-            flex-grow: 1;
-            border: none;
-            padding: 15px;
-            font-size: 1rem;
-            color: white;
-            background-color: #333;
+            background-color: rgba(85, 85, 85, 0.8);
+            color: #f9f9f9;
+            font-size: 1.2rem;
             outline: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
-        .search-bar button {
-            background-color: #555;
-            border: none;
-            padding: 15px 20px;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .search-input::placeholder {
+            color: #bbb;
+            text-align: center;
         }
-        .search-bar button:hover {
-            background-color: #777;
+        .search-input:focus {
+            background-color: rgba(68, 68, 68, 0.9);
+            box-shadow: 0 0 5px #f9f9f9;
+        }
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bbb;
+            font-size: 1.5rem;
         }
         .icon-grid {
             display: grid;
@@ -67,15 +78,11 @@
         }
         .app-icon {
             text-align: center;
-        }
-        .app-icon button {
-            border: none;
-            background: none;
             cursor: pointer;
         }
         .app-icon img {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
         }
         .app-label {
             margin-top: 10px;
@@ -85,115 +92,77 @@
 </head>
 <body>
 
-    <!-- Title -->
+    <!-- Back Button -->
+    <button class="back-button" onclick="window.location.href='info.html'">← Back</button>
+
+    <!-- Apps Title -->
     <div class="apps-title">Apps</div>
 
     <!-- Search Bar -->
     <div class="search-container">
-        <div class="search-bar">
-            <input type="text" id="search-bar-input" placeholder="Search">
-            <button id="search-bar-button">Search</button>
-        </div>
+        <span id="search-icon" class="material-symbols-outlined search-icon">search</span>
+        <input type="text" class="search-input" id="search-input" placeholder="Search Apps">
     </div>
 
     <!-- App Icons -->
     <div class="icon-grid">
-        <!-- First Row -->
-        <div class="app-icon">
-            <button onclick="location.href='games.html'">
-                <img src="/icon/games.png" alt="Games">
-            </button>
+        <div class="app-icon" onclick="window.location.href='games.html'">
+            <img src="icon/games.png" alt="Games">
             <div class="app-label">Games</div>
         </div>
-        <div class="app-icon">
-            <button onclick="window.open('https://example.com/calculator', '_blank')">
-                <img src="/icon/calculator.png" alt="Calculator">
-            </button>
-            <div class="app-label">Calculator</div>
-        </div>
-        <div class="app-icon">
-            <button onclick="window.open('https://example.com/weather', '_blank')">
-                <img src="/icon/weather.png" alt="Weather">
-            </button>
-            <div class="app-label">Weather</div>
-        </div>
-        <div class="app-icon">
-            <button onclick="window.open('https://example.com/earth', '_blank')">
-                <img src="/icon/earth.png" alt="Earth">
-            </button>
-            <div class="app-label">Earth</div>
-        </div>
-        <div class="app-icon">
-            <button onclick="location.href='workspace.html'">
-                <img src="/icon/workspace.png" alt="Workspace">
-            </button>
+        <div class="app-icon" onclick="window.location.href='workspace.html'">
+            <img src="icon/workspace.png" alt="Workspace">
             <div class="app-label">Workspace</div>
         </div>
-        <div class="app-icon">
-            <button onclick="location.href='settings.html'">
-                <img src="/icon/settings.png" alt="Settings">
-            </button>
+        <div class="app-icon" onclick="window.location.href='settings.html'">
+            <img src="icon/settings.png" alt="Settings">
             <div class="app-label">Settings</div>
         </div>
-
-        <!-- Second Row -->
-        <div class="app-icon">
-            <button onclick="location.href='tools.html'">
-                <img src="/icon/tools.png" alt="Tools">
-            </button>
+        <div class="app-icon" onclick="window.location.href='tools.html'">
+            <img src="icon/tools.png" alt="Tools">
             <div class="app-label">Tools</div>
         </div>
-        <div class="app-icon">
-            <button onclick="location.href='folder.html'">
-                <img src="/icon/folder.png" alt="Folder">
-            </button>
+        <div class="app-icon" onclick="window.location.href='folder.html'">
+            <img src="icon/folder.png" alt="Folder">
             <div class="app-label">Folder</div>
         </div>
-        <div class="app-icon">
-            <button onclick="window.open('https://youform.github.io/finder/', '_blank')">
-                <img src="/icon/finder.png" alt="Finder">
-            </button>
+        <div class="app-icon" onclick="window.open('https://weather.tomorrow.io/', '_blank')">
+            <img src="icon/weather.png" alt="Weather">
+            <div class="app-label">Weather</div>
+        </div>
+        <div class="app-icon" onclick="window.open('https://earth.google.com/web/', '_blank')">
+            <img src="icon/earth.png" alt="Earth">
+            <div class="app-label">Earth</div>
+        </div>
+        <div class="app-icon" onclick="window.open('https://calculator.apps.chrome/', '_blank')">
+            <img src="icon/calculator.png" alt="Calculator">
+            <div class="app-label">Calculator</div>
+        </div>
+        <div class="app-icon" onclick="window.open('https://finder.example.com/', '_blank')">
+            <img src="icon/finder.png" alt="Finder">
             <div class="app-label">Finder</div>
         </div>
-        <div class="app-icon">
-            <button onclick="window.open('https://example.com/developer', '_blank')">
-                <img src="/icon/developer.png" alt="Developer">
-            </button>
+        <div class="app-icon" onclick="window.open('https://developer.example.com/', '_blank')">
+            <img src="icon/developer.png" alt="Developer">
             <div class="app-label">Developer</div>
         </div>
-        <div class="app-icon">
-            <button onclick="window.open('https://sites.google.com/view/youformai', '_blank')">
-                <img src="/icon/ai.png" alt="YFAI">
-            </button>
+        <div class="app-icon" onclick="window.open('https://yfai.example.com/', '_blank')">
+            <img src="icon/ai.png" alt="YFAI">
             <div class="app-label">YFAI</div>
         </div>
-        <div class="app-icon">
-            <button onclick="window.open('https://myaccount.google.com', '_blank')">
-                <img src="/icon/account.png" alt="Account">
-            </button>
+        <div class="app-icon" onclick="window.open('https://account.example.com/', '_blank')">
+            <img src="icon/account.png" alt="Account">
             <div class="app-label">Account</div>
         </div>
     </div>
 
     <script>
-        const searchButton = document.getElementById('search-bar-button');
-        const searchBarInput = document.getElementById('search-bar-input');
+        const searchInput = document.getElementById('search-input');
 
-        // Trigger search on button click
-        searchButton.addEventListener('click', () => {
-            const query = searchBarInput.value.trim().toLowerCase();
-            if (query) {
-                window.open(`https://www.google.com/search?q=${query}`, '_blank');
-            }
-        });
-
-        // Trigger search on Enter key press
-        searchBarInput.addEventListener('keydown', (event) => {
+        searchInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
-                const query = searchBarInput.value.trim().toLowerCase();
-                if (query) {
-                    window.open(`https://www.google.com/search?q=${query}`, '_blank');
-                }
+                const query = searchInput.value.trim().toLowerCase();
+                window.open(`https://www.google.com/search?q=${query}`, '_blank');
             }
         });
     </script>
