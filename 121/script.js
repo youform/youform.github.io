@@ -1,119 +1,76 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const MicrosoftStrategy = require('passport-microsoft').Strategy;
-const AppleStrategy = require('passport-apple').Strategy;
-const speakeasy = require('speakeasy');
-const rateLimit = require('express-rate-limit');
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
 
-// Initialize App
-const app = express();
-app.use(express.json());
-app.use(passport.initialize());
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const signUp = async (email, password) => {
+    try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
 
-// MongoDB Setup
-mongoose.connect('mongodb://localhost:27017/auth', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+        // Save user data in Firestore
+        await db.collection('users').doc(user.uid).set({
+            email: user.email,
+            youFormID: `YF-${Date.now()}`, // Unique YouForm ID
+            createdAt: new Date()
+        });
 
-// User Schema
-const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String },
-  googleId: { type: String },
-  microsoftId: { type: String },
-  appleId: { type: String },
-  twoFactorSecret: { type: String },
-  recentLogins: [Date]  // Track login attempts for anomaly detection
-});
+        alert('Account created successfully!');
+    } catch (error) {
+        alert(error.message);
+    }
+};
+const logIn = async (email, password) => {
+    try {
+        await auth.signInWithEmailAndPassword(email, password);
+        alert('Logged in successfully!');
+    } catch (error) {
+        alert(error.message);
+    }
+};
+const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-const User = mongoose.model('User', userSchema);
+const googleSignIn = async () => {
+    try {
+        const result = await auth.signInWithPopup(googleProvider);
+        const user = result.user;
 
-// Rate Limiting
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 5,
-  message: 'Too many login attempts, please try again later.'
-});
+        // Check if user already exists in Firestore
+        const userRef = db.collection('users').doc(user.uid);
+        const doc = await userRef.get();
 
-// Google OAuth Strategy
-passport.use(new GoogleStrategy({
-  clientID: 'YOUR_GOOGLE_CLIENT_ID',
-  clientSecret: 'YOUR_GOOGLE_CLIENT_SECRET',
-  callbackURL: 'http://localhost:3000/auth/google/callback'
-}, async (accessToken, refreshToken, profile, done) => {
-  let user = await User.findOne({ googleId: profile.id });
-  if (!user) {
-    user = new User({ googleId: profile.id, email: profile.emails[0].value });
-    await user.save();
-  }
-  done(null, user);
-}));
+        if (!doc.exists) {
+            // Save new user to Firestore
+            await userRef.set({
+                email: user.email,
+                youFormID: `YF-${Date.now()}`,
+                createdAt: new Date()
+            });
+        }
 
-// Microsoft OAuth Strategy
-passport.use(new MicrosoftStrategy({
-  clientID: 'YOUR_MICROSOFT_CLIENT_ID',
-  clientSecret: 'YOUR_MICROSOFT_CLIENT_SECRET',
-  callbackURL: 'http://localhost:3000/auth/microsoft/callback',
-  scope: ['user.read']
-}, async (accessToken, refreshToken, profile, done) => {
-  let user = await User.findOne({ microsoftId: profile.id });
-  if (!user) {
-    user = new User({ microsoftId: profile.id, email: profile.emails[0].value });
-    await user.save();
-  }
-  done(null, user);
-}));
-
-// Apple OAuth Strategy
-passport.use(new AppleStrategy({
-  clientID: 'YOUR_APPLE_CLIENT_ID',
-  teamID: 'YOUR_APPLE_TEAM_ID',
-  keyID: 'YOUR_APPLE_KEY_ID',
-  privateKeyLocation: 'path_to_private_key.p8',
-  callbackURL: 'http://localhost:3000/auth/apple/callback'
-}, async (accessToken, refreshToken, profile, done) => {
-  let user = await User.findOne({ appleId: profile.id });
-  if (!user) {
-    user = new User({ appleId: profile.id, email: profile.email });
-    await user.save();
-  }
-  done(null, user);
-}));
-
-// Sign Up & Login Routes (Include Behavior & Risk-based authentication)
-app.post('/signup', async (req, res) => {
-  const { email, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new User({ email, password: hashedPassword });
-  await user.save();
-  res.status(201).send('User created successfully');
-});
-
-app.post('/login', loginLimiter, async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user) return res.status(400).send('Invalid credentials');
-
-  const validPassword = await bcrypt.compare(password, user.password);
-  if (!validPassword) return res.status(400).send('Invalid credentials');
-
-  // Behavior-based, risk assessment logic goes here (e.g., location, device fingerprinting)
-  // For simplicity, we skip the advanced behavior checks here.
-
-  // Multi-factor Authentication Check (if enabled)
-  if (user.twoFactorSecret) {
-    return res.status(401).send('Please complete 2FA');
-  }
-
-  // JWT Token Generation
-  const token = jwt.sign({ id: user._id, email: user.email }, 'secret', { expiresIn: '1h' });
-  res.status(200).json({ token });
-});
-
-// Starting the server
-app.listen(3000, () => console.log('Server running on port 3000'));
+        alert('Google sign-in successful!');
+    } catch (error) {
+        alert(error.message);
+    }
+};
+const logInWithYouFormID = async (youFormID) => {
+    try {
+        const querySnapshot = await db.collection('users').where('youFormID', '==', youFormID).get();
+        if (!querySnapshot.empty) {
+            alert('YouForm ID logged in successfully!');
+        } else {
+            alert('Invalid YouForm ID.');
+        }
+    } catch (error) {
+        alert(error.message);
+    }
+};
