@@ -17,27 +17,21 @@
             align-items: center;
         }
         .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
             background-color: transparent;
             border: none;
             color: white;
             font-size: 1rem;
-            margin-top: 20px;
             cursor: pointer;
             text-decoration: underline;
-        }
-        .back-button:hover {
-            color: #bbb;
-        }
-        .apps-title {
-            font-size: 2rem;
-            margin-top: 10px;
-            margin-bottom: 20px;
         }
         .search-container {
             position: relative;
             width: 100%;
             max-width: 600px;
-            margin: 10px auto;
+            margin: 60px auto 20px; /* Adjusted for back button */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -69,6 +63,11 @@
             color: #bbb;
             font-size: 1.5rem;
         }
+        .apps-title {
+            font-size: 2rem;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
         .icon-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -93,10 +92,7 @@
 <body>
 
     <!-- Back Button -->
-    <button class="back-button" onclick="window.location.href='info.html'">← Back</button>
-
-    <!-- Apps Title -->
-    <div class="apps-title">Apps</div>
+    <button class="back-button" onclick="window.location.href='info.html'">&larr; Back</button>
 
     <!-- Search Bar -->
     <div class="search-container">
@@ -105,52 +101,55 @@
     </div>
 
     <!-- App Icons -->
+    <div class="apps-title">Apps</div>
+    
     <div class="icon-grid">
-        <div class="app-icon" onclick="window.location.href='games.html'">
+        <!-- App Buttons -->
+        <div class="app-icon" onclick="window.location.href='web/games.html'">
             <img src="icon/games.png" alt="Games">
             <div class="app-label">Games</div>
         </div>
-        <div class="app-icon" onclick="window.location.href='workspace.html'">
-            <img src="icon/workspace.png" alt="Workspace">
-            <div class="app-label">Workspace</div>
-        </div>
-        <div class="app-icon" onclick="window.location.href='settings.html'">
-            <img src="icon/settings.png" alt="Settings">
-            <div class="app-label">Settings</div>
-        </div>
-        <div class="app-icon" onclick="window.location.href='tools.html'">
-            <img src="icon/tools.png" alt="Tools">
-            <div class="app-label">Tools</div>
-        </div>
-        <div class="app-icon" onclick="window.location.href='folder.html'">
-            <img src="icon/folder.png" alt="Folder">
-            <div class="app-label">Folder</div>
-        </div>
-        <div class="app-icon" onclick="window.open('https://weather.tomorrow.io/', '_blank')">
-            <img src="icon/weather.png" alt="Weather">
-            <div class="app-label">Weather</div>
-        </div>
-        <div class="app-icon" onclick="window.open('https://earth.google.com/web/', '_blank')">
-            <img src="icon/earth.png" alt="Earth">
-            <div class="app-label">Earth</div>
-        </div>
-        <div class="app-icon" onclick="window.open('https://calculator.apps.chrome/', '_blank')">
+        <div class="app-icon" onclick="window.location.href='web/calculator.html'">
             <img src="icon/calculator.png" alt="Calculator">
             <div class="app-label">Calculator</div>
         </div>
-        <div class="app-icon" onclick="window.open('https://finder.example.com/', '_blank')">
+        <div class="app-icon" onclick="window.location.href='web/weather.html'">
+            <img src="icon/weather.png" alt="Weather">
+            <div class="app-label">Weather</div>
+        </div>
+        <div class="app-icon" onclick="window.location.href='web/earth.html'">
+            <img src="icon/earth.png" alt="Earth">
+            <div class="app-label">Earth</div>
+        </div>
+        <div class="app-icon" onclick="window.location.href='web/workspace.html'">
+            <img src="icon/workspace.png" alt="Workspace">
+            <div class="app-label">Workspace</div>
+        </div>
+        <div class="app-icon" onclick="window.location.href='web/settings.html'">
+            <img src="icon/settings.png" alt="Settings">
+            <div class="app-label">Settings</div>
+        </div>
+        <div class="app-icon" onclick="window.location.href='web/tools.html'">
+            <img src="icon/tools.png" alt="Tools">
+            <div class="app-label">Tools</div>
+        </div>
+        <div class="app-icon" onclick="window.location.href='web/folder.html'">
+            <img src="icon/folder.png" alt="Folder">
+            <div class="app-label">Folder</div>
+        </div>
+        <div class="app-icon" onclick="window.open('https://youform.github.io/finder/', '_blank')">
             <img src="icon/finder.png" alt="Finder">
             <div class="app-label">Finder</div>
         </div>
-        <div class="app-icon" onclick="window.open('https://developer.example.com/', '_blank')">
+        <div class="app-icon" onclick="window.open('https://developer.com', '_blank')">
             <img src="icon/developer.png" alt="Developer">
             <div class="app-label">Developer</div>
         </div>
-        <div class="app-icon" onclick="window.open('https://yfai.example.com/', '_blank')">
+        <div class="app-icon" onclick="window.open('https://sites.google.com/view/youformai', '_blank')">
             <img src="icon/ai.png" alt="YFAI">
             <div class="app-label">YFAI</div>
         </div>
-        <div class="app-icon" onclick="window.open('https://account.example.com/', '_blank')">
+        <div class="app-icon" onclick="window.open('https://myaccount.google.com', '_blank')">
             <img src="icon/account.png" alt="Account">
             <div class="app-label">Account</div>
         </div>
@@ -159,10 +158,11 @@
     <script>
         const searchInput = document.getElementById('search-input');
 
+        // Redirect to a new page on Enter
         searchInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 const query = searchInput.value.trim().toLowerCase();
-                window.open(`https://www.google.com/search?q=${query}`, '_blank');
+                window.location.href = `https://www.google.com/search?q=${query}`;
             }
         });
     </script>
