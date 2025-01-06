@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account</title>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        /* Top Header */
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .header button {
+            background-color: white;
+            color: #007BFF;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .header button:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        /* Account Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #0056b3;
+        }
+
+        /* Account Content */
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .profile-section, .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .profile-section h3, .settings-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #6c757d;
+        }
+
+        .profile-details {
+            font-size: 1rem;
+        }
+
+        .profile-details p {
+            margin: 5px 0;
+        }
+
+        .button-primary {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .button-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button-danger:hover {
+            background-color: #b21f2d;
+            transform: translateY(-2px);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>My Account</h1>
+        <button id="logoutButton">Log Out</button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Navigation</h3>
+            <ul>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#privacy">Privacy</a></li>
+                <li><a href="#support">Support</a></li>
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Profile Section -->
+            <div class="profile-section" id="profile">
+                <h2>Profile</h2>
+                <div class="profile-info">
+                    <div class="profile-picture">A</div>
+                    <div class="profile-details">
+                        <p><strong>Name:</strong> <span id="userName">John Doe</span></p>
+                        <p><strong>Email:</strong> <span id="userEmail">johndoe@example.com</span></p>
+                    </div>
+                </div>
+                <button class="button-primary">Edit Profile</button>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="settings-section" id="settings">
+                <h2>Settings</h2>
+                <button class="button-primary">Change Password</button>
+            </div>
+
+            <!-- Privacy Section -->
+            <div class="privacy-section" id="privacy">
+                <h2>Privacy</h2>
+                <button class="button-primary">Manage Privacy Settings</button>
+            </div>
+
+            <!-- Support Section -->
+            <div class="support-section" id="support">
+                <h2>Support</h2>
+                <button class="button-primary">Contact Support</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Populate user details
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                document.getElementById("userName").textContent = user.displayName || "User";
+                document.getElementById("userEmail").textContent = user.email;
+            } else {
+                window.location.href = "login.html"; // Redirect to login if not logged in
+            }
+        });
+
+        // Log Out
+        document.getElementById("logoutButton").addEventListener("click", () => {
+            auth.signOut().then(() => {
+                window.location.href = "login.html";
+            }).catch((error) => {
+                alert("Error logging out: " + error.message);
+            });
+        });
+    </script>
+</body>
+</html>
