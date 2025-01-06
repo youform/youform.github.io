@@ -4,138 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #121212;
-            color: #ffffff;
-        }
-        .container {
+            font-family: Arial, sans-serif;
             text-align: center;
-            max-width: 400px;
+            background-color: #f4f4f4;
             padding: 20px;
-            background: #1f1f1f;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        button, input {
-            display: block;
-            width: 100%;
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: calc(100% - 20px);
             padding: 10px;
             margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
         button {
-            background: #007BFF;
-            color: #ffffff;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        input {
-            background: #2f2f2f;
-            color: #ffffff;
-        }
-        .google-btn {
-            background: #DB4437;
-        }
-        .google-btn:hover {
-            background: #a33128;
-        }
-        .link {
-            color: #007BFF;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-        }
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin: 10px auto;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #003f7f;
+    transform: translateY(2px);
+}
+
     </style>
 </head>
 <body>
-    <div class="container" id="auth-container">
-        <h1>Welcome to YouForm</h1>
-        <p id="form-title">Sign Up or Log In</p>
-        <form id="auth-form">
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit" id="email-login">Log In with Email</button>
-            <button type="button" class="google-btn" id="google-login">Log In with Google</button>
-        </form>
-        <button id="signup-switch">Sign Up Instead</button>
-        <button id="login-switch" style="display: none;">Log In Instead</button>
-        <div id="youform-id-section" style="display: none;">
-            <input type="text" id="youform-id" placeholder="Enter Your YouForm ID">
-            <button id="youform-login">Log In with YouForm ID</button>
-        </div>
-        <a href="member-only.html" class="link">Member Area</a>
+    <h1>User Login System</h1>
+    <div class="form-container">
+        <!-- Sign-Up Form -->
+        <h2>Sign Up</h2>
+        <input type="email" id="signUpEmail" placeholder="Email">
+        <input type="password" id="signUpPassword" placeholder="Password">
+        <button id="signUpButton">Sign Up</button>
+        <p>Or</p>
+        <button id="googleSignUpButton">Sign Up with Google</button>
+    </div>
+
+    <div class="form-container">
+        <!-- Log-In Form -->
+        <h2>Log In</h2>
+        <input type="email" id="logInEmail" placeholder="Email">
+        <input type="password" id="logInPassword" placeholder="Password">
+        <button id="logInButton">Log In</button>
+        <p>Or</p>
+        <button id="googleLogInButton">Log In with Google</button>
+    </div>
+
+    <div class="form-container">
+        <!-- Member Access -->
+        <h2>Access with YouForm ID</h2>
+        <input type="text" id="youFormID" placeholder="Enter YouForm ID">
+        <button id="accessButton">Access</button>
     </div>
 
     <script>
-        const authContainer = document.getElementById('auth-container');
-        const formTitle = document.getElementById('form-title');
-        const authForm = document.getElementById('auth-form');
-        const emailLogin = document.getElementById('email-login');
-        const googleLogin = document.getElementById('google-login');
-        const signupSwitch = document.getElementById('signup-switch');
-        const loginSwitch = document.getElementById('login-switch');
-        const youformIdSection = document.getElementById('youform-id-section');
-        const youformLogin = document.getElementById('youform-login');
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
 
-        let isSignUp = false;
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-        signupSwitch.addEventListener('click', () => {
-            isSignUp = true;
-            formTitle.innerText = 'Sign Up';
-            emailLogin.innerText = 'Sign Up with Email';
-            signupSwitch.style.display = 'none';
-            loginSwitch.style.display = 'block';
-        });
-
-        loginSwitch.addEventListener('click', () => {
-            isSignUp = false;
-            formTitle.innerText = 'Log In';
-            emailLogin.innerText = 'Log In with Email';
-            signupSwitch.style.display = 'block';
-            loginSwitch.style.display = 'none';
-        });
-
-        authForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if (isSignUp) {
-                // Replace with API call for sign up
-                alert(`Sign up with Email: ${email}`);
-            } else {
-                // Replace with API call for login
-                alert(`Log in with Email: ${email}`);
+        // Sign-Up Handler
+        document.getElementById("signUpButton").addEventListener("click", async () => {
+            const email = document.getElementById("signUpEmail").value;
+            const password = document.getElementById("signUpPassword").value;
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                await db.collection("users").doc(user.uid).set({
+                    email: user.email,
+                    youFormID: `YF-${Date.now()}`,
+                    createdAt: new Date()
+                });
+                alert("Account created successfully!");
+            } catch (error) {
+                alert(error.message);
             }
         });
 
-        googleLogin.addEventListener('click', () => {
-            // Replace with Google Sign-In integration
-            alert('Google Login Clicked');
+        // Google Sign-Up
+        document.getElementById("googleSignUpButton").addEventListener("click", async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            try {
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+                const userRef = db.collection("users").doc(user.uid);
+                const doc = await userRef.get();
+                if (!doc.exists) {
+                    await userRef.set({
+                        email: user.email,
+                        youFormID: `YF-${Date.now()}`,
+                        createdAt: new Date()
+                    });
+                }
+                alert("Signed up with Google successfully!");
+            } catch (error) {
+                alert(error.message);
+            }
         });
 
-        youformLogin.addEventListener('click', () => {
-            const youformId = document.getElementById('youform-id').value;
-            // Replace with API call for YouForm ID login
-            alert(`Log in with YouForm ID: ${youformId}`);
+        // Log-In Handler
+        document.getElementById("logInButton").addEventListener("click", async () => {
+            const email = document.getElementById("logInEmail").value;
+            const password = document.getElementById("logInPassword").value;
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                alert("Logged in successfully!");
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+
+        // Google Log-In
+        document.getElementById("googleLogInButton").addEventListener("click", async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            try {
+                const result = await auth.signInWithPopup(provider);
+                alert("Logged in with Google successfully!");
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+
+        // Access with YouForm ID
+        document.getElementById("accessButton").addEventListener("click", async () => {
+            const youFormID = document.getElementById("youFormID").value;
+            try {
+                const querySnapshot = await db.collection("users").where("youFormID", "==", youFormID).get();
+                if (!querySnapshot.empty) {
+                    alert("Access granted!");
+                } else {
+                    alert("Invalid YouForm ID.");
+                }
+            } catch (error) {
+                alert(error.message);
+            }
         });
     </script>
 </body>
