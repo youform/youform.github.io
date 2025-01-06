@@ -18,20 +18,29 @@
         }
         .back-button {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: transparent;
-            border: none;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
             color: white;
             font-size: 1rem;
-            cursor: pointer;
-            text-decoration: underline;
+            background-color: #333;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #555;
+        }
+        .apps-title {
+            font-size: 2rem;
+            margin-top: 60px; /* Ensures spacing below back button */
+            margin-bottom: 20px;
         }
         .search-container {
             position: relative;
             width: 100%;
             max-width: 600px;
-            margin: 60px auto 20px; /* Adjusted for back button */
+            margin: 20px auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -63,11 +72,6 @@
             color: #bbb;
             font-size: 1.5rem;
         }
-        .apps-title {
-            font-size: 2rem;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
         .icon-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -77,7 +81,6 @@
         }
         .app-icon {
             text-align: center;
-            cursor: pointer;
         }
         .app-icon img {
             width: 80px;
@@ -87,12 +90,19 @@
             margin-top: 10px;
             font-size: 0.9rem;
         }
+        button {
+            all: unset;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
     <!-- Back Button -->
-    <button class="back-button" onclick="window.location.href='info.html'">&larr; Back</button>
+    <a href="info.html" class="back-button">&larr; Back</a>
+
+    <!-- Apps Title -->
+    <div class="apps-title">Apps</div>
 
     <!-- Search Bar -->
     <div class="search-container">
@@ -101,57 +111,81 @@
     </div>
 
     <!-- App Icons -->
-    <div class="apps-title">Apps</div>
-    
     <div class="icon-grid">
-        <!-- App Buttons -->
-        <div class="app-icon" onclick="window.location.href='web/games.html'">
-            <img src="icon/games.png" alt="Games">
-            <div class="app-label">Games</div>
+        <!-- First Row -->
+        <div class="app-icon">
+            <button onclick="window.location.href='web/games.html'">
+                <img src="/icon/games.png" alt="Games">
+                <div class="app-label">Games</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.location.href='web/calculator.html'">
-            <img src="icon/calculator.png" alt="Calculator">
-            <div class="app-label">Calculator</div>
+        <div class="app-icon">
+            <button onclick="window.open('https://calculator.apps.chrome/', '_blank')">
+                <img src="/icon/calculator.png" alt="Calculator">
+                <div class="app-label">Calculator</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.location.href='web/weather.html'">
-            <img src="icon/weather.png" alt="Weather">
-            <div class="app-label">Weather</div>
+        <div class="app-icon">
+            <button onclick="window.open('https://weather.tomorrow.io/', '_blank')">
+                <img src="/icon/weather.png" alt="Weather">
+                <div class="app-label">Weather</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.location.href='web/earth.html'">
-            <img src="icon/earth.png" alt="Earth">
-            <div class="app-label">Earth</div>
+        <div class="app-icon">
+            <button onclick="window.open('https://earth.google.com/web/', '_blank')">
+                <img src="/icon/earth.png" alt="Earth">
+                <div class="app-label">Earth</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.location.href='web/workspace.html'">
-            <img src="icon/workspace.png" alt="Workspace">
-            <div class="app-label">Workspace</div>
+        <div class="app-icon">
+            <button onclick="window.location.href='web/workspace.html'">
+                <img src="/icon/workspace.png" alt="Workspace">
+                <div class="app-label">Workspace</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.location.href='web/settings.html'">
-            <img src="icon/settings.png" alt="Settings">
-            <div class="app-label">Settings</div>
+        <div class="app-icon">
+            <button onclick="window.location.href='web/settings.html'">
+                <img src="/icon/settings.png" alt="Settings">
+                <div class="app-label">Settings</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.location.href='web/tools.html'">
-            <img src="icon/tools.png" alt="Tools">
-            <div class="app-label">Tools</div>
+
+        <!-- Second Row -->
+        <div class="app-icon">
+            <button onclick="window.location.href='web/tools.html'">
+                <img src="/icon/tools.png" alt="Tools">
+                <div class="app-label">Tools</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.location.href='web/folder.html'">
-            <img src="icon/folder.png" alt="Folder">
-            <div class="app-label">Folder</div>
+        <div class="app-icon">
+            <button onclick="window.location.href='web/folder.html'">
+                <img src="/icon/folder.png" alt="Folder">
+                <div class="app-label">Folder</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.open('https://youform.github.io/finder/', '_blank')">
-            <img src="icon/finder.png" alt="Finder">
-            <div class="app-label">Finder</div>
+        <div class="app-icon">
+            <button onclick="window.location.href='web/finder.html'">
+                <img src="/icon/finder.png" alt="Finder">
+                <div class="app-label">Finder</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.open('https://developer.com', '_blank')">
-            <img src="icon/developer.png" alt="Developer">
-            <div class="app-label">Developer</div>
+        <div class="app-icon">
+            <button onclick="window.location.href='web/developer.html'">
+                <img src="/icon/developer.png" alt="Developer">
+                <div class="app-label">Developer</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.open('https://sites.google.com/view/youformai', '_blank')">
-            <img src="icon/ai.png" alt="YFAI">
-            <div class="app-label">YFAI</div>
+        <div class="app-icon">
+            <button onclick="window.open('https://sites.google.com/view/youformai/page?authuser=0', '_blank')">
+                <img src="/icon/ai.png" alt="YFAI">
+                <div class="app-label">YFAI</div>
+            </button>
         </div>
-        <div class="app-icon" onclick="window.open('https://myaccount.google.com', '_blank')">
-            <img src="icon/account.png" alt="Account">
-            <div class="app-label">Account</div>
+        <div class="app-icon">
+            <button onclick="window.open('https://myaccount.google.com/', '_blank')">
+                <img src="/icon/account.png" alt="Account">
+                <div class="app-label">Account</div>
+            </button>
         </div>
     </div>
 
