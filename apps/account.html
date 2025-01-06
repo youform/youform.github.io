@@ -6,50 +6,51 @@
     <title>My Account</title>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
     <style>
         /* Global Styles */
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #f1f3f4;
-            color: #202124;
+            background: linear-gradient(135deg, #1E1E2F, #4B4B6F);
+            color: #fff;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
             overflow: hidden;
         }
 
+        /* Container */
         .container {
-            display: flex;
-            flex: 1;
+            width: 90%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            background-color: #27293D;
+            border-radius: 16px;
             overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
         }
 
         /* Sidebar */
         .sidebar {
-            background-color: #fff;
-            width: 250px;
-            padding-top: 20px;
-            border-right: 1px solid #ddd;
+            background: #1C1C2D;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-start;
-            padding-left: 20px;
-            box-shadow: 1px 0 4px rgba(0,0,0,0.1);
-            height: 100%;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .sidebar h3 {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #202124;
             margin-bottom: 30px;
+            color: #E1E1F1;
         }
 
         .sidebar ul {
@@ -59,47 +60,67 @@
         }
 
         .sidebar li {
-            margin-bottom: 18px;
-            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .sidebar a {
             display: block;
-            font-size: 1.1rem;
-            color: #5f6368;
-            padding: 12px;
-            border-radius: 4px;
             text-decoration: none;
+            font-size: 1.1rem;
+            color: #9B9BBE;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 8px;
             transition: background-color 0.3s, color 0.3s;
         }
 
         .sidebar a:hover {
-            background-color: #f1f3f4;
-            color: #202124;
+            background-color: #4C4C6D;
+            color: #fff;
         }
 
+        /* Sidebar Submenu */
+        .sidebar .submenu {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .sidebar li.active .submenu {
+            display: block;
+        }
+
+        .sidebar .submenu a {
+            font-size: 1rem;
+            color: #A0A1B4;
+        }
+
+        /* Logout Button */
         .sidebar .logout-btn {
-            background-color: #db4437;
+            background-color: #FF5C93;
             color: white;
-            padding: 10px 20px;
-            border-radius: 4px;
+            font-weight: 700;
+            padding: 12px 20px;
+            border-radius: 8px;
             margin-top: 30px;
-            text-align: center;
             cursor: pointer;
-            width: 100%;
             transition: background-color 0.3s ease;
+            text-align: center;
+            width: 100%;
         }
 
         .sidebar .logout-btn:hover {
-            background-color: #c1351d;
+            background-color: #FF3A73;
         }
 
         /* Content */
         .content {
-            flex: 1;
             padding: 40px;
-            background-color: #fff;
-            overflow-y: auto;
+            background-color: #1E1E2F;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .header {
@@ -110,29 +131,45 @@
 
         .header h1 {
             font-size: 2rem;
-            font-weight: 600;
-            color: #202124;
+            font-weight: 700;
+            color: #E1E1F1;
         }
 
+        .header button {
+            background-color: #FF5C93;
+            color: white;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .header button:hover {
+            background-color: #FF3A73;
+        }
+
+        /* Profile Section */
         .profile-section {
+            background-color: #27293D;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 30px;
-            background-color: #f1f3f4;
-            border-radius: 8px;
-            margin-bottom: 40px;
         }
 
         .profile-picture {
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background-color: #fbbc05;
+            background-color: #4C4C6D;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #fff;
             font-weight: 700;
             transition: transform 0.3s;
@@ -148,26 +185,19 @@
             font-size: 1.1rem;
         }
 
-        .settings-section {
-            background-color: #f1f3f4;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
-        }
-
+        /* Settings Section */
         .settings-section h3 {
             font-size: 1.5rem;
-            color: #202124;
             margin-bottom: 20px;
+            color: #E1E1F1;
         }
 
         .settings-section button {
             width: 100%;
-            background-color: #007bff;
+            background-color: #007BFF;
             color: white;
             padding: 14px;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -176,28 +206,36 @@
             background-color: #0056b3;
         }
 
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            margin-left: 10px;
+            padding: 10px;
+            background-color: #FF5C93;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: #FF3A73;
+        }
+
         /* Responsive Layout */
         @media (max-width: 768px) {
             .container {
-                flex-direction: column;
+                grid-template-columns: 1fr;
             }
 
             .sidebar {
-                width: 100%;
-                height: auto;
                 flex-direction: row;
                 justify-content: space-around;
-                padding-top: 15px;
+                padding: 20px;
             }
 
             .content {
                 padding: 20px;
-            }
-
-            .profile-section {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
             }
         }
     </style>
@@ -209,8 +247,20 @@
         <div class="sidebar">
             <h3>My Account</h3>
             <ul>
-                <li><a href="#profile">Profile</a></li>
-                <li><a href="#settings">Settings</a></li>
+                <li>
+                    <a href="javascript:void(0)" onclick="toggleSubmenu('profileSubmenu')">Profile</a>
+                    <ul class="submenu" id="profileSubmenu">
+                        <li><a href="#viewProfile">View Profile</a></li>
+                        <li><a href="#editProfile">Edit Profile</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" onclick="toggleSubmenu('settingsSubmenu')">Settings</a>
+                    <ul class="submenu" id="settingsSubmenu">
+                        <li><a href="#changePassword">Change Password</a></li>
+                        <li><a href="#notificationPreferences">Notification Preferences</a></li>
+                    </ul>
+                </li>
                 <li><a href="#privacy">Privacy</a></li>
                 <li><a href="#support">Support</a></li>
             </ul>
@@ -223,22 +273,17 @@
             <div class="header">
                 <h1>Welcome, <span id="userName">User</span></h1>
                 <button id="editProfileButton">Edit Profile</button>
+                <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
             </div>
 
             <!-- Profile Section -->
             <div class="profile-section" id="profile">
-                <div class="profile-picture" id="profilePicture" onclick="document.getElementById('profileImageInput').click();">
-                    <!-- Default profile letter -->
-                    <span id="profilePicInitial">A</span>
-                </div>
+                <div class="profile-picture" id="profilePicture">A</div>
                 <div class="profile-details">
                     <p><strong>Name:</strong> <span id="userNameDisplay">John Doe</span></p>
                     <p><strong>Email:</strong> <span id="userEmailDisplay">johndoe@example.com</span></p>
                 </div>
             </div>
-
-            <!-- File Input (Hidden for Image Upload) -->
-            <input type="file" id="profileImageInput" style="display: none;" accept="image/*" onchange="uploadProfileImage(event)" />
 
             <!-- Settings Section -->
             <div class="settings-section" id="settings">
@@ -274,18 +319,24 @@
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-        const storage = firebase.storage();
+
+        // Dark Mode Toggle
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Toggle Sidebar Submenu
+        function toggleSubmenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            submenu.classList.toggle('active');
+        }
 
         // Populate user details
         auth.onAuthStateChanged((user) => {
             if (user) {
                 document.getElementById("userNameDisplay").textContent = user.displayName || "User";
                 document.getElementById("userEmailDisplay").textContent = user.email;
-                document.getElementById("profilePicInitial").textContent = user.displayName ? user.displayName.charAt(0) : 'A';
-                document.getElementById("userName").textContent = user.displayName || "User"; // Update user name in header
-                if (user.photoURL) {
-                    document.getElementById("profilePicture").style.backgroundImage = `url(${user.photoURL})`;
-                }
+                document.getElementById("profilePicture").textContent = user.displayName ? user.displayName.charAt(0) : 'A';
             } else {
                 window.location.href = "login.html"; // Redirect to login if not logged in
             }
@@ -299,31 +350,6 @@
                 alert("Error logging out: " + error.message);
             });
         });
-
-        // Upload Profile Image
-        function uploadProfileImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const user = auth.currentUser;
-                const storageRef = storage.ref();
-                const profileImageRef = storageRef.child('profileImages/' + user.uid + '/' + file.name);
-
-                profileImageRef.put(file).then(() => {
-                    profileImageRef.getDownloadURL().then((url) => {
-                        user.updateProfile({
-                            photoURL: url
-                        }).then(() => {
-                            document.getElementById("profilePicture").style.backgroundImage = `url(${url})`;
-                        }).catch((error) => {
-                            alert("Error updating profile image: " + error.message);
-                        });
-                    });
-                }).catch((error) => {
-                    alert("Error uploading image: " + error.message);
-                });
-            }
-        }
     </script>
-
 </body>
 </html>
