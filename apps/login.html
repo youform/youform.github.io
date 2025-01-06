@@ -3,124 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login System</title>
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #add8e6, #87cefa);
             margin: 0;
-            font-family: 'Roboto', Arial, sans-serif;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #007BFF, #00BFFF);
-            color: white;
         }
-
         .form-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #212529;
-            max-width: 400px;
-            width: 90%;
+            background: #fff;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
+            width: 100%;
+            max-width: 400px;
         }
-
-        .form-container h2 {
+        h1 {
             margin-bottom: 20px;
+            color: #007BFF;
         }
-
-        input[type="email"], input[type="password"] {
+        input {
             width: calc(100% - 20px);
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 4px;
             font-size: 1rem;
         }
-
         button {
             width: calc(100% - 20px);
             padding: 12px;
             margin: 10px 0;
+            background-color: #007BFF;
+            color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 8px;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
-
-        /* Button Styles */
-        .login-button {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .login-button:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-        }
-
-        .nav-button {
-            background-color: #007BFF;
-            color: white;
-        }
-
-        .nav-button:hover {
+        button:hover {
             background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-
-        .google-button {
-            background-color: #DB4437;
-            color: white;
-        }
-
-        .google-button:hover {
-            background-color: #C23321;
-            transform: translateY(-2px);
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>Log In</h2>
+        <h1>Login</h1>
         <input type="email" id="logInEmail" placeholder="Email">
         <input type="password" id="logInPassword" placeholder="Password">
-        <button id="logInButton" class="login-button">Log In</button>
+        <button id="logInButton">Log In</button>
         <p>Or</p>
-        <button id="googleLogInButton" class="google-button">Log In with Google</button>
+        <button id="googleLogInButton">Log In with Google</button>
         <hr>
-        <button id="signUpPageButton" class="nav-button">Sign Up</button>
-        <button id="memberIDPageButton" class="nav-button">Member ID</button>
+        <button id="signUpPageButton">Go to Sign-Up</button>
+        <button id="memberIDPageButton">Go to Member ID</button>
     </div>
 
     <script>
-       <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0lJZh_PNhwj4e5ezKhxnpqGWY8KVqiLI",
+            authDomain: "my-login-app-ee7a5.firebaseapp.com",
+            projectId: "my-login-app-ee7a5",
+            storageBucket: "my-login-app-ee7a5.firebasestorage.app",
+            messagingSenderId: "85933607014",
+            appId: "1:85933607014:web:4f2122dac524fcdf2905a7"
+        };
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyD0lJZh_PNhwj4e5ezKhxnpqGWY8KVqiLI",
-    authDomain: "my-login-app-ee7a5.firebaseapp.com",
-    projectId: "my-login-app-ee7a5",
-    storageBucket: "my-login-app-ee7a5.firebasestorage.app",
-    messagingSenderId: "85933607014",
-    appId: "1:85933607014:web:4f2122dac524fcdf2905a7"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
 
         // Log-In Handler
         document.getElementById("logInButton").addEventListener("click", async () => {
@@ -139,7 +104,7 @@
         document.getElementById("googleLogInButton").addEventListener("click", async () => {
             const provider = new firebase.auth.GoogleAuthProvider();
             try {
-                await auth.signInWithPopup(provider);
+                const result = await auth.signInWithPopup(provider);
                 alert("Logged in with Google successfully!");
                 window.location.href = "account.html"; // Redirect to account page
             } catch (error) {
@@ -147,11 +112,12 @@
             }
         });
 
-        // Navigation Buttons
+        // Redirect to Sign-Up Page
         document.getElementById("signUpPageButton").addEventListener("click", () => {
             window.location.href = "sign-up.html";
         });
 
+        // Redirect to Member ID Page
         document.getElementById("memberIDPageButton").addEventListener("click", () => {
             window.location.href = "member-id.html";
         });
