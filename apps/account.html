@@ -276,9 +276,11 @@
         // Populate user details
         auth.onAuthStateChanged((user) => {
             if (user) {
+                // Update user details in the profile section
                 document.getElementById("userNameDisplay").textContent = user.displayName || "User";
                 document.getElementById("userEmailDisplay").textContent = user.email;
                 document.getElementById("profilePicture").textContent = user.displayName ? user.displayName.charAt(0) : 'A';
+                document.getElementById("userName").textContent = user.displayName || "User"; // Update user name in header
             } else {
                 window.location.href = "login.html"; // Redirect to login if not logged in
             }
