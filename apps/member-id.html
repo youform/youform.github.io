@@ -11,7 +11,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background: linear-gradient(to bottom, #ff7eb3, #ff758c);
+            background: linear-gradient(to bottom, #ADD8E6, #00BFFF); /* Light blue gradient */
             color: #fff;
             padding: 20px;
         }
@@ -46,6 +46,12 @@
         button:hover {
             background-color: #E91E63;
         }
+        #forgotButton {
+            background-color: #4CAF50; /* Green color for forgot button */
+        }
+        #forgotButton:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
     </style>
 </head>
 <body>
@@ -53,6 +59,7 @@
     <div class="form-container">
         <input type="text" id="youFormID" placeholder="Enter YourForm ID">
         <button id="accessButton">Access</button>
+        <button id="forgotButton" onclick="window.location.href='forgot.html'">I Forgot My ID</button> <!-- Forgot ID Button -->
     </div>
     <script>
         // Firebase Configuration
