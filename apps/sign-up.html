@@ -86,25 +86,12 @@
             background-color: rgba(255, 255, 255, 0.3);
             margin: 0 10px;
         }
-
-        .google-button {
-            background: white;
-            color: #555;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .google-button img {
-            margin-right: 10px;
-            height: 20px;
-        }
     </style>
 </head>
 <body>
     <div class="sign-up-container">
         <h1>Create Your Account</h1>
-        <form>
+        <form id="signup-form">
             <!-- Email Field -->
             <div class="form-group">
                 <label for="email">Email</label>
@@ -126,20 +113,14 @@
             <!-- Submit Button -->
             <button type="submit">Sign Up</button>
         </form>
-
-        <!-- Google Sign Up -->
-        <div class="divider">OR</div>
-        <button class="google-button" onclick="signUpWithGoogle()">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google">
-            Sign Up with Google
-        </button>
     </div>
 
     <script>
-        function signUpWithGoogle() {
-            alert("Google Sign-Up functionality goes here.");
-        }
+        // Redirect to login.html after sign-up
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            window.location.href = 'login.html'; // Redirect to the login page
+        });
     </script>
 </body>
 </html>
-
