@@ -7,46 +7,37 @@
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <style>
         body {
             margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1E1E2F, #4B4B6F);
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
         }
 
         .container {
-            width: 80%;
-            max-width: 1200px;
+            width: 90%;
+            max-width: 1100px;
             display: grid;
             grid-template-columns: 1fr 3fr;
-            gap: 30px;
-            background-color: #fff;
-            border-radius: 20px;
+            gap: 20px;
+            background-color: #27293D;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .container:hover {
-            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
         }
 
         /* Sidebar */
         .sidebar {
-            background-color: #212529;
-            color: #fff;
-            padding: 40px;
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
+            background: #1C1C2D;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -54,9 +45,10 @@
         }
 
         .sidebar h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 1.8rem;
+            font-weight: 700;
             margin-bottom: 30px;
+            color: #E1E1F1;
         }
 
         .sidebar ul {
@@ -66,140 +58,128 @@
         }
 
         .sidebar li {
-            width: 100%;
             margin-bottom: 20px;
             text-align: center;
         }
 
         .sidebar a {
+            display: block;
             text-decoration: none;
             font-size: 1.1rem;
-            color: #ddd;
+            color: #9B9BBE;
             font-weight: 600;
-            padding: 10px;
-            border-radius: 30px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .sidebar a:hover {
-            background-color: #FF4081;
-            color: white;
+            background-color: #4C4C6D;
+            color: #fff;
         }
 
         .sidebar .logout-btn {
-            background-color: #FF4081;
+            background-color: #FF5C93;
             color: white;
             font-weight: 700;
-            padding: 12px;
-            border-radius: 30px;
+            padding: 12px 20px;
+            border-radius: 8px;
             margin-top: 30px;
-            width: 100%;
-            text-align: center;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            text-align: center;
+            width: 100%;
         }
 
         .sidebar .logout-btn:hover {
-            background-color: #E91E63;
+            background-color: #FF3A73;
         }
 
         /* Content */
         .content {
-            padding: 30px;
-            background-color: #f4f7fa;
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
+            padding: 40px;
+            background-color: #1E1E2F;
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            gap: 20px;
         }
 
         .header {
-            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
         }
 
         .header h1 {
             font-size: 2rem;
-            font-weight: 600;
+            font-weight: 700;
+            color: #E1E1F1;
         }
 
         .header button {
-            background-color: #FF4081;
+            background-color: #FF5C93;
             color: white;
             font-weight: 700;
-            padding: 12px 20px;
-            border-radius: 30px;
+            padding: 10px 20px;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         .header button:hover {
-            background-color: #E91E63;
+            background-color: #FF3A73;
+        }
+
+        .profile-section, .settings-section {
+            background-color: #27293D;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .profile-section {
-            width: 100%;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
+            gap: 20px;
         }
 
         .profile-picture {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background-color: #ddd;
+            background-color: #4C4C6D;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: #444;
-            margin-right: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: 700;
+            transition: transform 0.3s;
         }
 
         .profile-picture:hover {
             transform: scale(1.1);
         }
 
-        .profile-details {
-            font-size: 1.1rem;
-        }
-
         .profile-details p {
-            margin: 10px 0;
-        }
-
-        .settings-section {
-            width: 100%;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            margin: 8px 0;
+            font-size: 1.1rem;
         }
 
         .settings-section h3 {
             font-size: 1.5rem;
             margin-bottom: 20px;
+            color: #E1E1F1;
         }
 
         .settings-section button {
             width: 100%;
             background-color: #007BFF;
             color: white;
-            padding: 15px;
-            border-radius: 30px;
+            padding: 14px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -215,8 +195,9 @@
             }
 
             .sidebar {
-                width: 100%;
-                padding: 30px;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 20px;
             }
 
             .content {
