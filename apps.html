@@ -16,11 +16,17 @@
             flex-direction: column;
             align-items: center;
         }
+        .apps-title {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
         .search-container {
             position: relative;
             width: 100%;
             max-width: 600px;
-            margin: 20px auto;
+            margin: 10px auto 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -52,11 +58,6 @@
             color: #bbb;
             font-size: 1.5rem;
         }
-        .apps-title {
-            font-size: 2rem;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
         .icon-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -79,6 +80,9 @@
 </head>
 <body>
 
+    <!-- Title -->
+    <div class="apps-title">Apps</div>
+
     <!-- Search Bar -->
     <div class="search-container">
         <span id="search-icon" class="material-symbols-outlined search-icon">search</span>
@@ -86,58 +90,56 @@
     </div>
 
     <!-- App Icons -->
-    <div class="apps-title">Apps</div>
-    
     <div class="icon-grid">
         <!-- First Row -->
         <div class="app-icon">
-            <img src="q/games.png" alt="Games">
+            <img src="web/games.png" alt="Games">
             <div class="app-label">Games</div>
         </div>
         <div class="app-icon">
-            <img src="q/calculator.png" alt="Calculator">
+            <img src="web/calculator.png" alt="Calculator">
             <div class="app-label">Calculator</div>
         </div>
         <div class="app-icon">
-            <img src="q/weather.png" alt="Weather">
+            <img src="web/weather.png" alt="Weather">
             <div class="app-label">Weather</div>
         </div>
         <div class="app-icon">
-            <img src="q/earth.png" alt="Earth">
+            <img src="web/earth.png" alt="Earth">
             <div class="app-label">Earth</div>
         </div>
         <div class="app-icon">
-            <img src="q/workspace.png" alt="Workspace">
+            <img src="web/workspace.png" alt="Workspace">
             <div class="app-label">Workspace</div>
         </div>
         <div class="app-icon">
-            <img src="q/settings.png" alt="Settings">
+            <img src="web/settings.png" alt="Settings">
             <div class="app-label">Settings</div>
         </div>
         
         <!-- Second Row -->
         <div class="app-icon">
-            <img src="q/tools.png" alt="Tools">
+            <img src="web/tools.png" alt="Tools">
             <div class="app-label">Tools</div>
         </div>
         <div class="app-icon">
-            <img src="q/folder.png" alt="Folder">
+            <img src="web/folder.png" alt="Folder">
             <div class="app-label">Folder</div>
         </div>
         <div class="app-icon" onclick="window.location.href='updates.html'">
-            <img src="q/finder.png" alt="Finder">
+            <img src="web/find.png" alt="Finder">
             <div class="app-label">Finder - Now Available</div>
         </div>
         <div class="app-icon" onclick="window.location.href='updates.html'">
-            <img src="q/developer.png" alt="Developer">
+            <img src="web/developer.png" alt="Developer">
             <div class="app-label">Developer - Now Being Re-Made</div>
         </div>
         <div class="app-icon">
-            <img src="q/yfai.png" alt="YFAI">
+            <img src="web/yfai.png" alt="YFAI">
             <div class="app-label">YFAI</div>
         </div>
         <div class="app-icon">
-            <img src="q/account.png" alt="Account">
+            <img src="web/account.png" alt="Account">
             <div class="app-label">Account</div>
         </div>
     </div>
