@@ -3,139 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login System</title>
+    <title>Login</title>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            padding: 20px;
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #007BFF, #00BFFF);
+            color: white;
         }
 
-        /* Main Container */
-        .main-container {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-
-        /* Advanced Login Section */
-        .login-container {
-            background: linear-gradient(120deg, #a2c2e7, #7f98b2);
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #212529;
+            max-width: 400px;
+            width: 90%;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
-            margin: auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
-        .login-container h2 {
+        .form-container h2 {
             margin-bottom: 20px;
-            font-size: 1.6rem;
-            font-weight: bold;
         }
 
-        .login-container input[type="text"], .login-container input[type="password"], .login-container input[type="email"] {
+        input[type="email"], input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
             width: calc(100% - 20px);
             padding: 12px;
             margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: box-shadow 0.3s;
-        }
-
-        .login-container input[type="text"]:focus, .login-container input[type="password"]:focus, .login-container input[type="email"]:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
-        }
-
-        .login-container button {
-            width: calc(100% - 20px);
-            padding: 12px;
-            margin: 10px auto;
-            background-color: #007BFF;
-            color: white;
             border: none;
             border-radius: 30px;
             font-size: 1rem;
             font-weight: bold;
-            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
             cursor: pointer;
-            display: inline-block;
-            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .login-container button:hover {
-            background-color: #0056b3;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        /* Button Styles */
+        .login-button {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .login-button:hover {
+            background-color: #218838;
             transform: translateY(-2px);
         }
 
-        .login-container button:active {
-            background-color: #003f7f;
-            transform: translateY(2px);
-        }
-
-        .divider {
-            margin: 20px 0;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .divider span {
-            padding: 0 10px;
-        }
-
-        /* Navigation Buttons Container */
-        .navigation-container {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .navigation-container button {
-            width: 80%;
-            padding: 12px;
-            background-color: #28a745;
+        .nav-button {
+            background-color: #007BFF;
             color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .navigation-container button:hover {
-            background-color: #218838;
+        .nav-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .google-button {
+            background-color: #DB4437;
+            color: white;
+        }
+
+        .google-button:hover {
+            background-color: #C23321;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Login Section -->
-        <div class="login-container">
-            <h2>Log In</h2>
-            <input type="email" id="logInEmail" placeholder="Email">
-            <input type="password" id="logInPassword" placeholder="Password">
-            <button id="logInButton">Log In</button>
-            <p class="divider"><span>OR</span></p>
-            <button id="googleLogInButton">Log In with Google</button>
-        </div>
-
-        <!-- Navigation Buttons -->
-        <div class="navigation-container">
-            <h2>Don't have an account?</h2>
-            <button onclick="window.location.href='sign-up.html'">Sign Up</button>
-            <h2>Already have a member ID?</h2>
-            <button onclick="window.location.href='member-id.html'">Enter Member ID</button>
-        </div>
+    <div class="form-container">
+        <h2>Log In</h2>
+        <input type="email" id="logInEmail" placeholder="Email">
+        <input type="password" id="logInPassword" placeholder="Password">
+        <button id="logInButton" class="login-button">Log In</button>
+        <p>Or</p>
+        <button id="googleLogInButton" class="google-button">Log In with Google</button>
+        <hr>
+        <button id="signUpPageButton" class="nav-button">Sign Up</button>
+        <button id="memberIDPageButton" class="nav-button">Member ID</button>
     </div>
 
     <script>
@@ -160,6 +123,7 @@
             try {
                 await auth.signInWithEmailAndPassword(email, password);
                 alert("Logged in successfully!");
+                window.location.href = "account.html"; // Redirect to account page
             } catch (error) {
                 alert(error.message);
             }
@@ -169,11 +133,21 @@
         document.getElementById("googleLogInButton").addEventListener("click", async () => {
             const provider = new firebase.auth.GoogleAuthProvider();
             try {
-                const result = await auth.signInWithPopup(provider);
+                await auth.signInWithPopup(provider);
                 alert("Logged in with Google successfully!");
+                window.location.href = "account.html"; // Redirect to account page
             } catch (error) {
                 alert(error.message);
             }
+        });
+
+        // Navigation Buttons
+        document.getElementById("signUpPageButton").addEventListener("click", () => {
+            window.location.href = "sign-up.html";
+        });
+
+        document.getElementById("memberIDPageButton").addEventListener("click", () => {
+            window.location.href = "member-id.html";
         });
     </script>
 </body>
