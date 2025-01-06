@@ -87,19 +87,6 @@
             margin: 0 10px;
         }
 
-        .google-button {
-            background: white;
-            color: #555;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .google-button img {
-            margin-right: 10px;
-            height: 20px;
-        }
-
         .access-info {
             background: rgba(0, 0, 0, 0.2);
             padding: 15px;
@@ -117,7 +104,7 @@
 <body>
     <div class="member-container">
         <h1>Member Access</h1>
-        <form>
+        <form id="login-form">
             <!-- YouForm ID Field -->
             <div class="form-group">
                 <label for="youform-id">Your YouForm ID</label>
@@ -139,20 +126,14 @@
             <p>Don’t have a YouForm ID? <a href="sign-up.html" style="color: #ffc107;">Sign up here</a></p>
             <p>Forgot your ID? <span>Contact Support</span></p>
         </div>
-
-        <!-- Google Sign-In -->
-        <div class="divider">OR</div>
-        <button class="google-button" onclick="logInWithGoogle()">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google">
-            Sign In with Google
-        </button>
     </div>
 
     <script>
-        function logInWithGoogle() {
-            alert("Google Login functionality goes here.");
-        }
+        // Redirect to members.html after login
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            window.location.href = 'members.html'; // Redirect to the members page
+        });
     </script>
 </body>
 </html>
-
