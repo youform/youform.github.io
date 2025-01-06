@@ -4,116 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(120deg, #007BFF, #6610f2);
-            color: white;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .sign-up-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
+            font-family: Arial, sans-serif;
             text-align: center;
+            background: linear-gradient(to bottom, #7fdbff, #0074d9);
+            color: #fff;
+            padding: 20px;
         }
-
-        h1 {
-            margin-bottom: 20px;
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            text-align: left;
-            font-weight: bold;
-        }
-
         input {
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
-
-        input:focus {
-            outline: none;
-            box-shadow: 0 0 5px #007BFF;
-        }
-
         button {
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 12px;
-            border: none;
-            border-radius: 8px;
+            margin: 10px auto;
             background-color: #007BFF;
             color: white;
+            border: none;
+            border-radius: 30px;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
-
         button:hover {
             background-color: #0056b3;
-        }
-
-        .divider {
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background-color: rgba(255, 255, 255, 0.3);
-            margin: 0 10px;
         }
     </style>
 </head>
 <body>
-    <div class="sign-up-container">
-        <h1>Create Your Account</h1>
-        <form id="signup-form">
-            <!-- Email Field -->
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
-            </div>
-
-            <!-- Password Field -->
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Create a password" required>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit">Sign Up</button>
-        </form>
+    <h1>Sign Up</h1>
+    <div class="form-container">
+        <input type="email" id="signUpEmail" placeholder="Enter your email">
+        <input type="password" id="signUpPassword" placeholder="Create a password">
+        <button id="signUpButton">Sign Up</button>
+        <p>Or</p>
+        <button id="googleSignUpButton">Sign Up with Google</button>
     </div>
-
     <script>
-        // Redirect to login.html after sign-up
-        document.getElementById('signup-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            window.location.href = 'login.html'; // Redirect to the login page
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0lJZh_PNhwj4e5ezKhxnpqGWY8KVqiLI",
+            authDomain: "my-login-app-ee7a5.firebaseapp.com",
+            projectId: "my-login-app-ee7a5",
+            storageBucket: "my-login-app-ee7a5.firebasestorage.app",
+            messagingSenderId: "85933607014",
+            appId: "1:85933607014:web:4f2122dac524fcdf2905a7"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Sign-Up Button
+        document.getElementById("signUpButton").addEventListener("click", async () => {
+            const email = document.getElementById("signUpEmail").value;
+            const password = document.getElementById("signUpPassword").value;
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                await db.collection("users").doc(user.uid).set({
+                    email: user.email,
+                    youFormID: `YF-${Date.now()}`,
+                    createdAt: new Date()
+                });
+                alert("Account created successfully!");
+                window.location.href = "login.html"; // Redirect to login page
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+
+        // Google Sign-Up Button
+        document.getElementById("googleSignUpButton").addEventListener("click", async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            try {
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+
+                const userRef = db.collection("users").doc(user.uid);
+                const doc = await userRef.get();
+                if (!doc.exists) {
+                    await userRef.set({
+                        email: user.email,
+                        youFormID: `YF-${Date.now()}`,
+                        createdAt: new Date()
+                    });
+                }
+                alert("Google sign-up successful!");
+                window.location.href = "login.html"; // Redirect to login page
+            } catch (error) {
+                alert(error.message);
+            }
         });
     </script>
 </body>
