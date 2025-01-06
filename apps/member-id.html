@@ -3,136 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Access</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Member Login</title>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(120deg, #28a745, #17a2b8);
-            color: white;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .member-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 500px;
+            font-family: Arial, sans-serif;
             text-align: center;
+            background: linear-gradient(to bottom, #ff7eb3, #ff758c);
+            color: #fff;
+            padding: 20px;
         }
-
-        h1 {
-            margin-bottom: 20px;
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            text-align: left;
-            font-weight: bold;
-        }
-
         input {
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
-
-        input:focus {
-            outline: none;
-            box-shadow: 0 0 5px #28a745;
-        }
-
         button {
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background-color: #28a745;
+            margin: 10px auto;
+            background-color: #FF4081;
             color: white;
+            border: none;
+            border-radius: 30px;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
-
         button:hover {
-            background-color: #1e7e34;
-        }
-
-        .divider {
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background-color: rgba(255, 255, 255, 0.3);
-            margin: 0 10px;
-        }
-
-        .access-info {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-size: 0.9rem;
-        }
-
-        .access-info span {
-            font-weight: bold;
-            color: #ffc107;
+            background-color: #E91E63;
         }
     </style>
 </head>
 <body>
-    <div class="member-container">
-        <h1>Member Access</h1>
-        <form id="login-form">
-            <!-- YouForm ID Field -->
-            <div class="form-group">
-                <label for="youform-id">Your YouForm ID</label>
-                <input type="text" id="youform-id" placeholder="Enter your YouForm ID" required>
-            </div>
-
-            <!-- Password Field -->
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit">Access</button>
-        </form>
-
-        <!-- Access Information -->
-        <div class="access-info">
-            <p>Don’t have a YouForm ID? <a href="sign-up.html" style="color: #ffc107;">Sign up here</a></p>
-            <p>Forgot your ID? <span>Contact Support</span></p>
-        </div>
+    <h1>Member Access</h1>
+    <div class="form-container">
+        <input type="text" id="youFormID" placeholder="Enter YourForm ID">
+        <button id="accessButton">Access</button>
     </div>
-
     <script>
-        // Redirect to members.html after login
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            window.location.href = 'members.html'; // Redirect to the members page
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0lJZh_PNhwj4e5ezKhxnpqGWY8KVqiLI",
+            authDomain: "my-login-app-ee7a5.firebaseapp.com",
+            projectId: "my-login-app-ee7a5",
+            storageBucket: "my-login-app-ee7a5.firebasestorage.app",
+            messagingSenderId: "85933607014",
+            appId: "1:85933607014:web:4f2122dac524fcdf2905a7"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Access Button
+        document.getElementById("accessButton").addEventListener("click", async () => {
+            const youFormID = document.getElementById("youFormID").value;
+            try {
+                const querySnapshot = await db.collection("users").where("youFormID", "==", youFormID).get();
+                if (!querySnapshot.empty) {
+                    alert("Access granted!");
+                    window.location.href = "account.html"; // Redirect to account page
+                } else {
+                    alert("Invalid YouForm ID.");
+                }
+            } catch (error) {
+                alert(error.message);
+            }
         });
     </script>
 </body>
