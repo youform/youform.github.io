@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
+    <title>YF - Settings</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -138,6 +138,12 @@
             left: 22px;
         }
 
+        .trust-device-message {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: #A0A1B4;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -155,7 +161,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> <a href="dashboard.html" style="text-decoration: none; color: inherit;">Dashboard</a></div>
+        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> <a href="yfmembers.html" style="text-decoration: none; color: inherit;">Dashboard</a></div>
         <div class="menu-item"><i class="fas fa-user"></i> <a href="yfaccount.html" style="text-decoration: none; color: inherit;">Account</a></div>
         <div class="menu-item active"><i class="fas fa-cogs"></i> <a href="yfsettings.html" style="text-decoration: none; color: inherit;">Settings</a></div>
         <div class="menu-item"><i class="fas fa-bell"></i> <a href="yfupdates.html" style="text-decoration: none; color: inherit;">Updates</a></div>
@@ -172,7 +178,7 @@
                     <label for="trust-device">Trust this device</label>
                     <input type="checkbox" id="trust-device" />
                 </div>
-                <p>Use this device for multi-authentication, secure events, and as a recovery method.</p>
+                <p class="trust-device-message" id="trust-device-message"></p>
             </div>
         </div>
     </div>
@@ -185,6 +191,36 @@
             // Redirect to login page if no user is logged in
             window.location.href = 'login.html';
         }
+
+        // Update message based on the checkbox state
+        const trustDeviceCheckbox = document.getElementById('trust-device');
+        const trustDeviceMessage = document.getElementById('trust-device-message');
+
+        // Check the saved setting for the logged-in user
+        if (loggedInUser && loggedInUser.settings && loggedInUser.settings.trustDevice) {
+            trustDeviceCheckbox.checked = loggedInUser.settings.trustDevice;
+            if (trustDeviceCheckbox.checked) {
+                trustDeviceMessage.textContent = 'This device will be used as a way to recover your ID.';
+            } else {
+                trustDeviceMessage.textContent = '';
+            }
+        }
+
+        // Listen for changes on the checkbox
+        trustDeviceCheckbox.addEventListener('change', function() {
+            if (trustDeviceCheckbox.checked) {
+                trustDeviceMessage.textContent = 'This device will be used as a way to recover your ID.';
+            } else {
+                trustDeviceMessage.textContent = '';
+            }
+
+            // Save the setting for the logged-in user
+            if (loggedInUser) {
+                loggedInUser.settings = loggedInUser.settings || {};
+                loggedInUser.settings.trustDevice = trustDeviceCheckbox.checked;
+                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+            }
+        });
 
         // Log out functionality
         document.getElementById('logout').addEventListener('click', function() {
