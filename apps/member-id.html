@@ -4,156 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background-color: #121212;
             color: #E1E1F1;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            margin: 0;
         }
 
         .login-container {
-            background-color: #1E1E2E;
+            background-color: #1C1C2D;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
-            width: 100%;
-            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
             text-align: center;
-            animation: fadeIn 0.8s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            width: 350px;
         }
 
         .login-container h1 {
-            font-size: 2rem;
-            font-weight: 600;
+            font-size: 1.8rem;
             margin-bottom: 20px;
-            color: #fff;
-        }
-
-        .login-container form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            color: #FF5C93;
         }
 
         .login-container input {
-            padding: 12px;
-            background-color: #2A2A3D;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
             border: none;
-            color: #E1E1F1;
             border-radius: 8px;
             font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .login-container input:focus {
-            outline: none;
-            border: 2px solid #6a11cb;
-            background-color: #32324A;
+            color: #E1E1F1;
+            background-color: #2A2A3D;
         }
 
         .login-container button {
-            padding: 12px;
-            background-color: #6a11cb;
+            width: 100%;
+            padding: 10px;
+            background-color: #FF5C93;
             color: white;
+            font-size: 1rem;
+            font-weight: 600;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
 
         .login-container button:hover {
-            background-color: #2575fc;
+            background-color: #E14E78;
         }
 
-        .login-container .contact-support {
-            margin-top: 10px;
+        .login-container .support-link {
+            display: block;
+            margin-top: 15px;
             font-size: 0.9rem;
-        }
-
-        .login-container .contact-support a {
-            color: #6a11cb;
+            color: #A0A1B4;
             text-decoration: none;
-            font-weight: 600;
         }
 
-        .login-container .contact-support a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
+        .login-container .error-message {
             color: #FF5C93;
             font-size: 0.9rem;
-            margin-top: -10px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h1>Member Login</h1>
-        <form id="loginForm">
-            <input type="text" id="pinCode" placeholder="Enter PIN Code" required>
-            <input type="password" id="password" placeholder="Enter Password" required>
-            <button type="submit">Login</button>
-        </form>
+        <input type="text" id="pinInput" placeholder="Enter PIN" maxlength="4">
+        <input type="password" id="passwordInput" placeholder="Enter Password">
+        <button onclick="login()">Login</button>
+        <a href="support.html" class="support-link">Contact Support</a>
         <div id="errorMessage" class="error-message"></div>
-        <p class="contact-support">
-            Need help? <a href="mailto:support@example.com">Contact Support</a>
-        </p>
     </div>
 
     <script>
-        const validCredentials = {
+        // Define valid user credentials
+        const validUsers = {
             "8944": "Christian",
             "6944": "dakirbrulz",
             "0944": "jonklerlol121",
             "8089": "iluvlife121"
         };
 
-        const loginForm = document.getElementById('loginForm');
-        const pinCodeInput = document.getElementById('pinCode');
-        const passwordInput = document.getElementById('password');
-        const errorMessage = document.getElementById('errorMessage');
+        function login() {
+            const pin = document.getElementById("pinInput").value.trim();
+            const password = document.getElementById("passwordInput").value.trim();
+            const errorMessage = document.getElementById("errorMessage");
 
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const pin = pinCodeInput.value.trim();
-            const password = passwordInput.value.trim();
-
-            if (validCredentials[pin] && validCredentials[pin] === password) {
-                // Redirect to the members dashboard
-                window.location.href = "yfmembers.html"; // Updated to yfmembers.html
+            if (validUsers[pin] && validUsers[pin] === password) {
+                // Redirect to dashboard with credentials
+                window.location.href = `yfmembers.html?pin=${pin}&password=${password}`;
             } else {
-                // Display error message
+                // Show error message if credentials are invalid
                 errorMessage.textContent = "Invalid PIN or Password. Please try again.";
             }
-        });
+        }
     </script>
 </body>
 </html>
