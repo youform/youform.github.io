@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Dashboard</title>
+    <title>Member Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -15,266 +15,145 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #121212;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: #E1E1F1;
             display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background-color: #1C1C2D;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s ease;
-        }
-
-        .sidebar .logo {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #FF5C93;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .sidebar .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            border-radius: 8px;
-            color: #A0A1B4;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .sidebar .menu-item i {
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
-
-        .sidebar .menu-item:hover {
-            background-color: #2A2A3D;
-        }
-
-        .sidebar .menu-item.active {
-            background-color: #FF5C93;
-            color: white;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex-grow: 1;
+        .login-container {
+            background-color: #1E1E2E;
             padding: 40px;
-            overflow-y: auto;
-            transition: margin-left 0.3s ease;
+            border-radius: 15px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        .header h1 {
+        .login-container h1 {
             font-size: 2rem;
             font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
         }
 
-        .header .user-info {
+        .login-container form {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 15px;
         }
 
-        .header .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .profile-info {
-            margin-top: 20px;
-            background-color: #1E1E2E;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .profile-info h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .profile-info p {
-            font-size: 1rem;
-            color: #A0A1B4;
-            margin-top: 10px;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background-color: #1E1E2E;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            color: #E1E1F1;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .card .value {
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .card .progress-bar {
-            height: 8px;
+        .login-container input {
+            padding: 12px;
             background-color: #2A2A3D;
-            border-radius: 5px;
-            overflow: hidden;
+            border: none;
+            color: #E1E1F1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
-        .card .progress-bar .progress {
-            height: 100%;
-            background-color: #FF5C93;
-            width: 50%;
+        .login-container input:focus {
+            outline: none;
+            border: 2px solid #6a11cb;
+            background-color: #32324A;
         }
 
-        /* Button Styles */
-        .btn-primary {
-            background-color: #FF5C93;
+        .login-container button {
+            padding: 12px;
+            background-color: #6a11cb;
             color: white;
-            padding: 10px 20px;
+            border: none;
             border-radius: 8px;
             font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        .btn-primary:hover {
-            background-color: #FF357C;
+        .login-container button:hover {
+            background-color: #2575fc;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
-            }
+        .login-container .contact-support {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
 
-            .main-content {
-                padding: 30px;
-            }
+        .login-container .contact-support a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 600;
+        }
 
-            .cards {
-                grid-template-columns: 1fr;
-            }
+        .login-container .contact-support a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #FF5C93;
+            font-size: 0.9rem;
+            margin-top: -10px;
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="logo">Dashboard</div>
-        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
-        <div class="menu-item active"><i class="fas fa-user"></i> <a href="yfaccount.html">Account</a></div>
-        <div class="menu-item"><i class="fas fa-cogs"></i> Settings</div>
-        <div class="menu-item"><i class="fas fa-bell"></i> Updates</div>
-        <div class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</div>
-    </div>
-
-    <div class="main-content">
-        <div class="header">
-            <h1 id="greeting">Welcome</h1> <!-- Will change based on the pin code -->
-            <div class="user-info">
-                <img src="https://via.placeholder.com/40" alt="User Picture" id="profilePic">
-                <span id="userGreeting">Hi, Daniel</span> <!-- Dynamic user greeting based on PIN -->
-            </div>
-        </div>
-
-        <div class="cards">
-            <div class="card">
-                <h3>Storage Used</h3>
-                <div class="value">384MB / 1000MB</div>
-                <div class="progress-bar">
-                    <div class="progress"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>Devices</h3>
-                <div class="value">13 devices</div>
-                <p>Signed into your account</p>
-            </div>
-
-            <div class="card">
-                <h3>Security</h3>
-                <div class="value">0 issues</div>
-                <p>Your account is secure, compliant, and has no issues.</p>
-            </div>
-        </div>
+    <div class="login-container">
+        <h1>Member Login</h1>
+        <form id="loginForm">
+            <input type="text" id="pinCode" placeholder="Enter PIN Code" required>
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="errorMessage" class="error-message"></div>
+        <p class="contact-support">
+            Need help? <a href="mailto:support@example.com">Contact Support</a>
+        </p>
     </div>
 
     <script>
-        // Example: Toggle sidebar item selection
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                menuItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-            });
+        const validCredentials = {
+            "8944": "Christian",
+            "6944": "dakirbrulz",
+            "0944": "jonklerlol121",
+            "8089": "iluvlife121"
+        };
+
+        const loginForm = document.getElementById('loginForm');
+        const pinCodeInput = document.getElementById('pinCode');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const pin = pinCodeInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (validCredentials[pin] && validCredentials[pin] === password) {
+                // Redirect to the members dashboard
+                window.location.href = "yfmembers.html"; // Updated to yfmembers.html
+            } else {
+                // Display error message
+                errorMessage.textContent = "Invalid PIN or Password. Please try again.";
+            }
         });
-
-        // Pin Code logic for greeting and account info
-        const userGreeting = document.getElementById('userGreeting');
-        const userPin = "8944"; // Example PIN (this can be dynamically fetched based on the login)
-        const greeting = document.getElementById('greeting');
-        const accountInfo = document.getElementById('accountInfo');
-        const profilePic = document.getElementById('profilePic');
-
-        if (userPin === "8944") {
-            userGreeting.textContent = "Hi, Daniel";
-            greeting.textContent = "Welcome, Daniel!";
-            accountInfo.textContent = "Your account includes premium access to all features and services.";
-            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
-        } else if (userPin === "6944") {
-            userGreeting.textContent = "Hi, Dakirb";
-            greeting.textContent = "Welcome, Dakirb!";
-            accountInfo.textContent = "Your account includes access to basic services.";
-            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
-        } else if (userPin === "0944") {
-            userGreeting.textContent = "Hi, Oscar";
-            greeting.textContent = "Welcome, Oscar!";
-            accountInfo.textContent = "Your account includes limited access.";
-            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
-        } else if (userPin === "8089") {
-            userGreeting.textContent = "Hi, Harieth";
-            greeting.textContent = "Welcome, Harieth!";
-            accountInfo.textContent = "Your account includes access to all security features.";
-            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
-        } else {
-            userGreeting.textContent = "Invalid Pin";
-            greeting.textContent = "Error: Please log in again.";
-            accountInfo.textContent = "Invalid credentials. Please enter a valid pin.";
-            profilePic.src = "https://via.placeholder.com/40"; // Default image for error
-        }
     </script>
 </body>
 </html>
