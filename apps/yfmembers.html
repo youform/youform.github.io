@@ -48,6 +48,9 @@
             color: #A0A1B4;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            border: none;
+            background: none;
+            text-align: left;
         }
 
         .sidebar .menu-item i {
@@ -128,11 +131,21 @@
 <body>
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <div class="menu-item active"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
-        <div class="menu-item"><i class="fas fa-user"></i> Account</div>
-        <div class="menu-item"><i class="fas fa-cogs"></i> Settings</div>
-        <div class="menu-item"><i class="fas fa-bell"></i> Updates</div>
-        <div class="menu-item" id="logout"><i class="fas fa-sign-out-alt"></i> Log Out</div>
+        <button class="menu-item active" onclick="location.href='yfmembers.html'">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </button>
+        <button class="menu-item" onclick="location.href='yfaccount.html'">
+            <i class="fas fa-user"></i> Account
+        </button>
+        <button class="menu-item" onclick="location.href='yfsettings.html'">
+            <i class="fas fa-cogs"></i> Settings
+        </button>
+        <button class="menu-item" onclick="location.href='yfupdates.html'">
+            <i class="fas fa-bell"></i> Updates
+        </button>
+        <button class="menu-item" id="logout">
+            <i class="fas fa-sign-out-alt"></i> Log Out
+        </button>
     </div>
 
     <div class="main-content">
