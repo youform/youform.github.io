@@ -3,145 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Team Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
+        /* Sidebar Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #121212;
             color: #E1E1F1;
             display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
-            margin: 0;
         }
 
-        .login-container {
-            background-color: #1E1E2E;
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 400px;
+        .sidebar {
+            width: 250px;
+            background-color: #1C1C2D;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
         }
 
-        .login-container h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2rem;
+        .sidebar .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
             color: #FF5C93;
-        }
-
-        .login-container input {
-            width: 100%;
-            padding: 12px;
+            text-align: center;
             margin-bottom: 20px;
-            background-color: #2A2A3D;
-            border: 1px solid #333;
-            color: #E1E1F1;
-            border-radius: 8px;
-            font-size: 1rem;
         }
 
-        .login-container button {
-            width: 100%;
-            padding: 12px;
-            background-color: #FF5C93;
-            border: none;
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
             border-radius: 8px;
-            font-weight: 600;
+            color: #A0A1B4;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar .menu-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar .menu-item:hover {
+            background-color: #2A2A3D;
+        }
+
+        .sidebar .menu-item.active {
+            background-color: #FF5C93;
             color: white;
-            font-size: 1rem;
-            margin-bottom: 10px;
         }
 
-        .login-container button:hover {
-            background-color: #FF357C;
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            transition: margin-left 0.3s ease;
         }
 
-        .contact-support {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .contact-support a {
-            color: #FF5C93;
-            text-decoration: none;
-        }
-
-        .contact-support a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .alternative-actions {
+        .header {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .dashboard-section {
+            background-color: #1E1E2E;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form id="login-form">
-            <input type="text" id="pin" placeholder="Enter your PIN" required>
-            <input type="password" id="password" placeholder="Enter your password" required>
-            <button type="submit">Log In</button>
-        </form>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">Team Hub</div>
+        <div class="menu-item active" onclick="window.location.href='yfmembers.html'"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
+        <div class="menu-item" onclick="window.location.href='yfaccount.html'"><i class="fas fa-user"></i> Account</div>
+        <div class="menu-item" onclick="window.location.href='yfsettings.html'"><i class="fas fa-cogs"></i> Settings</div>
+        <div class="menu-item" onclick="window.location.href='yfupdates.html'"><i class="fas fa-bell"></i> Updates</div>
+        <div class="menu-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Log Out</div>
+    </div>
 
-        <div class="alternative-actions">
-            <button type="button" onclick="window.location.href='sign-up.html'">Sign Up</button>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome to Your Dashboard</h1>
+            <div class="user-info">
+                <img id="profile-pic" src="https://via.placeholder.com/40" alt="User Profile Picture">
+                <span id="username">Loading...</span>
+            </div>
         </div>
 
-        <div class="contact-support">
-            <p>Need help? <a href="mailto:support@yourwebsite.com">Contact Support</a></p>
+        <div class="dashboard-section">
+            <h3>Dashboard Overview</h3>
+            <p>Your dashboard is ready. Use the sidebar to navigate.</p>
         </div>
-
-        <div class="error-message" id="error-message"></div>
     </div>
 
     <script>
-        // Predefined user credentials
-        const users = {
-            '8944': { password: 'weirdo121', name: 'Weirdo', profilePic: 'https://via.placeholder.com/40' },
-            '6944': { password: 'dakirb121', name: 'Dakirb', profilePic: 'https://via.placeholder.com/40' },
-            '0944': { password: 'jonkler121', name: 'Oscar', profilePic: 'https://via.placeholder.com/40' },
-            '8089': { password: 'iluvlife121', name: 'Harieth', profilePic: 'https://via.placeholder.com/40' }
+        window.onload = function() {
+            const storedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+            if (!storedUser) {
+                // Redirect to login if no valid user is found
+                window.location.href = 'login.html';
+            } else {
+                // Display user info in the header
+                document.getElementById('username').textContent = `Welcome, ${storedUser.name}`;
+                document.getElementById('profile-pic').src = storedUser.profilePic;
+            }
         };
 
-        // Handle the login form submission
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const pin = document.getElementById('pin').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('error-message');
-
-            // Check if the PIN and password match the predefined credentials
-            if (users[pin] && users[pin].password === password) {
-                // Store the user data in localStorage for session persistence
-                localStorage.setItem('loggedInUser', JSON.stringify({
-                    name: users[pin].name,
-                    profilePic: users[pin].profilePic
-                }));
-
-                // Redirect to the dashboard after successful login
-                window.location.href = 'yfmembers.html';
-            } else {
-                // Display an error message if credentials are incorrect
-                errorMessage.textContent = 'Invalid PIN or password. Please try again.';
-            }
-        });
+        // Log out function
+        function logout() {
+            // Clear stored user data and redirect to login page
+            localStorage.removeItem('loggedInUser');
+            window.location.href = 'login.html';
+        }
     </script>
 </body>
 </html>
