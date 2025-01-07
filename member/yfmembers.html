@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Dashboard</title>
+    <title>Member Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -191,10 +191,10 @@
 
     <div class="main-content">
         <div class="header">
-            <h1>Welcome, User</h1>
+            <h1>Welcome, <span id="userName">User</span></h1>
             <div class="user-info">
                 <img src="https://via.placeholder.com/40" alt="User Picture">
-                <span>Hi Quack</span>
+                <span id="userGreeting">Hi, Guest</span>
             </div>
         </div>
 
@@ -227,6 +227,33 @@
     </div>
 
     <script>
+        // Function to display the appropriate greeting based on PIN code
+        function updateUserGreeting(pinCode) {
+            const userGreeting = document.getElementById('userGreeting');
+            const userName = document.getElementById('userName');
+            
+            let greeting = 'Hi, Guest';
+            if (pinCode === '8944') {
+                greeting = 'Hi, Daniel';
+                userName.innerText = 'Daniel';
+            } else if (pinCode === '6944') {
+                greeting = 'Hi, Dakirb';
+                userName.innerText = 'Dakirb';
+            } else if (pinCode === '0944') {
+                greeting = 'Hi, Oscar';
+                userName.innerText = 'Oscar';
+            } else if (pinCode === '8089') {
+                greeting = 'Hi, Harieth';
+                userName.innerText = 'Harieth';
+            }
+
+            userGreeting.innerText = greeting;
+        }
+
+        // Example: Simulating login with a PIN
+        const pinCode = '6944';  // Replace this with the actual logic for checking the PIN code
+        updateUserGreeting(pinCode);
+
         // Toggle switch functionality
         const toggleSwitch = document.getElementById('trustDeviceToggle');
         toggleSwitch.addEventListener('click', () => {
