@@ -6,21 +6,84 @@
     <title>Login</title>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1E90FF, #87CEEB);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .form-container {
+            background: white;
+            color: #333;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            width: 90%;
+        }
+        h2 {
+            color: #1E90FF;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: #1E90FF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .nav-links {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .nav-links a {
+            color: #1E90FF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-
-    <h2>Login</h2>
-
-    <form id="loginForm">
-        <input type="email" id="email" placeholder="Email" required><br>
-        <input type="password" id="password" placeholder="Password" required><br>
-        <button type="submit">Login</button>
-    </form>
-
-    <!-- Navigation Buttons -->
-    <p>Don't have an account? <a href="sign-up.html"><button>Sign Up</button></a></p>
-    <p>Already a member? <a href="member-id.html"><button>Member ID</button></a></p>
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+        <div class="nav-links">
+            <p>Don't have an account? <a href="sign-up.html">Sign Up</a></p>
+            <p>Already a member? <a href="member-id.html">Member ID</a></p>
+        </div>
+    </div>
 
     <script>
         const firebaseConfig = {
@@ -42,7 +105,7 @@
             const password = document.getElementById('password').value;
 
             auth.signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
+                .then(() => {
                     // Redirect to account page after successful login
                     window.location.href = "account.html";
                 })
@@ -51,6 +114,5 @@
                 });
         });
     </script>
-
 </body>
 </html>
