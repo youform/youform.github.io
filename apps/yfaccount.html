@@ -163,10 +163,10 @@
 <body>
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <a href="yfmembers.html" class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="yfaccount.html" class="menu-item active"><i class="fas fa-user"></i> Account</a>
-        <a href="yfsettings.html" class="menu-item"><i class="fas fa-cogs"></i> Settings</a>
-        <a href="yfupdates.html" class="menu-item"><i class="fas fa-bell"></i> Updates</a>
+        <a href="dashboard.html" class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="account.html" class="menu-item active"><i class="fas fa-user"></i> Account</a>
+        <a href="settings.html" class="menu-item"><i class="fas fa-cogs"></i> Settings</a>
+        <a href="updates.html" class="menu-item"><i class="fas fa-bell"></i> Updates</a>
         <a href="login.html" class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
     </div>
 
@@ -194,6 +194,39 @@
     </div>
 
     <script>
+        // Predefined user data (for demo purposes)
+        const users = {
+            "8944": { name: "Christian", password: "Christian", profilePic: "https://via.placeholder.com/120?text=Christian" },
+            "6944": { name: "Dakirbrulz", password: "dakirbrulz", profilePic: "https://via.placeholder.com/120?text=Dakirbrulz" },
+            "0944": { name: "Jonklerlol121", password: "jonklerlol121", profilePic: "https://via.placeholder.com/120?text=Jonklerlol121" },
+            "8089": { name: "Iluvlife121", password: "iluvlife121", profilePic: "https://via.placeholder.com/120?text=Iluvlife121" }
+        };
+
+        // Simulating user login
+        let loggedInUser = null;
+
+        // Authentication function to simulate user login
+        function authenticateUser(pin, password) {
+            if (users[pin] && users[pin].password === password) {
+                loggedInUser = users[pin];
+                updateUserProfile(loggedInUser);
+            } else {
+                alert("Invalid PIN or Password.");
+            }
+        }
+
+        // Function to update the profile information after login
+        function updateUserProfile(user) {
+            // Update profile picture and name
+            document.getElementById('header-profile-pic').src = user.profilePic;
+            document.getElementById('name').value = user.name;
+        }
+
+        // Example usage (For demonstration)
+        // In a real-world scenario, this would be part of a login form
+        authenticateUser("8944", "Christian");
+        
+        // Profile picture update handler
         function updateProfilePic(event) {
             const file = event.target.files[0];
             if (file) {
