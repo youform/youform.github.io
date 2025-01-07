@@ -3,14 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Dashboard</title>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <title>Advanced Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -19,246 +15,222 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(145deg, #232526, #414345);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Header */
-        header {
-            background: rgba(30, 30, 47, 0.9);
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            margin: 20px;
-        }
-
-        header .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #FF5C93;
-        }
-
-        header .nav-links a {
-            margin-left: 20px;
-            text-decoration: none;
+            background-color: #121212;
             color: #E1E1F1;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        header .nav-links a:hover {
-            color: #FF5C93;
-        }
-
-        /* Main Container */
-        .container {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 20px 40px;
-            gap: 20px;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        /* Sidebar */
         .sidebar {
-            width: 280px;
-            background: rgba(28, 28, 45, 0.9);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            width: 250px;
+            background-color: #1C1C2D;
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
         }
 
-        .sidebar .profile-card {
-            text-align: center;
-            padding: 20px;
-            background: rgba(39, 41, 61, 0.9);
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            width: 100%;
-        }
-
-        .sidebar .profile-picture {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: rgba(76, 76, 109, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #fff;
-            font-weight: 700;
-            margin: 0 auto 15px;
-        }
-
-        .sidebar h2 {
+        .sidebar .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #E1E1F1;
-        }
-
-        .sidebar p {
-            font-size: 1rem;
-            color: #A0A1B4;
-        }
-
-        .sidebar .logout-btn {
-            background-color: #FF5C93;
-            color: white;
-            font-weight: 700;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
             text-align: center;
-            transition: background-color 0.3s ease;
-        }
-
-        .sidebar .logout-btn:hover {
-            background-color: #FF3A73;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .main-content .section {
-            background: rgba(30, 30, 47, 0.9);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .main-content .section h3 {
-            font-size: 1.8rem;
-            color: #E1E1F1;
+            color: #FF5C93;
             margin-bottom: 20px;
         }
 
-        .main-content .section p {
-            margin: 10px 0;
-            font-size: 1.1rem;
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #A0A1B4;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
         }
 
-        .main-content .section button {
-            margin-top: 10px;
-            background-color: #007BFF;
+        .sidebar .menu-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar .menu-item:hover {
+            background-color: #2A2A3D;
+        }
+
+        .sidebar .menu-item.active {
+            background-color: #FF5C93;
             color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+        }
+
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #1E1E2E;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #E1E1F1;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
             font-weight: 600;
         }
 
-        .main-content .section button:hover {
-            background-color: #0056b3;
+        .card .value {
+            font-size: 2rem;
+            font-weight: 700;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 10px;
-            background: rgba(30, 30, 47, 0.9);
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
-            margin: 20px;
+        .card .progress-bar {
+            height: 10px;
+            background-color: #2A2A3D;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .card .progress-bar .progress {
+            height: 100%;
+            background-color: #FF5C93;
+            width: 38%; /* Example percentage */
+        }
+
+        .toggle-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1E1E2E;
+            padding: 20px;
             border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
         }
 
-        footer p {
-            color: #A0A1B4;
-            font-size: 0.9rem;
+        .toggle-section h3 {
+            font-size: 1.2rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+            background-color: #2A2A3D;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .toggle-switch::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #FF5C93;
+            top: 50%;
+            left: 5px;
+            transform: translateY(-50%);
+            transition: left 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background-color: #FF5C93;
+        }
+
+        .toggle-switch.active::before {
+            left: 25px;
+            background-color: #FFF;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">Account Dashboard</div>
-        <nav class="nav-links">
-            <a href="login.html">Login</a> 
-            <a href="sign-up.html">Sign Up</a> 
-        </nav>
-    </header>
+    <div class="sidebar">
+        <div class="logo">Dashboard</div>
+        <div class="menu-item active"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
+        <div class="menu-item"><i class="fas fa-user"></i> Profile</div>
+        <div class="menu-item"><i class="fas fa-cog"></i> Settings</div>
+        <div class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</div>
+    </div>
 
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="profile-card">
-                <div class="profile-picture" id="profilePicture">A</div>
-                <h2 id="userName">John Doe</h2>
-                <p id="userEmail">johndoe@example.com</p>
-                <button class="logout-btn" id="logoutButton">Log Out</button>
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome, User</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="User Picture">
+                <span>Hi Quack</span>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <div class="section" id="profileSection">
-                <h3>Profile</h3>
-                <p><strong>Name:</strong> <span id="userNameDisplay">John Doe</span></p>
-                <p><strong>Email:</strong> <span id="userEmailDisplay">johndoe@example.com</span></p>
-                <button id="editProfileButton">Edit Profile</button>
+        <div class="cards">
+            <div class="card">
+                <h3>Storage Used</h3>
+                <div class="value">384MB / 1000MB</div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
             </div>
 
-            <div class="section" id="settingsSection">
-                <h3>Settings</h3>
-                <button>Change Password</button>
-                <button>Manage Privacy</button>
+            <div class="card">
+                <h3>Devices</h3>
+                <div class="value">13 devices</div>
+                <p>Signed into your ID</p>
             </div>
+
+            <div class="card">
+                <h3>Security</h3>
+                <div class="value">0 issues</div>
+                <p>Your ID is secure, compliant, and has no issues.</p>
+            </div>
+        </div>
+
+        <div class="toggle-section">
+            <h3>Trust this device</h3>
+            <div class="toggle-switch" id="trustDeviceToggle"></div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 YouForm Industries. All rights reserved.</p> 
-    </footer>
-
     <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyD0lJZh_PNhwj4e5ezKhxnpqGWY8KVqiLI",
-            authDomain: "my-login-app-ee7a5.firebaseapp.com",
-            projectId: "my-login-app-ee7a5",
-            storageBucket: "my-login-app-ee7a5.appspot.com",
-            messagingSenderId: "85933607014",
-            appId: "1:85933607014:web:4f2122dac524fcdf2905a7"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        // Populate user data
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                document.getElementById("userName").textContent = user.displayName || "User";
-                document.getElementById("userEmail").textContent = user.email;
-                document.getElementById("profilePicture").textContent = user.displayName ? user.displayName.charAt(0) : 'A';
-            } else {
-                window.location.href = "login.html"; 
-            }
-        });
-
-        // Log Out
-        document.getElementById("logoutButton").addEventListener("click", () => {
-            auth.signOut().then(() => {
-                window.location.href = "login.html"; 
-            }).catch((error) => {
-                alert("Error logging out: " + error.message);
-            });
+        // Toggle switch functionality
+        const toggleSwitch = document.getElementById('trustDeviceToggle');
+        toggleSwitch.addEventListener('click', () => {
+            toggleSwitch.classList.toggle('active');
         });
     </script>
 </body>
