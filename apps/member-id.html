@@ -1,210 +1,78 @@
+<!-- member-id.html (Login Page) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member ID Verification</title>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <title>Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        /* Global Styles */
         body {
-            margin: 0;
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1E1E2F, #4B4B6F);
-            color: #fff;
+            background-color: #121212;
+            color: #E1E1F1;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
         }
 
-        /* Container */
-        .container {
-            width: 90%;
-            max-width: 420px;
-            background: rgba(39, 41, 61, 0.9);
+        .login-container {
+            background-color: #1C1C2D;
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             text-align: center;
-            animation: fadeIn 1s ease;
+            width: 300px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .container h1 {
-            font-size: 2rem;
-            font-weight: 700;
+        .login-container h2 {
+            font-size: 1.6rem;
             margin-bottom: 20px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #A0A1B4;
+            background-color: #2A2A3D;
             color: #E1E1F1;
         }
 
-        .container p {
-            font-size: 1rem;
-            color: #9B9BBE;
-            margin-bottom: 30px;
-        }
-
-        /* Input Fields */
-        .input-field {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 20px;
-            border: none;
-            border-radius: 8px;
-            background-color: rgba(76, 76, 109, 0.8);
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .input-field:focus {
-            background-color: rgba(48, 48, 68, 0.8);
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.7);
-        }
-
-        /* Submit Button */
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: #007BFF;
-            color: #fff;
-            font-weight: 700;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .submit-btn:active {
-            background-color: #003d99;
-        }
-
-        /* Secondary Links */
-        .secondary-links {
-            margin-top: 20px;
-        }
-
-        .secondary-links a {
-            color: #FF5C93;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .secondary-links a:hover {
-            color: #FF3A73;
-        }
-
-        /* Contact Support Section */
-        .support-section {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: rgba(28, 28, 45, 0.8);
-            border-radius: 8px;
-        }
-
-        .support-section a {
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #FFF;
-            background-color: #FF5C93;
+        .login-container button {
             padding: 10px 20px;
             border-radius: 8px;
-            transition: background-color 0.3s ease;
+            background-color: #FF5C93;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
 
-        .support-section a:hover {
-            background-color: #FF3A73;
+        .login-container button:hover {
+            background-color: #FF357C;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Member ID Verification</h1>
-        <p>Enter your Member ID and PIN code to continue</p>
-        
-        <form id="memberIdForm">
-            <!-- PIN Input -->
-            <input 
-                type="text" 
-                id="pinCode" 
-                class="input-field" 
-                placeholder="Enter your 6-digit PIN code" 
-                maxlength="6" 
-                required 
-            />
-            
-            <!-- Password Input -->
-            <input 
-                type="password" 
-                id="password" 
-                class="input-field" 
-                placeholder="Enter your password" 
-                required 
-            />
-            
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Verify</button>
-        </form>
 
-        <!-- Links -->
-        <div class="secondary-links">
-            <p>
-                <a href="login.html">Back to Login</a> | 
-                <a href="sign-up.html">Create an Account</a>
-            </p>
-        </div>
-
-        <!-- Support Section -->
-        <div class="support-section">
-            <p>Need Help?</p>
-            <a href="support.html">Contact Support</a>
-        </div>
+    <div class="login-container">
+        <h2>Enter PIN to Login</h2>
+        <input type="password" id="pinCode" placeholder="Enter your PIN" maxlength="4" />
+        <button id="loginButton">Login</button>
     </div>
 
     <script>
-        // Predefined valid PIN codes and password
-        const validPinCodes = ['8944', '6944', '0944', '8089'];
-        const validPassword = '25youformin';
-
-        // Form Submit Handler
-        const form = document.getElementById('memberIdForm');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent normal form submission
-
+        document.getElementById('loginButton').addEventListener('click', () => {
             const pinCode = document.getElementById('pinCode').value;
-            const password = document.getElementById('password').value;
-
-            // Check if the pin code and password are valid
-            if (validPinCodes.includes(pinCode) && password === validPassword) {
-                // If valid, redirect to yfmembers.html
-                alert('Verification successful!');
-                window.location.href = "yfmembers.html";
-            } else {
-                // If invalid, show an error message
-                alert('Invalid PIN code or password.');
+            // Store the entered PIN in localStorage (you could use sessionStorage for a more session-based login)
+            if (pinCode) {
+                localStorage.setItem('userPin', pinCode);
+                window.location.href = 'dashboard.html'; // Redirect to the dashboard
             }
         });
     </script>
+
 </body>
 </html>
