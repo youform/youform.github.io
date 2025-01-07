@@ -187,7 +187,7 @@
                 <label for="name">Change Name</label>
                 <input type="text" name="name" id="name" placeholder="Enter your new name">
 
-                <button type="button" onclick="alert('Profile updated successfully!')">Save Changes</button>
+                <button type="button" onclick="saveProfile()">Save Changes</button>
                 <button type="button" onclick="window.location.href='members.html'">Go to Members</button>
             </form>
         </div>
@@ -210,6 +210,7 @@
             if (users[pin] && users[pin].password === password) {
                 loggedInUser = users[pin];
                 updateUserProfile(loggedInUser);
+                saveUserToLocalStorage(loggedInUser); // Save to localStorage
             } else {
                 alert("Invalid PIN or Password.");
             }
@@ -222,10 +223,20 @@
             document.getElementById('name').value = user.name;
         }
 
-        // Example usage (For demonstration)
-        // In a real-world scenario, this would be part of a login form
-        authenticateUser("8944", "Christian");
-        
+        // Save user data to localStorage
+        function saveUserToLocalStorage(user) {
+            localStorage.setItem('loggedInUser', JSON.stringify(user));
+        }
+
+        // Load user data from localStorage
+        function loadUserFromLocalStorage() {
+            const storedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (storedUser) {
+                loggedInUser = storedUser;
+                updateUserProfile(loggedInUser);
+            }
+        }
+
         // Profile picture update handler
         function updateProfilePic(event) {
             const file = event.target.files[0];
@@ -234,10 +245,27 @@
                 reader.onload = function(e) {
                     // Update the profile pictures
                     document.getElementById('header-profile-pic').src = e.target.result;
+                    loggedInUser.profilePic = e.target.result; // Update the logged in user object
+                    saveUserToLocalStorage(loggedInUser); // Save updated profile picture to localStorage
                 };
                 reader.readAsDataURL(file);
             }
         }
+
+        // Save changes (update name)
+        function saveProfile() {
+            const newName = document.getElementById('name').value;
+            if (newName && loggedInUser) {
+                loggedInUser.name = newName; // Update the logged in user object
+                saveUserToLocalStorage(loggedInUser); // Save updated name to localStorage
+                alert("Profile updated successfully!");
+            } else {
+                alert("Please enter a valid name.");
+            }
+        }
+
+        // Load the user data when the page is loaded
+        window.onload = loadUserFromLocalStorage;
     </script>
 </body>
 </html>
