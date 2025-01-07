@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         body {
@@ -19,95 +19,129 @@
         }
 
         .login-container {
-            background-color: #1C1C2D;
-            padding: 40px;
+            background-color: #1E1E2E;
+            padding: 30px 40px;
             border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            width: 350px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
         }
 
-        .login-container h1 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
             color: #FF5C93;
         }
 
         .login-container input {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
+            padding: 12px;
+            margin-bottom: 20px;
+            background-color: #2A2A3D;
+            border: 1px solid #333;
+            color: #E1E1F1;
             border-radius: 8px;
             font-size: 1rem;
-            color: #E1E1F1;
-            background-color: #2A2A3D;
         }
 
         .login-container button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #FF5C93;
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
             border: none;
             border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 10px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 10px;
         }
 
         .login-container button:hover {
-            background-color: #E14E78;
+            background-color: #FF357C;
         }
 
-        .login-container .support-link {
-            display: block;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #A0A1B4;
+        .contact-support {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .contact-support a {
+            color: #FF5C93;
             text-decoration: none;
         }
 
-        .login-container .error-message {
-            color: #FF5C93;
-            font-size: 0.9rem;
+        .contact-support a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
             margin-top: 10px;
         }
+
+        .alternative-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h1>Member Login</h1>
-        <input type="text" id="pinInput" placeholder="Enter PIN" maxlength="4">
-        <input type="password" id="passwordInput" placeholder="Enter Password">
-        <button onclick="login()">Login</button>
-        <a href="support.html" class="support-link">Contact Support</a>
-        <div id="errorMessage" class="error-message"></div>
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="text" id="pin" placeholder="Enter your PIN" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <button type="submit">Log In</button>
+        </form>
+
+        <div class="alternative-actions">
+            <button type="button" onclick="window.location.href='sign-up.html'">Sign Up</button>
+        </div>
+
+        <div class="contact-support">
+            <p>Need help? <a href="mailto:support@yourwebsite.com">Contact Support</a></p>
+        </div>
+
+        <div class="error-message" id="error-message"></div>
     </div>
 
     <script>
-        // Define valid user credentials
-        const validUsers = {
-            "8944": "Christian",
-            "6944": "dakirbrulz",
-            "0944": "jonklerlol121",
-            "8089": "iluvlife121"
+        // Predefined user credentials
+        const users = {
+            '8944': { password: 'Christian', name: 'User 1', profilePic: 'https://via.placeholder.com/40' },
+            '6944': { password: 'dakirbrulz', name: 'User 2', profilePic: 'https://via.placeholder.com/40' },
+            '0944': { password: 'jonklerlol121', name: 'User 3', profilePic: 'https://via.placeholder.com/40' },
+            '8089': { password: 'iluvlife121', name: 'User 4', profilePic: 'https://via.placeholder.com/40' }
         };
 
-        function login() {
-            const pin = document.getElementById("pinInput").value.trim();
-            const password = document.getElementById("passwordInput").value.trim();
-            const errorMessage = document.getElementById("errorMessage");
+        // Handle the login form submission
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-            if (validUsers[pin] && validUsers[pin] === password) {
-                // Redirect to dashboard with credentials
-                window.location.href = `yfmembers.html?pin=${pin}&password=${password}`;
+            const pin = document.getElementById('pin').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Check if the PIN and password match the predefined credentials
+            if (users[pin] && users[pin].password === password) {
+                // Store the user data in localStorage for session persistence
+                localStorage.setItem('loggedInUser', JSON.stringify({
+                    name: users[pin].name,
+                    profilePic: users[pin].profilePic
+                }));
+
+                // Redirect to the dashboard after successful login
+                window.location.href = 'yfdashboard.html';
             } else {
-                // Show error message if credentials are invalid
-                errorMessage.textContent = "Invalid PIN or Password. Please try again.";
+                // Display an error message if credentials are incorrect
+                errorMessage.textContent = 'Invalid PIN or password. Please try again.';
             }
-        }
+        });
     </script>
 </body>
 </html>
