@@ -98,6 +98,25 @@
             border-radius: 50%;
         }
 
+        .profile-info {
+            margin-top: 20px;
+            background-color: #1E1E2E;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-info h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .profile-info p {
+            font-size: 1rem;
+            color: #A0A1B4;
+            margin-top: 10px;
+        }
+
         .cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -183,11 +202,17 @@
 
     <div class="main-content">
         <div class="header">
-            <h1>Welcome, User</h1>
+            <h1 id="greeting">Welcome</h1> <!-- Will change based on the pin code -->
             <div class="user-info">
-                <img src="https://via.placeholder.com/40" alt="User Picture">
-                <span id="userGreeting">Hi, Daniel</span> <!-- This can be dynamically changed based on the PIN -->
+                <img src="https://via.placeholder.com/40" alt="User Picture" id="profilePic">
+                <span id="userGreeting">Hi, Daniel</span> <!-- Dynamic user greeting based on PIN -->
             </div>
+        </div>
+
+        <!-- Profile Information Section -->
+        <div class="profile-info">
+            <h3>Account Information</h3>
+            <p id="accountInfo">Loading...</p> <!-- Dynamic content based on member pin -->
         </div>
 
         <div class="cards">
@@ -228,18 +253,38 @@
             });
         });
 
-        // Change greeting based on PIN
+        // Pin Code logic for greeting and account info
         const userGreeting = document.getElementById('userGreeting');
         const userPin = "8944"; // Example PIN (this can be dynamically fetched based on the login)
+        const greeting = document.getElementById('greeting');
+        const accountInfo = document.getElementById('accountInfo');
+        const profilePic = document.getElementById('profilePic');
 
         if (userPin === "8944") {
             userGreeting.textContent = "Hi, Daniel";
+            greeting.textContent = "Welcome, Daniel!";
+            accountInfo.textContent = "Your account includes premium access to all features and services.";
+            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
         } else if (userPin === "6944") {
             userGreeting.textContent = "Hi, Dakirb";
+            greeting.textContent = "Welcome, Dakirb!";
+            accountInfo.textContent = "Your account includes access to basic services.";
+            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
         } else if (userPin === "0944") {
             userGreeting.textContent = "Hi, Oscar";
+            greeting.textContent = "Welcome, Oscar!";
+            accountInfo.textContent = "Your account includes limited access.";
+            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
         } else if (userPin === "8089") {
             userGreeting.textContent = "Hi, Harieth";
+            greeting.textContent = "Welcome, Harieth!";
+            accountInfo.textContent = "Your account includes access to all security features.";
+            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
+        } else {
+            userGreeting.textContent = "Invalid Pin";
+            greeting.textContent = "Error: Please log in again.";
+            accountInfo.textContent = "Invalid credentials. Please enter a valid pin.";
+            profilePic.src = "https://via.placeholder.com/40"; // Default image for error
         }
     </script>
 </body>
