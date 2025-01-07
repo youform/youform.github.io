@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Account</title>
+    <title>Account</title>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
@@ -11,299 +11,212 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         /* Global Styles */
-        body {
+        * {
             margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1E1E2F, #4B4B6F);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Container */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #232526, #414345);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(30, 30, 47, 0.9);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FF5C93;
+        }
+
+        header .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #E1E1F1;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        header .nav-links a:hover {
+            color: #FF5C93;
+        }
+
+        /* Main Container */
         .container {
-            width: 90%;
-            max-width: 1100px;
-            display: grid;
-            grid-template-columns: 1fr 3fr;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: stretch;
+            margin: 20px;
             gap: 20px;
-            background-color: rgba(39, 41, 61, 0.9);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
         }
 
         /* Sidebar */
         .sidebar {
+            width: 300px;
             background: rgba(28, 28, 45, 0.8);
-            padding: 40px 20px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
         }
 
-        .sidebar h3 {
-            font-size: 1.8rem;
+        .sidebar .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: rgba(76, 76, 109, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
             color: #E1E1F1;
         }
 
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            width: 100%;
-        }
-
-        .sidebar li {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .sidebar a {
-            display: block;
-            text-decoration: none;
-            font-size: 1.1rem;
-            color: #9B9BBE;
-            font-weight: 600;
-            padding: 12px;
-            border-radius: 8px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .sidebar a:hover {
-            background-color: rgba(76, 76, 109, 0.8);
-            color: #fff;
-        }
-
-        /* Sidebar Submenu */
-        .sidebar .submenu {
-            display: none;
-            padding-left: 20px;
-        }
-
-        .sidebar li.active .submenu {
-            display: block;
-        }
-
-        .sidebar .submenu a {
+        .sidebar p {
             font-size: 1rem;
             color: #A0A1B4;
+            margin-bottom: 30px;
         }
 
-        /* Logout Button */
         .sidebar .logout-btn {
             background-color: #FF5C93;
             color: white;
             font-weight: 700;
             padding: 12px 20px;
             border-radius: 8px;
-            margin-top: 30px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-align: center;
             width: 100%;
+            text-align: center;
+            transition: background-color 0.3s ease;
         }
 
         .sidebar .logout-btn:hover {
             background-color: #FF3A73;
         }
 
-        /* Content */
-        .content {
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            background: rgba(30, 30, 47, 0.9);
             padding: 40px;
-            background-color: rgba(30, 30, 47, 0.9);
-            border-radius: 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #E1E1F1;
-        }
-
-        .header button {
-            background-color: #FF5C93;
-            color: white;
-            font-weight: 700;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .header button:hover {
-            background-color: #FF3A73;
-        }
-
-        /* Profile Section */
-        .profile-section {
+        .section {
             background-color: rgba(39, 41, 61, 0.8);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 20px;
         }
 
-        .profile-picture {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: rgba(76, 76, 109, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #fff;
-            font-weight: 700;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-
-        .profile-picture:hover {
-            transform: scale(1.1);
-        }
-
-        .profile-details p {
-            margin: 8px 0;
-            font-size: 1.1rem;
-        }
-
-        /* Settings Section */
-        .settings-section h3 {
+        .section h3 {
             font-size: 1.5rem;
             margin-bottom: 20px;
             color: #E1E1F1;
         }
 
-        .settings-section button {
-            width: 100%;
+        .section p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .section button {
+            margin-top: 10px;
             background-color: #007BFF;
             color: white;
-            padding: 14px;
+            padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-weight: 600;
         }
 
-        .settings-section button:hover {
+        .section button:hover {
             background-color: #0056b3;
         }
 
-        /* Dark Mode Toggle */
-        .dark-mode-toggle {
-            margin-left: 10px;
+        /* Footer */
+        footer {
+            text-align: center;
             padding: 10px;
-            background-color: #FF5C93;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            background: rgba(30, 30, 47, 0.9);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
         }
 
-        .dark-mode-toggle:hover {
-            background-color: #FF3A73;
-        }
-
-        /* Responsive Layout */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                flex-direction: row;
-                justify-content: space-around;
-                padding: 20px;
-            }
-
-            .content {
-                padding: 20px;
-            }
+        footer p {
+            color: #A0A1B4;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="logo">My Account</div>
+        <nav class="nav-links">
+            <a href="apps/login.html">Login</a>
+            <a href="apps/sign-up.html">Sign Up</a>
+        </nav>
+    </header>
+
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <h3>My Account</h3>
-            <ul>
-                <li>
-                    <a href="javascript:void(0)" onclick="toggleSubmenu('profileSubmenu')">Profile</a>
-                    <ul class="submenu" id="profileSubmenu">
-                        <li><a href="#viewProfile">View Profile</a></li>
-                        <li><a href="#editProfile">Edit Profile</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" onclick="toggleSubmenu('settingsSubmenu')">Settings</a>
-                    <ul class="submenu" id="settingsSubmenu">
-                        <li><a href="#changePassword">Change Password</a></li>
-                        <li><a href="#notificationPreferences">Notification Preferences</a></li>
-                    </ul>
-                </li>
-                <li><a href="#privacy">Privacy</a></li>
-                <li><a href="#support">Support</a></li>
-            </ul>
+            <div class="profile-picture" id="profilePicture">A</div>
+            <h2 id="userName">John Doe</h2>
+            <p id="userEmail">johndoe@example.com</p>
             <button class="logout-btn" id="logoutButton">Log Out</button>
         </div>
 
-        <!-- Content -->
-        <div class="content">
-            <!-- Header -->
-            <div class="header">
-                <h1>Welcome, <span id="userName">User</span></h1>
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="section" id="profileSection">
+                <h3>Profile</h3>
+                <p><strong>Name:</strong> <span id="userNameDisplay">John Doe</span></p>
+                <p><strong>Email:</strong> <span id="userEmailDisplay">johndoe@example.com</span></p>
                 <button id="editProfileButton">Edit Profile</button>
-                <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
             </div>
 
-            <!-- Profile Section -->
-            <div class="profile-section" id="profile">
-                <div class="profile-picture" id="profilePicture">A</div>
-                <div class="profile-details">
-                    <p><strong>Name:</strong> <span id="userNameDisplay">John Doe</span></p>
-                    <p><strong>Email:</strong> <span id="userEmailDisplay">johndoe@example.com</span></p>
-                </div>
-            </div>
-
-            <!-- Settings Section -->
-            <div class="settings-section" id="settings">
-                <h3>Account Settings</h3>
-                <button id="changePasswordButton">Change Password</button>
-            </div>
-
-            <!-- Privacy Section -->
-            <div class="settings-section" id="privacy">
-                <h3>Privacy Settings</h3>
-                <button id="managePrivacyButton">Manage Privacy</button>
-            </div>
-
-            <!-- Support Section -->
-            <div class="settings-section" id="support">
-                <h3>Support</h3>
-                <button id="contactSupportButton">Contact Support</button>
+            <div class="section" id="settingsSection">
+                <h3>Settings</h3>
+                <button>Change Password</button>
+                <button>Manage Privacy</button>
             </div>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2025 My Account App. All rights reserved.</p>
+    </footer>
 
     <script>
         // Firebase Configuration
@@ -311,7 +224,7 @@
             apiKey: "AIzaSyD0lJZh_PNhwj4e5ezKhxnpqGWY8KVqiLI",
             authDomain: "my-login-app-ee7a5.firebaseapp.com",
             projectId: "my-login-app-ee7a5",
-            storageBucket: "my-login-app-ee7a5.firebasestorage.app",
+            storageBucket: "my-login-app-ee7a5.appspot.com",
             messagingSenderId: "85933607014",
             appId: "1:85933607014:web:4f2122dac524fcdf2905a7"
         };
@@ -320,32 +233,21 @@
         const app = firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Dark Mode Toggle
-        document.getElementById('darkModeToggle').addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-        });
-
-        // Toggle Sidebar Submenu
-        function toggleSubmenu(submenuId) {
-            const submenu = document.getElementById(submenuId);
-            submenu.classList.toggle('active');
-        }
-
-        // Populate user details
+        // Populate user data
         auth.onAuthStateChanged((user) => {
             if (user) {
-                document.getElementById("userNameDisplay").textContent = user.displayName || "User";
-                document.getElementById("userEmailDisplay").textContent = user.email;
+                document.getElementById("userName").textContent = user.displayName || "User";
+                document.getElementById("userEmail").textContent = user.email;
                 document.getElementById("profilePicture").textContent = user.displayName ? user.displayName.charAt(0) : 'A';
             } else {
-                window.location.href = "login.html"; // Redirect to login if not logged in
+                window.location.href = "apps/login.html";
             }
         });
 
         // Log Out
         document.getElementById("logoutButton").addEventListener("click", () => {
             auth.signOut().then(() => {
-                window.location.href = "login.html";
+                window.location.href = "apps/login.html";
             }).catch((error) => {
                 alert("Error logging out: " + error.message);
             });
