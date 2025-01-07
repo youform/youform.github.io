@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        /* Keep the same styles for sidebar and main content */
+        /* General and Sidebar Styles */
         * {
             margin: 0;
             padding: 0;
@@ -49,6 +49,7 @@
             color: #A0A1B4;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            text-decoration: none;
         }
 
         .sidebar .menu-item i {
@@ -69,7 +70,6 @@
             flex-grow: 1;
             padding: 40px;
             overflow-y: auto;
-            transition: margin-left 0.3s ease;
         }
 
         .header {
@@ -96,6 +96,7 @@
             border-radius: 50%;
         }
 
+        /* Profile Section */
         .profile-section {
             background-color: #1E1E2E;
             padding: 20px;
@@ -161,11 +162,11 @@
 <body>
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
-        <div class="menu-item active"><i class="fas fa-user"></i> Account</div>
-        <div class="menu-item"><i class="fas fa-cogs"></i> Settings</div>
-        <div class="menu-item"><i class="fas fa-bell"></i> Updates</div>
-        <div class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</div>
+        <a href="dashboard.html" class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="account.html" class="menu-item active"><i class="fas fa-user"></i> Account</a>
+        <a href="settings.html" class="menu-item"><i class="fas fa-cogs"></i> Settings</a>
+        <a href="updates.html" class="menu-item"><i class="fas fa-bell"></i> Updates</a>
+        <a href="login.html" class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
     </div>
 
     <div class="main-content">
