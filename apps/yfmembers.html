@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Dashboard</title>
+    <title>Member Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -22,34 +22,32 @@
             overflow: hidden;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 250px;
             background-color: #1C1C2D;
-            padding: 30px 20px;
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
         }
 
         .sidebar .logo {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #FF5C93;
             text-align: center;
+            color: #FF5C93;
             margin-bottom: 20px;
         }
 
         .sidebar .menu-item {
             display: flex;
             align-items: center;
-            padding: 12px 20px;
+            padding: 10px 15px;
             border-radius: 8px;
             color: #A0A1B4;
-            cursor: pointer;
             transition: background-color 0.3s ease;
+            cursor: pointer;
         }
 
         .sidebar .menu-item i {
@@ -57,21 +55,16 @@
             font-size: 1.2rem;
         }
 
-        .sidebar .menu-item:hover {
-            background-color: #2A2A3D;
-        }
-
+        .sidebar .menu-item:hover,
         .sidebar .menu-item.active {
             background-color: #FF5C93;
             color: white;
         }
 
-        /* Main Content */
         .main-content {
             flex-grow: 1;
-            padding: 40px;
+            padding: 30px;
             overflow-y: auto;
-            transition: margin-left 0.3s ease;
         }
 
         .header {
@@ -82,8 +75,7 @@
         }
 
         .header h1 {
-            font-size: 2rem;
-            font-weight: 600;
+            font-size: 1.8rem;
         }
 
         .header .user-info {
@@ -93,187 +85,103 @@
         }
 
         .header .user-info img {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
         }
 
-        .profile-info {
-            margin-top: 20px;
+        .welcome-section {
+            text-align: center;
+            margin: 40px 0;
             background-color: #1E1E2E;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
         }
 
-        .profile-info h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .profile-info p {
-            font-size: 1rem;
-            color: #A0A1B4;
-            margin-top: 10px;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background-color: #1E1E2E;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            color: #E1E1F1;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .card .value {
+        .welcome-section h2 {
             font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .card .progress-bar {
-            height: 8px;
-            background-color: #2A2A3D;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .card .progress-bar .progress {
-            height: 100%;
-            background-color: #FF5C93;
-            width: 50%;
-        }
-
-        /* Button Styles */
-        .btn-primary {
-            background-color: #FF5C93;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
             font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
         }
 
-        .btn-primary:hover {
-            background-color: #FF357C;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
-            }
-
-            .main-content {
-                padding: 30px;
-            }
-
-            .cards {
-                grid-template-columns: 1fr;
-            }
+        .welcome-section p {
+            font-size: 1.2rem;
+            color: #A0A1B4;
         }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <div class="logo">Dashboard</div>
-        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
-        <div class="menu-item active"><i class="fas fa-user"></i> <a href="yfaccount.html">Account</a></div>
-        <div class="menu-item"><i class="fas fa-cogs"></i> Settings</div>
-        <div class="menu-item"><i class="fas fa-bell"></i> Updates</div>
+        <div class="logo">YF Members</div>
+        <div class="menu-item active"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
+        <div class="menu-item" onclick="navigateToAccount()"><i class="fas fa-user"></i> Account</div>
+        <div class="menu-item"><i class="fas fa-cog"></i> Settings</div>
         <div class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</div>
     </div>
 
     <div class="main-content">
         <div class="header">
-            <h1 id="greeting">Welcome</h1> <!-- Will change based on the pin code -->
+            <h1>Member Dashboard</h1>
             <div class="user-info">
-                <img src="https://via.placeholder.com/40" alt="User Picture" id="profilePic">
-                <span id="userGreeting">Hi, Daniel</span> <!-- Dynamic user greeting based on PIN -->
+                <img id="profilePic" src="https://via.placeholder.com/50" alt="User Picture">
+                <span id="userName"></span>
             </div>
         </div>
 
-        <div class="cards">
-            <div class="card">
-                <h3>Storage Used</h3>
-                <div class="value">384MB / 1000MB</div>
-                <div class="progress-bar">
-                    <div class="progress"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>Devices</h3>
-                <div class="value">13 devices</div>
-                <p>Signed into your account</p>
-            </div>
-
-            <div class="card">
-                <h3>Security</h3>
-                <div class="value">0 issues</div>
-                <p>Your account is secure, compliant, and has no issues.</p>
-            </div>
+        <div class="welcome-section">
+            <h2 id="welcomeMessage"></h2>
+            <p id="memberInfo"></p>
         </div>
     </div>
 
     <script>
-        // Example: Toggle sidebar item selection
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                menuItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-            });
-        });
+        // Dummy user data
+        const users = {
+            "8944": {
+                name: "Christian",
+                password: "Christian",
+                profilePic: "https://via.placeholder.com/50/FF5733",
+                info: "Christian is a premium member with full access to all features."
+            },
+            "6944": {
+                name: "Dakirb",
+                password: "dakirbrulz",
+                profilePic: "https://via.placeholder.com/50/33FF57",
+                info: "Dakirb is a verified member enjoying the standard features."
+            },
+            "0944": {
+                name: "Jonklerlol",
+                password: "jonklerlol121",
+                profilePic: "https://via.placeholder.com/50/3357FF",
+                info: "Jonklerlol is a basic member exploring the platform."
+            },
+            "8089": {
+                name: "Harieth",
+                password: "iluvlife121",
+                profilePic: "https://via.placeholder.com/50/F3FF33",
+                info: "Harieth is a gold member with advanced privileges."
+            }
+        };
 
-        // Pin Code logic for greeting and account info
-        const userGreeting = document.getElementById('userGreeting');
-        const userPin = "8944"; // Example PIN (this can be dynamically fetched based on the login)
-        const greeting = document.getElementById('greeting');
-        const accountInfo = document.getElementById('accountInfo');
-        const profilePic = document.getElementById('profilePic');
+        // Simulate getting PIN from login
+        const urlParams = new URLSearchParams(window.location.search);
+        const pin = urlParams.get("pin");
 
-        if (userPin === "8944") {
-            userGreeting.textContent = "Hi, Daniel";
-            greeting.textContent = "Welcome, Daniel!";
-            accountInfo.textContent = "Your account includes premium access to all features and services.";
-            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
-        } else if (userPin === "6944") {
-            userGreeting.textContent = "Hi, Dakirb";
-            greeting.textContent = "Welcome, Dakirb!";
-            accountInfo.textContent = "Your account includes access to basic services.";
-            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
-        } else if (userPin === "0944") {
-            userGreeting.textContent = "Hi, Oscar";
-            greeting.textContent = "Welcome, Oscar!";
-            accountInfo.textContent = "Your account includes limited access.";
-            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
-        } else if (userPin === "8089") {
-            userGreeting.textContent = "Hi, Harieth";
-            greeting.textContent = "Welcome, Harieth!";
-            accountInfo.textContent = "Your account includes access to all security features.";
-            profilePic.src = "https://via.placeholder.com/40"; // Use actual profile picture URL
+        const user = users[pin];
+        if (user) {
+            document.getElementById("userName").textContent = `Hi, ${user.name}`;
+            document.getElementById("profilePic").src = user.profilePic;
+            document.getElementById("welcomeMessage").textContent = `Welcome, ${user.name}!`;
+            document.getElementById("memberInfo").textContent = user.info;
         } else {
-            userGreeting.textContent = "Invalid Pin";
-            greeting.textContent = "Error: Please log in again.";
-            accountInfo.textContent = "Invalid credentials. Please enter a valid pin.";
-            profilePic.src = "https://via.placeholder.com/40"; // Default image for error
+            document.getElementById("welcomeMessage").textContent = "Welcome, Guest!";
+            document.getElementById("memberInfo").textContent = "Please log in to see your member details.";
+        }
+
+        // Navigation handler
+        function navigateToAccount() {
+            window.location.href = "yfaccount.html?pin=" + pin;
         }
     </script>
 </body>
