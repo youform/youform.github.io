@@ -128,7 +128,7 @@
 
         .profile-section button {
             padding: 10px 20px;
-            background-color: #3B82F6; /* Matching button color with members page */
+            background-color: #3B82F6;
             color: white;
             border: none;
             border-radius: 8px;
@@ -174,23 +174,37 @@
         <div class="header">
             <h1>Account Settings</h1>
             <div class="user-info">
-                <img src="https://via.placeholder.com/40" alt="User Profile Picture">
+                <img id="header-profile-pic" src="https://via.placeholder.com/40" alt="User Profile Picture">
             </div>
         </div>
 
         <div class="profile-section">
             <h3>Update Your Profile</h3>
-            <form action="#" method="post">
+            <form>
                 <label for="profile-pic">Change Profile Picture</label>
-                <input type="file" name="profile-pic" id="profile-pic" accept="image/*">
+                <input type="file" name="profile-pic" id="profile-pic" accept="image/*" onchange="updateProfilePic(event)">
 
                 <label for="name">Change Name</label>
                 <input type="text" name="name" id="name" placeholder="Enter your new name">
 
-                <button type="submit">Save Changes</button>
+                <button type="button" onclick="alert('Profile updated successfully!')">Save Changes</button>
                 <button type="button" onclick="window.location.href='members.html'">Go to Members</button>
             </form>
         </div>
     </div>
+
+    <script>
+        function updateProfilePic(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the profile pictures
+                    document.getElementById('header-profile-pic').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 </body>
 </html>
