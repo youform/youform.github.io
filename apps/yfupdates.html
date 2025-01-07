@@ -1,1 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YF - Updates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #E1E1F1;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1C1C2D;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .sidebar .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FF5C93;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: #A0A1B4;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+            background: none;
+        }
+
+        .sidebar .menu-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar .menu-item:hover {
+            background-color: #2A2A3D;
+        }
+
+        .sidebar .menu-item.active {
+            background-color: #FF5C93;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">Dashboard</div>
+        <button class="menu-item active" onclick="window.location.href='dashboard.html'">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </button>
+        <button class="menu-item" onclick="window.location.href='yfaccount.html'">
+            <i class="fas fa-user"></i> Account
+        </button>
+        <button class="menu-item" onclick="window.location.href='yfsettings.html'">
+            <i class="fas fa-cogs"></i> Settings
+        </button>
+        <button class="menu-item" onclick="window.location.href='yfupdates.html'">
+            <i class="fas fa-bell"></i> Updates
+        </button>
+        <button class="menu-item" id="logout" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Log Out
+        </button>
+    </div>
+
+    <script>
+        // Log out functionality
+        function logout() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
 
