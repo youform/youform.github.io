@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YF - Updates</title>
+    <title>Updates</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -91,15 +91,9 @@
             margin-bottom: 20px;
         }
 
-        .updates-container .version-info,
-        .updates-container .website-change {
+        .updates-container .update-info {
             font-weight: 600;
             margin-top: 10px;
-        }
-
-        .updates-container .update-text {
-            font-size: 1rem;
-            color: #A0A1B4;
         }
 
         /* Responsive Design */
@@ -122,54 +116,36 @@
         <div class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
         <div class="menu-item"><i class="fas fa-user"></i> Account</div>
         <div class="menu-item"><i class="fas fa-cogs"></i> Settings</div>
-        <div class="menu-item"><i class="fas fa-bell"></i> Updates</div>
+        <div class="menu-item active"><i class="fas fa-bell"></i> Updates</div>
         <div class="menu-item" id="logout"><i class="fas fa-sign-out-alt"></i> Log Out</div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="updates-container">
-            <h1>Website Updates</h1>
-            <div id="updates"></div>
+            <h1>Updates</h1>
+            <p id="update-info">Loading updates...</p>
         </div>
     </div>
 
     <script>
-        // Get logged-in user data from localStorage
+        // Simulating a check for the logged-in user
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-        if (loggedInUser) {
-            // Determine what updates to show based on the logged-in user
-            let updatesContent = '';
-            
-            if (loggedInUser.name === 'Harieth') {
-                updatesContent = `
-                    <p class="update-text">As a privileged user, you have access to all the updates:</p>
-                    <div class="version-info">YouForm (v3.5) "Gravity" is now fully integrated.</div>
-                    <div class="website-change">All website frameworks are being upgraded to modern HTML5 standards.</div>
-                    <div class="new-feature">Our new feature allows for advanced customization of user profiles. Stay tuned for more!</div>
-                `;
-            } else if (loggedInUser.name === 'Dakirb' || loggedInUser.name === 'Weirdo') {
-                updatesContent = `
-                    <p class="update-text">You are receiving the following update about YouForm:</p>
-                    <div class="version-info">YouForm (v3.5) "Gravity" is the latest version released.</div>
-                `;
-            } else if (loggedInUser.name === 'Oscar') {
-                updatesContent = `
-                    <p class="update-text">YouForm is transitioning all our websites to HTML-based frameworks for better scalability and performance.</p>
-                `;
-            } else {
-                updatesContent = `
-                    <p class="update-text">No new updates are available for your account.</p>
-                `;
-            }
+        let updateInfoText = "No updates available.";
 
-            // Display the updates content
-            document.getElementById('updates').innerHTML = updatesContent;
-        } else {
-            // Redirect to login page if no valid user is found
-            window.location.href = 'login.html';
+        if (loggedInUser) {
+            if (loggedInUser.name === "Harieth") {
+                updateInfoText = "All updates are available!";
+            } else if (loggedInUser.name === "Dakirb" || loggedInUser.name === "Weirdo") {
+                updateInfoText = "YouForm v3.5 'Gravity' is the current version.";
+            } else if (loggedInUser.name === "Oscar") {
+                updateInfoText = "YouForm is currently going through a huge development process. We are now making all YF websites into HTML.";
+            }
         }
+
+        // Display the appropriate update info based on the logged-in user
+        document.getElementById('update-info').textContent = updateInfoText;
 
         // Log out functionality
         document.getElementById('logout').addEventListener('click', function() {
