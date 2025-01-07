@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YF - Settings</title>
+    <title>Settings</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -138,12 +138,6 @@
             left: 22px;
         }
 
-        .trust-device-message {
-            margin-top: 10px;
-            font-size: 1.1rem;
-            color: #A0A1B4;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -161,7 +155,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> <a href="yfmembers.html" style="text-decoration: none; color: inherit;">Dashboard</a></div>
+        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> <a href="dashboard.html" style="text-decoration: none; color: inherit;">Dashboard</a></div>
         <div class="menu-item"><i class="fas fa-user"></i> <a href="yfaccount.html" style="text-decoration: none; color: inherit;">Account</a></div>
         <div class="menu-item active"><i class="fas fa-cogs"></i> <a href="yfsettings.html" style="text-decoration: none; color: inherit;">Settings</a></div>
         <div class="menu-item"><i class="fas fa-bell"></i> <a href="yfupdates.html" style="text-decoration: none; color: inherit;">Updates</a></div>
@@ -178,7 +172,7 @@
                     <label for="trust-device">Trust this device</label>
                     <input type="checkbox" id="trust-device" />
                 </div>
-                <p class="trust-device-message" id="trust-device-message"></p>
+                <p id="trust-device-status">Use this device for multi-authentication, secure events, and as a recovery method.</p>
             </div>
         </div>
     </div>
@@ -192,34 +186,27 @@
             window.location.href = 'login.html';
         }
 
-        // Update message based on the checkbox state
+        // Update security settings based on user data
         const trustDeviceCheckbox = document.getElementById('trust-device');
-        const trustDeviceMessage = document.getElementById('trust-device-message');
+        const trustDeviceStatus = document.getElementById('trust-device-status');
 
-        // Check the saved setting for the logged-in user
-        if (loggedInUser && loggedInUser.settings && loggedInUser.settings.trustDevice) {
-            trustDeviceCheckbox.checked = loggedInUser.settings.trustDevice;
-            if (trustDeviceCheckbox.checked) {
-                trustDeviceMessage.textContent = 'This device will be used as a way to recover your ID.';
-            } else {
-                trustDeviceMessage.textContent = '';
-            }
+        // Check if the user has trusted the device previously
+        if (loggedInUser.trustedDevice) {
+            trustDeviceCheckbox.checked = true;
+            trustDeviceStatus.textContent = "This device will be used as a way to recover your ID.";
         }
 
-        // Listen for changes on the checkbox
+        // Update the trusted device status when the checkbox is clicked
         trustDeviceCheckbox.addEventListener('change', function() {
             if (trustDeviceCheckbox.checked) {
-                trustDeviceMessage.textContent = 'This device will be used as a way to recover your ID.';
+                loggedInUser.trustedDevice = true;
+                trustDeviceStatus.textContent = "This device will be used as a way to recover your ID.";
             } else {
-                trustDeviceMessage.textContent = '';
+                loggedInUser.trustedDevice = false;
+                trustDeviceStatus.textContent = "Use this device for multi-authentication, secure events, and as a recovery method.";
             }
-
-            // Save the setting for the logged-in user
-            if (loggedInUser) {
-                loggedInUser.settings = loggedInUser.settings || {};
-                loggedInUser.settings.trustDevice = trustDeviceCheckbox.checked;
-                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-            }
+            // Save updated user data to localStorage
+            localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
         });
 
         // Log out functionality
