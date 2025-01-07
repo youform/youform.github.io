@@ -3,63 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Login</title>
+    <title>Member ID</title>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
+        /* Global Styles */
         body {
+            margin: 0;
             font-family: 'Inter', sans-serif;
-            text-align: center;
-            background: linear-gradient(to bottom, #ADD8E6, #00BFFF); /* Light blue gradient */
+            background: linear-gradient(135deg, #1E1E2F, #4B4B6F);
             color: #fff;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
-        .form-container {
+
+        /* Container */
+        .container {
+            width: 90%;
             max-width: 400px;
-            margin: auto;
-            background: #fff;
-            color: #000;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(39, 41, 61, 0.9);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            text-align: center;
         }
-        input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+
+        .container h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #E1E1F1;
         }
-        button {
-            width: calc(100% - 20px);
-            padding: 12px;
-            margin: 10px auto;
-            background-color: #FF4081;
-            color: white;
-            border: none;
-            border-radius: 30px;
+
+        .container p {
             font-size: 1rem;
-            font-weight: bold;
+            color: #9B9BBE;
+            margin-bottom: 30px;
+        }
+
+        /* Input Fields */
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(76, 76, 109, 0.8);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        button:hover {
-            background-color: #E91E63;
+
+        .submit-btn:hover {
+            background-color: #0056b3;
         }
-        #forgotButton {
-            background-color: #4CAF50; /* Green color for forgot button */
+
+        /* Secondary Links */
+        .secondary-links {
+            margin-top: 20px;
         }
-        #forgotButton:hover {
-            background-color: #45a049; /* Darker green on hover */
+
+        .secondary-links a {
+            color: #FF5C93;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .secondary-links a:hover {
+            color: #FF3A73;
+        }
+
+        /* Contact Support Section */
+        .support-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(28, 28, 45, 0.8);
+            border-radius: 8px;
+        }
+
+        .support-section a {
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #FFF;
+            background-color: #FF5C93;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .support-section a:hover {
+            background-color: #FF3A73;
         }
     </style>
 </head>
 <body>
-    <h1>Member Access</h1>
-    <div class="form-container">
-        <input type="text" id="youFormID" placeholder="Enter YourForm ID">
-        <button id="accessButton">Access</button>
-        <button id="forgotButton" onclick="window.location.href='forgot.html'">I Forgot My ID</button> <!-- Forgot ID Button -->
+    <div class="container">
+        <h1>Member ID Verification</h1>
+        <p>Enter your Member ID and PIN code to continue</p>
+        
+        <form id="memberIdForm">
+            <!-- PIN Input -->
+            <input 
+                type="text" 
+                id="pinCode" 
+                class="input-field" 
+                placeholder="Enter your 6-digit PIN code" 
+                maxlength="6" 
+                required 
+            />
+            
+            <!-- Password Input -->
+            <input 
+                type="password" 
+                id="password" 
+                class="input-field" 
+                placeholder="Enter your password" 
+                required 
+            />
+            
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Verify</button>
+        </form>
+
+        <!-- Links -->
+        <div class="secondary-links">
+            <p>
+                <a href="apps/login.html">Back to Login</a> | 
+                <a href="apps/sign-up.html">Create an Account</a>
+            </p>
+        </div>
+
+        <!-- Support Section -->
+        <div class="support-section">
+            <p>Need Help?</p>
+            <a href="support.html">Contact Support</a>
+        </div>
     </div>
 
     <script>
@@ -68,29 +168,33 @@
             apiKey: "AIzaSyD0lJZh_PNhwj4e5ezKhxnpqGWY8KVqiLI",
             authDomain: "my-login-app-ee7a5.firebaseapp.com",
             projectId: "my-login-app-ee7a5",
-            storageBucket: "my-login-app-ee7a5.firebasestorage.app",
+            storageBucket: "my-login-app-ee7a5.appspot.com",
             messagingSenderId: "85933607014",
             appId: "1:85933607014:web:4f2122dac524fcdf2905a7"
         };
 
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        const auth = firebase.auth();
 
-        // Access Button
-        document.getElementById("accessButton").addEventListener("click", async () => {
-            const youFormID = document.getElementById("youFormID").value;
-            try {
-                const querySnapshot = await db.collection("users").where("youFormID", "==", youFormID).get();
-                if (!querySnapshot.empty) {
-                    alert("Access granted!");
-                    window.location.href = "account.html"; // Redirect to account page
-                } else {
-                    alert("Invalid YouForm ID.");
-                }
-            } catch (error) {
-                alert(error.message);
-            }
+        // Form Submit Handler
+        const form = document.getElementById('memberIdForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent normal form submission
+
+            const pinCode = document.getElementById('pinCode').value;
+            const password = document.getElementById('password').value;
+
+            // Firebase signInWithEmailAndPassword
+            auth.signInWithEmailAndPassword(pinCode + '@domain.com', password)
+                .then((userCredential) => {
+                    alert('Verification successful!');
+                    // Redirect to a protected page or dashboard
+                    window.location.href = "dashboard.html";
+                })
+                .catch((error) => {
+                    alert('Error: ' + error.message);
+                });
         });
     </script>
 </body>
