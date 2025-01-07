@@ -186,7 +186,7 @@
             <h1>Welcome, User</h1>
             <div class="user-info">
                 <img src="https://via.placeholder.com/40" alt="User Picture">
-                <span>Hi, Daniel</span> <!-- This can be dynamically changed based on the PIN -->
+                <span id="userGreeting">Hi, Daniel</span> <!-- This can be dynamically changed based on the PIN -->
             </div>
         </div>
 
@@ -227,6 +227,20 @@
                 item.classList.add('active');
             });
         });
+
+        // Change greeting based on PIN
+        const userGreeting = document.getElementById('userGreeting');
+        const userPin = "8944"; // Example PIN (this can be dynamically fetched based on the login)
+
+        if (userPin === "8944") {
+            userGreeting.textContent = "Hi, Daniel";
+        } else if (userPin === "6944") {
+            userGreeting.textContent = "Hi, Dakirb";
+        } else if (userPin === "0944") {
+            userGreeting.textContent = "Hi, Oscar";
+        } else if (userPin === "8089") {
+            userGreeting.textContent = "Hi, Harieth";
+        }
     </script>
 </body>
 </html>
