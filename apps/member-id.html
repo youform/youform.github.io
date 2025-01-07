@@ -1,4 +1,3 @@
-<!-- member-id.html (Login Page) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +28,7 @@
         .login-container h2 {
             font-size: 1.6rem;
             margin-bottom: 20px;
+            color: #FF5C93;
         }
 
         .login-container input {
@@ -48,10 +48,35 @@
             color: white;
             border: none;
             cursor: pointer;
+            margin: 10px 0;
+            width: 100%;
         }
 
         .login-container button:hover {
             background-color: #FF357C;
+        }
+
+        .login-container .footer {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .login-container .footer a {
+            color: #A0A1B4;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .login-container .footer a:hover {
+            color: #FF5C93;
+        }
+
+        .login-container .invalid-feedback {
+            color: #FF5C93;
+            font-size: 0.9rem;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -61,16 +86,41 @@
         <h2>Enter PIN to Login</h2>
         <input type="password" id="pinCode" placeholder="Enter your PIN" maxlength="4" />
         <button id="loginButton">Login</button>
+        
+        <div class="invalid-feedback" id="invalidFeedback" style="display: none;">
+            Invalid PIN, please try again.
+        </div>
+
+        <div class="footer">
+            <button id="signUpButton">Sign Up</button>
+            <a href="#" id="contactSupport">Contact Support</a>
+        </div>
     </div>
 
     <script>
+        // Function to validate the PIN and handle login
         document.getElementById('loginButton').addEventListener('click', () => {
             const pinCode = document.getElementById('pinCode').value;
-            // Store the entered PIN in localStorage (you could use sessionStorage for a more session-based login)
-            if (pinCode) {
+            const validPins = ['8944', '6944', '0944', '8089'];
+            
+            if (validPins.includes(pinCode)) {
+                // If PIN is valid, store the PIN in localStorage and redirect
                 localStorage.setItem('userPin', pinCode);
-                window.location.href = 'yfmembers.html'; // Redirect to the dashboard
+                window.location.href = 'dashboard.html'; // Redirect to the dashboard
+            } else {
+                // If PIN is invalid, show error feedback
+                document.getElementById('invalidFeedback').style.display = 'block';
             }
+        });
+
+        // Sign-up button (you can add further sign-up logic if necessary)
+        document.getElementById('signUpButton').addEventListener('click', () => {
+            window.location.href = 'sign-up.html'; // Redirect to the sign-up page
+        });
+
+        // Contact support link (you can change the URL to an actual support page)
+        document.getElementById('contactSupport').addEventListener('click', () => {
+            alert("Please contact support at support@example.com");
         });
     </script>
 
