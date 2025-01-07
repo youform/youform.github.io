@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Keep the same styles for sidebar and main content */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #E1E1F1;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1C1C2D;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .sidebar .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FF5C93;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: #A0A1B4;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar .menu-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar .menu-item:hover {
+            background-color: #2A2A3D;
+        }
+
+        .sidebar .menu-item.active {
+            background-color: #FF5C93;
+            color: white;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            transition: margin-left 0.3s ease;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .profile-section {
+            background-color: #1E1E2E;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .profile-section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .profile-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .profile-section input {
+            padding: 12px;
+            background-color: #2A2A3D;
+            border: 1px solid #333;
+            color: #E1E1F1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .profile-section button {
+            padding: 10px 20px;
+            background-color: #FF5C93;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .profile-section button:hover {
+            background-color: #FF357C;
+        }
+
+        .profile-section img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">Dashboard</div>
+        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
+        <div class="menu-item active"><i class="fas fa-user"></i> Account</div>
+        <div class="menu-item"><i class="fas fa-cogs"></i> Settings</div>
+        <div class="menu-item"><i class="fas fa-bell"></i> Updates</div>
+        <div class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Account Settings</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="User Profile Picture">
+            </div>
+        </div>
+
+        <div class="profile-section">
+            <h3>Update Your Profile</h3>
+            <form action="#" method="post">
+                <label for="profile-pic">Change Profile Picture</label>
+                <input type="file" name="profile-pic" id="profile-pic" accept="image/*">
+
+                <label for="name">Change Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter your new name">
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
