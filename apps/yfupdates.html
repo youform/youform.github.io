@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Updates</title>
+    <title>YF - Updates</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -129,18 +129,20 @@
     </div>
 
     <script>
-        // Simulating a check for the logged-in user
+        // Simulating a check for the logged-in user (retrieving PIN and password)
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
         let updateInfoText = "No updates available.";
 
         if (loggedInUser) {
+            // Check the user's details and adjust the update message
+            let versionInfo = "YouForm v3.5 'Gravity'"; // Default version info
             if (loggedInUser.name === "Harieth") {
                 updateInfoText = "All updates are available!";
             } else if (loggedInUser.name === "Dakirb" || loggedInUser.name === "Weirdo") {
                 updateInfoText = "YouForm v3.5 'Gravity' is the current version.";
             } else if (loggedInUser.name === "Oscar") {
-                updateInfoText = "YouForm is currently going through a huge development process. We are now making all YF websites into HTML.";
+                updateInfoText = "YouForm is changing all websites to HTML.";
             }
         }
 
