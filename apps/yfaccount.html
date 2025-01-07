@@ -128,16 +128,17 @@
 
         .profile-section button {
             padding: 10px 20px;
-            background-color: #FF5C93;
+            background-color: #3B82F6; /* Matching button color with members page */
             color: white;
             border: none;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .profile-section button:hover {
-            background-color: #FF357C;
+            background-color: #2563EB;
         }
 
         .profile-section img {
@@ -187,6 +188,7 @@
                 <input type="text" name="name" id="name" placeholder="Enter your new name">
 
                 <button type="submit">Save Changes</button>
+                <button type="button" onclick="window.location.href='members.html'">Go to Members</button>
             </form>
         </div>
     </div>
