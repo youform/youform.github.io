@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Dashboard</title>
+    <title>YFMembers</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -25,29 +25,30 @@
         .sidebar {
             width: 250px;
             background-color: #1C1C2D;
-            padding: 20px 10px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
         }
 
         .sidebar .logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            text-align: center;
             color: #FF5C93;
+            text-align: center;
             margin-bottom: 20px;
         }
 
         .sidebar .menu-item {
             display: flex;
             align-items: center;
-            padding: 10px 15px;
+            padding: 12px 20px;
             border-radius: 8px;
             color: #A0A1B4;
-            transition: background-color 0.3s ease;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
         }
 
         .sidebar .menu-item i {
@@ -55,7 +56,10 @@
             font-size: 1.2rem;
         }
 
-        .sidebar .menu-item:hover,
+        .sidebar .menu-item:hover {
+            background-color: #2A2A3D;
+        }
+
         .sidebar .menu-item.active {
             background-color: #FF5C93;
             color: white;
@@ -63,7 +67,7 @@
 
         .main-content {
             flex-grow: 1;
-            padding: 30px;
+            padding: 40px;
             overflow-y: auto;
         }
 
@@ -75,7 +79,8 @@
         }
 
         .header h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
+            font-weight: 600;
         }
 
         .header .user-info {
@@ -85,104 +90,94 @@
         }
 
         .header .user-info img {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
         }
 
-        .welcome-section {
-            text-align: center;
-            margin: 40px 0;
+        .profile-section {
             background-color: #1E1E2E;
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
         }
 
-        .welcome-section h2 {
-            font-size: 2rem;
+        .profile-section h3 {
+            font-size: 1.5rem;
             font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .profile-section p {
+            font-size: 1.1rem;
             margin-bottom: 10px;
         }
 
-        .welcome-section p {
-            font-size: 1.2rem;
-            color: #A0A1B4;
+        .profile-section img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <div class="logo">YF Members</div>
-        <div class="menu-item active"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
-        <div class="menu-item" onclick="navigateToAccount()"><i class="fas fa-user"></i> Account</div>
-        <div class="menu-item"><i class="fas fa-cog"></i> Settings</div>
-        <div class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</div>
+        <div class="logo">Dashboard</div>
+        <a href="dashboard.html" class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="account.html" class="menu-item"><i class="fas fa-user"></i> Account</a>
+        <a href="settings.html" class="menu-item"><i class="fas fa-cogs"></i> Settings</a>
+        <a href="updates.html" class="menu-item"><i class="fas fa-bell"></i> Updates</a>
+        <a href="login.html" class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
     </div>
 
     <div class="main-content">
         <div class="header">
-            <h1>Member Dashboard</h1>
+            <h1>Welcome to the Members Page</h1>
             <div class="user-info">
-                <img id="profilePic" src="https://via.placeholder.com/50" alt="User Picture">
-                <span id="userName"></span>
+                <img id="member-profile-pic" src="https://via.placeholder.com/40" alt="User Profile Picture">
             </div>
         </div>
 
-        <div class="welcome-section">
-            <h2 id="welcomeMessage"></h2>
-            <p id="memberInfo"></p>
+        <div class="profile-section">
+            <h3>Your Profile</h3>
+            <p><strong>Name:</strong> <span id="member-name">Loading...</span></p>
+            <p><strong>Profile Picture:</strong></p>
+            <img id="member-profile-pic-large" src="https://via.placeholder.com/120" alt="User Profile Picture">
         </div>
     </div>
 
     <script>
-        // Dummy user data
-        const users = {
-            "8944": {
-                name: "Daniel",
-                password: "Christian",
-                profilePic: "https://via.placeholder.com/50/FF5733",
-                info: "Daniel is a member with full access to all features."
-            },
-            "6944": {
-                name: "Dakirb",
-                password: "dakirbrulz",
-                profilePic: "https://via.placeholder.com/50/33FF57",
-                info: "Dakirb is a verified member enjoying the all features and getting demos to other features too."
-            },
-            "0944": {
-                name: "Oscar",
-                password: "jonklerlol121",
-                profilePic: "https://via.placeholder.com/50/3357FF",
-                info: "Jonklerlol is a basic member exploring the platform."
-            },
-            "8089": {
-                name: "Harieth",
-                password: "iluvlife121",
-                profilePic: "https://via.placeholder.com/50/F3FF33",
-                info: "Harieth is a gold member with advanced privileges."
+        // Function to load user details from localStorage
+        function loadUserFromLocalStorage() {
+            const storedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (storedUser) {
+                // Display the user's name and profile picture on the page
+                document.getElementById('member-name').textContent = storedUser.name;
+                document.getElementById('member-profile-pic').src = storedUser.profilePic;
+                document.getElementById('member-profile-pic-large').src = storedUser.profilePic;
+            } else {
+                // Fallback if no user is found in localStorage
+                document.getElementById('member-name').textContent = 'Guest';
+                document.getElementById('member-profile-pic').src = 'https://via.placeholder.com/40';
+                document.getElementById('member-profile-pic-large').src = 'https://via.placeholder.com/120';
             }
-        };
-
-        // Simulate getting PIN from login
-        const urlParams = new URLSearchParams(window.location.search);
-        const pin = urlParams.get("pin");
-
-        const user = users[pin];
-        if (user) {
-            document.getElementById("userName").textContent = `Hi, ${user.name}`;
-            document.getElementById("profilePic").src = user.profilePic;
-            document.getElementById("welcomeMessage").textContent = `Welcome, ${user.name}!`;
-            document.getElementById("memberInfo").textContent = user.info;
-        } else {
-            document.getElementById("welcomeMessage").textContent = "Welcome, Guest!";
-            document.getElementById("memberInfo").textContent = "Please log in to see your member details.";
         }
 
-        // Navigation handler
-        function navigateToAccount() {
-            window.location.href = "yfaccount.html?pin=" + pin;
-        }
+        // Load user data when the page loads
+        window.onload = loadUserFromLocalStorage;
     </script>
 </body>
 </html>
