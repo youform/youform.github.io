@@ -86,30 +86,56 @@
             margin-bottom: 20px;
         }
 
-        .settings-container p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        .settings-section {
+            margin-bottom: 30px;
         }
 
-        .settings-container .version-info {
-            font-weight: 600;
-            margin-top: 10px;
+        .settings-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
         }
 
-        .settings-container button {
-            background-color: #FF5C93;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
+        .settings-section p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-switch input[type="checkbox"] {
+            appearance: none;
+            width: 40px;
+            height: 20px;
+            background: #888;
+            border-radius: 10px;
+            position: relative;
             cursor: pointer;
-            font-size: 1rem;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
+            outline: none;
+            transition: background 0.3s ease;
         }
 
-        .settings-container button:hover {
-            background-color: #FF4181;
+        .toggle-switch input[type="checkbox"]:checked {
+            background: #4CAF50;
+        }
+
+        .toggle-switch input[type="checkbox"]::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            transition: left 0.3s ease;
+        }
+
+        .toggle-switch input[type="checkbox"]:checked::before {
+            left: 22px;
         }
 
         /* Responsive Design */
@@ -129,10 +155,10 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
-        <div class="menu-item"><i class="fas fa-user"></i> Account</div>
-        <div class="menu-item active"><i class="fas fa-cogs"></i> Settings</div>
-        <div class="menu-item"><i class="fas fa-bell"></i> Updates</div>
+        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> <a href="dashboard.html" style="text-decoration: none; color: inherit;">Dashboard</a></div>
+        <div class="menu-item"><i class="fas fa-user"></i> <a href="yfaccount.html" style="text-decoration: none; color: inherit;">Account</a></div>
+        <div class="menu-item active"><i class="fas fa-cogs"></i> <a href="yfsettings.html" style="text-decoration: none; color: inherit;">Settings</a></div>
+        <div class="menu-item"><i class="fas fa-bell"></i> <a href="yfupdates.html" style="text-decoration: none; color: inherit;">Updates</a></div>
         <div class="menu-item" id="logout"><i class="fas fa-sign-out-alt"></i> Log Out</div>
     </div>
 
@@ -140,30 +166,25 @@
     <div class="main-content">
         <div class="settings-container">
             <h1>Settings</h1>
-            <p class="version-info">YouForm Version: v3.5 "Gravity"</p>
-
-            <button id="save-password">Save Your Password</button>
-            <button id="trust-device">Trust This Device</button>
+            <div class="settings-section">
+                <h2>Security</h2>
+                <div class="toggle-switch">
+                    <label for="trust-device">Trust this device</label>
+                    <input type="checkbox" id="trust-device" />
+                </div>
+                <p>Use this device for multi-authentication, secure events, and as a recovery method.</p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Show the settings page without checking for the user-specific data
-        document.getElementById('save-password').addEventListener('click', function() {
-            // Simulate password saving notification
-            alert("Your password has been saved successfully!");
+        // Check if the user is logged in
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-            // Show a notification for saving the password
-            setTimeout(function() {
-                alert("Would you like to save your password in the browser?");
-            }, 1000);
-        });
-
-        // Trust this device functionality
-        document.getElementById('trust-device').addEventListener('click', function() {
-            // Simulate trusting the device notification
-            alert("This device has been trusted.");
-        });
+        if (!loggedInUser) {
+            // Redirect to login page if no user is logged in
+            window.location.href = 'login.html';
+        }
 
         // Log out functionality
         document.getElementById('logout').addEventListener('click', function() {
