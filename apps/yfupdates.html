@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YF - Updates</title>
+    <title>Updates</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -88,12 +88,7 @@
 
         .updates-container p {
             font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-
-        .updates-container .update-info {
-            font-weight: 600;
-            margin-top: 10px;
+            color: #A0A1B4;
         }
 
         /* Responsive Design */
@@ -113,10 +108,10 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> <a href="yfmembers.html" style="text-decoration: none; color: inherit;">Dashboard</a></div>
+        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> <a href="dashboard.html" style="text-decoration: none; color: inherit;">Dashboard</a></div>
         <div class="menu-item"><i class="fas fa-user"></i> <a href="yfaccount.html" style="text-decoration: none; color: inherit;">Account</a></div>
-        <div class="menu-item active"><i class="fas fa-cogs"></i> <a href="yfsettings.html" style="text-decoration: none; color: inherit;">Settings</a></div>
-        <div class="menu-item"><i class="fas fa-bell"></i> <a href="yfupdates.html" style="text-decoration: none; color: inherit;">Updates</a></div>
+        <div class="menu-item"><i class="fas fa-cogs"></i> <a href="yfsettings.html" style="text-decoration: none; color: inherit;">Settings</a></div>
+        <div class="menu-item active"><i class="fas fa-bell"></i> <a href="yfupdates.html" style="text-decoration: none; color: inherit;">Updates</a></div>
         <div class="menu-item" id="logout"><i class="fas fa-sign-out-alt"></i> Log Out</div>
     </div>
 
@@ -124,30 +119,35 @@
     <div class="main-content">
         <div class="updates-container">
             <h1>Updates</h1>
-            <p id="update-info">Loading updates...</p>
+            <p id="updates-message"></p>
         </div>
     </div>
 
     <script>
-        // Simulating a check for the logged-in user (retrieving PIN and password)
+        // Check if the user is logged in
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-        let updateInfoText = "No updates available.";
-
-        if (loggedInUser) {
-            // Check the user's details and adjust the update message
-            let versionInfo = "YouForm v3.5 'Gravity'"; // Default version info
-            if (loggedInUser.name === "Harieth") {
-                updateInfoText = "All updates are available!";
-            } else if (loggedInUser.name === "Dakirb" || loggedInUser.name === "Weirdo") {
-                updateInfoText = "YouForm v3.5 'Gravity' is the current version.";
-            } else if (loggedInUser.name === "Oscar") {
-                updateInfoText = "YouForm is changing all websites to HTML.";
-            }
+        if (!loggedInUser) {
+            // Redirect to login page if no user is logged in
+            window.location.href = 'login.html';
         }
 
-        // Display the appropriate update info based on the logged-in user
-        document.getElementById('update-info').textContent = updateInfoText;
+        // Display user-specific updates
+        const updatesMessage = document.getElementById('updates-message');
+
+        if (loggedInUser) {
+            let updateText = '';
+            if (loggedInUser.name === 'Harieth') {
+                updateText = 'All updates are available!';
+            } else if (loggedInUser.name === 'Dakirb' || loggedInUser.name === 'Weirdo') {
+                updateText = 'YouForm v3.5 "Gravity" is now available.';
+            } else if (loggedInUser.name === 'Oscar') {
+                updateText = 'YouForm is changing all websites to HTML.';
+            } else {
+                updateText = 'No specific updates for you at the moment.';
+            }
+            updatesMessage.textContent = updateText;
+        }
 
         // Log out functionality
         document.getElementById('logout').addEventListener('click', function() {
