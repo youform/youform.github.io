@@ -3,126 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Member Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #121212;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: #E1E1F1;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .login-container {
-            background-color: #1C1C2D;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background-color: #1E1E2E;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
-            width: 300px;
+            animation: fadeIn 0.8s ease-in-out;
         }
 
-        .login-container h2 {
-            font-size: 1.6rem;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .login-container h1 {
+            font-size: 2rem;
+            font-weight: 600;
             margin-bottom: 20px;
-            color: #FF5C93;
+            color: #fff;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .login-container input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #A0A1B4;
+            padding: 12px;
             background-color: #2A2A3D;
+            border: none;
             color: #E1E1F1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-container input:focus {
+            outline: none;
+            border: 2px solid #6a11cb;
+            background-color: #32324A;
         }
 
         .login-container button {
-            padding: 10px 20px;
-            border-radius: 8px;
-            background-color: #FF5C93;
+            padding: 12px;
+            background-color: #6a11cb;
             color: white;
             border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
-            margin: 10px 0;
-            width: 100%;
+            transition: background-color 0.3s ease;
         }
 
         .login-container button:hover {
-            background-color: #FF357C;
+            background-color: #2575fc;
         }
 
-        .login-container .footer {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .login-container .contact-support {
+            margin-top: 10px;
+            font-size: 0.9rem;
         }
 
-        .login-container .footer a {
-            color: #A0A1B4;
+        .login-container .contact-support a {
+            color: #6a11cb;
             text-decoration: none;
-            font-size: 1rem;
+            font-weight: 600;
         }
 
-        .login-container .footer a:hover {
-            color: #FF5C93;
+        .login-container .contact-support a:hover {
+            text-decoration: underline;
         }
 
-        .login-container .invalid-feedback {
+        .error-message {
             color: #FF5C93;
             font-size: 0.9rem;
-            margin-top: 10px;
+            margin-top: -10px;
         }
     </style>
 </head>
 <body>
-
     <div class="login-container">
-        <h2>Enter PIN to Login</h2>
-        <input type="password" id="pinCode" placeholder="Enter your PIN" maxlength="4" />
-        <button id="loginButton">Login</button>
-        
-        <div class="invalid-feedback" id="invalidFeedback" style="display: none;">
-            Invalid PIN, please try again.
-        </div>
-
-        <div class="footer">
-            <button id="signUpButton">Sign Up</button>
-            <a href="#" id="contactSupport">Contact Support</a>
-        </div>
+        <h1>Member Login</h1>
+        <form id="loginForm">
+            <input type="text" id="pinCode" placeholder="Enter PIN Code" required>
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="errorMessage" class="error-message"></div>
+        <p class="contact-support">
+            Need help? <a href="mailto:support@example.com">Contact Support</a>
+        </p>
     </div>
 
     <script>
-        // Function to validate the PIN and handle login
-        document.getElementById('loginButton').addEventListener('click', () => {
-            const pinCode = document.getElementById('pinCode').value;
-            const validPins = ['8944', '6944', '0944', '8089'];
-            
-            if (validPins.includes(pinCode)) {
-                // If PIN is valid, store the PIN in localStorage and redirect
-                localStorage.setItem('userPin', pinCode);
-                window.location.href = 'yfmembers.html'; // Redirect to the dashboard
+        const validCredentials = {
+            "8944": "Christian",
+            "6944": "dakirbrulz",
+            "0944": "jonklerlol121",
+            "8089": "iluvlife121"
+        };
+
+        const loginForm = document.getElementById('loginForm');
+        const pinCodeInput = document.getElementById('pinCode');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const pin = pinCodeInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (validCredentials[pin] && validCredentials[pin] === password) {
+                // Redirect to the members dashboard
+                window.location.href = "yfmembers.html"; // Updated to yfmembers.html
             } else {
-                // If PIN is invalid, show error feedback
-                document.getElementById('invalidFeedback').style.display = 'block';
+                // Display error message
+                errorMessage.textContent = "Invalid PIN or Password. Please try again.";
             }
         });
-
-        // Sign-up button (you can add further sign-up logic if necessary)
-        document.getElementById('signUpButton').addEventListener('click', () => {
-            window.location.href = 'sign-up.html'; // Redirect to the sign-up page
-        });
-
-        // Contact support link (you can change the URL to an actual support page)
-        document.getElementById('contactSupport').addEventListener('click', () => {
-            alert("Please contact support at support@example.com");
-        });
     </script>
-
 </body>
 </html>
