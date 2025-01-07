@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YF - Settings</title>
+    <title>Settings</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
@@ -19,7 +19,6 @@
             color: #E1E1F1;
             display: flex;
             height: 100vh;
-            overflow: hidden;
         }
 
         .sidebar {
@@ -48,8 +47,6 @@
             color: #A0A1B4;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            border: none;
-            background: none;
         }
 
         .sidebar .menu-item i {
@@ -66,41 +63,113 @@
             color: white;
         }
 
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            transition: margin-left 0.3s ease;
+            width: calc(100% - 250px);
+        }
+
+        .settings-container {
+            background-color: #1E1E2E;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .settings-container h1 {
+            color: #FF5C93;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .settings-container p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .settings-container .version-info {
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .settings-container button {
+            background-color: #FF5C93;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .settings-container button:hover {
+            background-color: #FF4181;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
                 width: 200px;
             }
+
+            .main-content {
+                padding: 30px;
+                width: calc(100% - 200px);
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <button class="menu-item active" onclick="window.location.href='dashboard.html'">
-            <i class="fas fa-tachometer-alt"></i> Dashboard
-        </button>
-        <button class="menu-item" onclick="window.location.href='yfaccount.html'">
-            <i class="fas fa-user"></i> Account
-        </button>
-        <button class="menu-item" onclick="window.location.href='yfsettings.html'">
-            <i class="fas fa-cogs"></i> Settings
-        </button>
-        <button class="menu-item" onclick="window.location.href='yfupdates.html'">
-            <i class="fas fa-bell"></i> Updates
-        </button>
-        <button class="menu-item" id="logout" onclick="logout()">
-            <i class="fas fa-sign-out-alt"></i> Log Out
-        </button>
+        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
+        <div class="menu-item"><i class="fas fa-user"></i> Account</div>
+        <div class="menu-item active"><i class="fas fa-cogs"></i> Settings</div>
+        <div class="menu-item"><i class="fas fa-bell"></i> Updates</div>
+        <div class="menu-item" id="logout"><i class="fas fa-sign-out-alt"></i> Log Out</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="settings-container">
+            <h1>Settings</h1>
+            <p class="version-info">YouForm Version: v3.5 "Gravity"</p>
+
+            <button id="save-password">Save Your Password</button>
+            <button id="trust-device">Trust This Device</button>
+        </div>
     </div>
 
     <script>
+        // Show the settings page without checking for the user-specific data
+        document.getElementById('save-password').addEventListener('click', function() {
+            // Simulate password saving notification
+            alert("Your password has been saved successfully!");
+
+            // Show a notification for saving the password
+            setTimeout(function() {
+                alert("Would you like to save your password in the browser?");
+            }, 1000);
+        });
+
+        // Trust this device functionality
+        document.getElementById('trust-device').addEventListener('click', function() {
+            // Simulate trusting the device notification
+            alert("This device has been trusted.");
+        });
+
         // Log out functionality
-        function logout() {
+        document.getElementById('logout').addEventListener('click', function() {
             localStorage.removeItem('loggedInUser');
             window.location.href = 'login.html';
-        }
+        });
     </script>
 </body>
 </html>
-
