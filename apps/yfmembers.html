@@ -1,4 +1,3 @@
-<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,76 +7,225 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        /* Your existing styles here... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #E1E1F1;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #1C1C2D;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FF5C93;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: #A0A1B4;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar .menu-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar .menu-item:hover {
+            background-color: #2A2A3D;
+        }
+
+        .sidebar .menu-item.active {
+            background-color: #FF5C93;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            transition: margin-left 0.3s ease;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: #1E1E2E;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            color: #E1E1F1;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .card .value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .card .progress-bar {
+            height: 8px;
+            background-color: #2A2A3D;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .card .progress-bar .progress {
+            height: 100%;
+            background-color: #FF5C93;
+            width: 50%;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #FF5C93;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #FF357C;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="sidebar">
         <div class="logo">Dashboard</div>
         <div class="menu-item active"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
-        <div class="menu-item"><i class="fas fa-user"></i> Profile</div>
-        <div class="menu-item"><i class="fas fa-cog"></i> Settings</div>
+        <div class="menu-item"><i class="fas fa-user"></i> Account</div>
+        <div class="menu-item"><i class="fas fa-cogs"></i> Settings</div>
+        <div class="menu-item"><i class="fas fa-bell"></i> Updates</div>
         <div class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</div>
     </div>
 
     <div class="main-content">
         <div class="header">
-            <h1>Welcome, <span id="userName">User</span></h1>
+            <h1>Welcome, User</h1>
             <div class="user-info">
                 <img src="https://via.placeholder.com/40" alt="User Picture">
-                <span id="userGreeting">Hi, Guest</span>
+                <span>Hi, Daniel</span> <!-- This can be dynamically changed based on the PIN -->
             </div>
         </div>
 
         <div class="cards">
-            <!-- Your existing cards here... -->
+            <div class="card">
+                <h3>Storage Used</h3>
+                <div class="value">384MB / 1000MB</div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Devices</h3>
+                <div class="value">13 devices</div>
+                <p>Signed into your account</p>
+            </div>
+
+            <div class="card">
+                <h3>Security</h3>
+                <div class="value">0 issues</div>
+                <p>Your account is secure, compliant, and has no issues.</p>
+            </div>
         </div>
 
-        <div class="toggle-section">
-            <h3>Trust this device</h3>
-            <div class="toggle-switch" id="trustDeviceToggle"></div>
+        <div>
+            <button class="btn-primary">Check Updates</button>
+            <button class="btn-primary" style="margin-left: 20px;">Manage Account</button>
         </div>
     </div>
 
     <script>
-        // Function to update the greeting based on the PIN code
-        function updateUserGreeting(pinCode) {
-            const userGreeting = document.getElementById('userGreeting');
-            const userName = document.getElementById('userName');
-            
-            let greeting = 'Hi, Guest';
-            if (pinCode === '8944') {
-                greeting = 'Hi, Daniel';
-                userName.innerText = 'Daniel';
-            } else if (pinCode === '6944') {
-                greeting = 'Hi, Dakirb';
-                userName.innerText = 'Dakirb';
-            } else if (pinCode === '0944') {
-                greeting = 'Hi, Oscar';
-                userName.innerText = 'Oscar';
-            } else if (pinCode === '8089') {
-                greeting = 'Hi, Harieth';
-                userName.innerText = 'Harieth';
-            }
-
-            userGreeting.innerText = greeting;
-        }
-
-        // Retrieve the stored PIN code from localStorage
-        const pinCode = localStorage.getItem('userPin');
-        
-        if (pinCode) {
-            // Update the greeting based on the stored PIN code
-            updateUserGreeting(pinCode);
-        } else {
-            // If no PIN code is stored, prompt the user to log in again
-            window.location.href = 'member-id.html'; // Redirect to the login page if no PIN found
-        }
-
-        // Toggle switch functionality
-        const toggleSwitch = document.getElementById('trustDeviceToggle');
-        toggleSwitch.addEventListener('click', () => {
-            toggleSwitch.classList.toggle('active');
+        // Example: Toggle sidebar item selection
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                menuItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
         });
     </script>
 </body>
