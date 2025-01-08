@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Chat</title>
+    <title>Secure Team Chat</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -24,7 +24,7 @@
 
         .auth-container, .chat-container {
             width: 90%;
-            max-width: 600px;
+            max-width: 800px;
             background-color: #1E1E2E;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -68,8 +68,38 @@
 
         .chat-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             overflow: hidden;
+        }
+
+        .chat-sidebar {
+            width: 200px;
+            background-color: #2A2A3D;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .chat-sidebar h2 {
+            color: #FF5C93;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .chat-sidebar .user {
+            padding: 10px;
+            background-color: #1E1E2E;
+            border-radius: 8px;
+            color: #E1E1F1;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-sidebar .user:hover {
+            background-color: #FF5C93;
+            color: #FFFFFF;
         }
 
         .chat-messages {
@@ -80,6 +110,12 @@
             flex-direction: column;
             gap: 10px;
             background-color: #121212;
+        }
+
+        .chat-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
 
         .message {
@@ -113,24 +149,33 @@
 
     <!-- Chat -->
     <div class="chat-container" id="chat-container" style="display: none;">
-        <div class="chat-header">Team Chat</div>
-        <div class="chat-messages" id="chat-messages"></div>
-        <div class="chat-footer">
-            <input type="text" id="message-input" placeholder="Type a message..." />
-            <button id="send-button">Send</button>
+        <!-- Sidebar -->
+        <div class="chat-sidebar">
+            <h2>Team Members</h2>
+            <div class="user" data-user="Oscar">Oscar</div>
+            <div class="user" data-user="Harieth">Harieth</div>
+            <div class="user" data-user="Dakirb">Dakirb</div>
+            <div class="user" data-user="Weirdo">Weirdo</div>
         </div>
+
+        <!-- Messages -->
+        <div class="chat-messages" id="chat-messages"></div>
+    </div>
+
+    <!-- Chat Footer -->
+    <div class="chat-footer">
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button id="send-button">Send</button>
     </div>
 
     <script>
-        // Allowed users with passwords and PINs
         const allowedUsers = {
-            "Oscar": { password: "oscar123", pin: 1234 },
-            "Harieth": { password: "harieth123", pin: 5678 },
-            "Dakirb": { password: "dakirb123", pin: 9012 },
-            "Weirdo": { password: "weirdo123", pin: 3456 }
+            "Oscar": { password: "password121", pin: 0944 },
+            "Harieth": { password: "iluvlife121", pin: 8089 },
+            "Dakirb": { password: "dakirb121", pin: 6944 },
+            "Daniel": { password: "daniel121", pin: 8944 }
         };
 
-        // Authentication elements
         const authContainer = document.getElementById("auth-container");
         const chatContainer = document.getElementById("chat-container");
         const usernameInput = document.getElementById("username");
@@ -138,39 +183,42 @@
         const pinInput = document.getElementById("pin");
         const loginButton = document.getElementById("login-button");
 
-        // Chat elements
         const chatMessages = document.getElementById("chat-messages");
         const messageInput = document.getElementById("message-input");
         const sendButton = document.getElementById("send-button");
+        const userElements = document.querySelectorAll(".user");
 
-        // Store messages
-        const messages = JSON.parse(localStorage.getItem("teamChatMessages")) || [];
+        let activeChat = "Team";
+        let currentUser = "";
 
-        // Render messages
+        const messages = {
+            Team: [],
+            Oscar: [],
+            Harieth: [],
+            Dakirb: [],
+            Daniel: []
+        };
+
         function renderMessages() {
             chatMessages.innerHTML = "";
-            messages.forEach(msg => {
+            messages[activeChat].forEach(msg => {
                 const messageDiv = document.createElement("div");
-                messageDiv.classList.add("message", msg.sender === usernameInput.value ? "sent" : "received");
+                messageDiv.classList.add("message", msg.sender === currentUser ? "sent" : "received");
                 messageDiv.textContent = `${msg.sender}: ${msg.text}`;
                 chatMessages.appendChild(messageDiv);
             });
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Send message
         function sendMessage() {
             const text = messageInput.value.trim();
             if (text) {
-                const message = { sender: usernameInput.value, text };
-                messages.push(message);
-                localStorage.setItem("teamChatMessages", JSON.stringify(messages));
+                messages[activeChat].push({ sender: currentUser, text });
                 renderMessages();
                 messageInput.value = "";
             }
         }
 
-        // Authenticate user
         loginButton.addEventListener("click", () => {
             const username = usernameInput.value.trim();
             const password = passwordInput.value.trim();
@@ -178,6 +226,7 @@
 
             if (allowedUsers[username] && allowedUsers[username].password === password && allowedUsers[username].pin === pin) {
                 alert("Login successful!");
+                currentUser = username;
                 authContainer.style.display = "none";
                 chatContainer.style.display = "flex";
                 renderMessages();
@@ -186,10 +235,16 @@
             }
         });
 
-        // Chat functionality
         sendButton.addEventListener("click", sendMessage);
         messageInput.addEventListener("keypress", (e) => {
             if (e.key === "Enter") sendMessage();
+        });
+
+        userElements.forEach(user => {
+            user.addEventListener("click", () => {
+                activeChat = user.getAttribute("data-user");
+                renderMessages();
+            });
         });
     </script>
 </body>
