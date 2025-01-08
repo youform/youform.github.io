@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -19,24 +20,32 @@
             color: #E1E1F1;
             display: flex;
             height: 100vh;
+            overflow: hidden;
         }
 
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Sidebar Styles */
         .sidebar {
             width: 250px;
             background-color: #1C1C2D;
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
+            transition: width 0.3s ease-in-out;
         }
 
         .sidebar .logo {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #FF5C93;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .sidebar .menu-item {
@@ -46,7 +55,8 @@
             border-radius: 8px;
             color: #A0A1B4;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
 
         .sidebar .menu-item i {
@@ -56,34 +66,39 @@
 
         .sidebar .menu-item:hover {
             background-color: #2A2A3D;
+            color: #FFFFFF;
         }
 
         .sidebar .menu-item.active {
             background-color: #FF5C93;
-            color: white;
+            color: #FFFFFF;
         }
 
+        .sidebar .menu-item a {
+            flex-grow: 1;
+        }
+
+        /* Main Content Styles */
         .main-content {
             flex-grow: 1;
             padding: 40px;
             overflow-y: auto;
-            transition: margin-left 0.3s ease;
-            width: calc(100% - 250px);
         }
 
         .settings-container {
             background-color: #1E1E2E;
-            padding: 40px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 600px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .settings-container h1 {
+            font-size: 2rem;
             color: #FF5C93;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .settings-section {
@@ -96,22 +111,25 @@
         }
 
         .settings-section p {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #A0A1B4;
         }
 
         .toggle-switch {
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-bottom: 20px;
         }
 
         .toggle-switch input[type="checkbox"] {
             appearance: none;
-            width: 40px;
-            height: 20px;
+            width: 50px;
+            height: 24px;
             background: #888;
-            border-radius: 10px;
+            border-radius: 12px;
             position: relative;
             cursor: pointer;
             outline: none;
@@ -127,15 +145,15 @@
             position: absolute;
             top: 2px;
             left: 2px;
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             background: white;
             border-radius: 50%;
             transition: left 0.3s ease;
         }
 
         .toggle-switch input[type="checkbox"]:checked::before {
-            left: 22px;
+            left: 26px;
         }
 
         /* Responsive Design */
@@ -145,8 +163,15 @@
             }
 
             .main-content {
-                padding: 30px;
-                width: calc(100% - 200px);
+                padding: 20px;
+            }
+
+            .settings-container {
+                padding: 20px;
+            }
+
+            .settings-container h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -155,10 +180,10 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> <a href="yfmembers.html" style="text-decoration: none; color: inherit;">Dashboard</a></div>
-        <div class="menu-item"><i class="fas fa-user"></i> <a href="yfaccount.html" style="text-decoration: none; color: inherit;">Account</a></div>
-        <div class="menu-item active"><i class="fas fa-cogs"></i> <a href="yfsettings.html" style="text-decoration: none; color: inherit;">Settings</a></div>
-        <div class="menu-item"><i class="fas fa-bell"></i> <a href="yfupdates.html" style="text-decoration: none; color: inherit;">Updates</a></div>
+        <div class="menu-item"><i class="fas fa-tachometer-alt"></i> <a href="yfmembers.html">Dashboard</a></div>
+        <div class="menu-item"><i class="fas fa-user"></i> <a href="yfaccount.html">Account</a></div>
+        <div class="menu-item active"><i class="fas fa-cogs"></i> <a href="yfsettings.html">Settings</a></div>
+        <div class="menu-item"><i class="fas fa-bell"></i> <a href="yfupdates.html">Updates</a></div>
         <div class="menu-item" id="logout"><i class="fas fa-sign-out-alt"></i> Log Out</div>
     </div>
 
@@ -191,20 +216,17 @@
         const trustDeviceStatus = document.getElementById('trust-device-status');
 
         // Check if the user has trusted the device previously
-        if (loggedInUser.trustedDevice) {
+        if (loggedInUser?.trustedDevice) {
             trustDeviceCheckbox.checked = true;
             trustDeviceStatus.textContent = "This device will be used as a way to recover your ID.";
         }
 
         // Update the trusted device status when the checkbox is clicked
         trustDeviceCheckbox.addEventListener('change', function() {
-            if (trustDeviceCheckbox.checked) {
-                loggedInUser.trustedDevice = true;
-                trustDeviceStatus.textContent = "This device will be used as a way to recover your ID.";
-            } else {
-                loggedInUser.trustedDevice = false;
-                trustDeviceStatus.textContent = "Use this device for multi-authentication, secure events, and as a recovery method.";
-            }
+            loggedInUser.trustedDevice = trustDeviceCheckbox.checked;
+            trustDeviceStatus.textContent = trustDeviceCheckbox.checked
+                ? "This device will be used as a way to recover your ID."
+                : "Use this device for multi-authentication, secure events, and as a recovery method.";
             // Save updated user data to localStorage
             localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
         });
