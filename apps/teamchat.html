@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Chat</title>
+    <title> Team Chat</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,12 +14,13 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #EDEDED;
-            color: #333;
+            background-color: #1E1E2E;
+            color: #E1E1F1;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .chat-container {
@@ -27,54 +28,53 @@
             width: 90%;
             max-width: 1200px;
             height: 90vh;
-            border: 1px solid #ddd;
-            background-color: #fff;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         /* Sidebar */
         .chat-sidebar {
             width: 30%;
-            background-color: #F6F6F6;
-            border-right: 1px solid #ddd;
+            background-color: #232536;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            border-right: 1px solid #2E2E40;
         }
 
         .chat-sidebar-header {
-            padding: 20px;
             background-color: #128C7E;
-            color: white;
-            font-size: 1.2rem;
+            color: #E1E1F1;
+            padding: 15px;
             text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
         .chat-sidebar .user {
             padding: 15px;
-            cursor: pointer;
-            border-bottom: 1px solid #ddd;
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #2E2E40;
             transition: background-color 0.3s ease;
         }
 
         .chat-sidebar .user:hover {
-            background-color: #EDEDED;
+            background-color: #32344C;
         }
 
         .chat-sidebar .user img {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
         }
 
         .chat-sidebar .user span {
             font-size: 1rem;
-            font-weight: 600;
+            color: #E1E1F1;
         }
 
         /* Chat Area */
@@ -82,32 +82,37 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            background-color: #1A1B26;
         }
 
         .chat-header {
-            padding: 20px;
-            background-color: #128C7E;
-            color: white;
-            font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            padding: 20px;
+            background-color: #2B2D42;
+            color: #E1E1F1;
+            border-bottom: 1px solid #2E2E40;
         }
 
         .chat-header img {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .chat-header span {
+            font-size: 1.2rem;
         }
 
         .chat-messages {
             flex-grow: 1;
-            padding: 20px;
             overflow-y: auto;
-            background-color: #E5DDD5;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
+            background-color: #1A1B26;
         }
 
         .message {
@@ -115,48 +120,66 @@
             border-radius: 10px;
             max-width: 70%;
             word-wrap: break-word;
-            position: relative;
         }
 
         .message.sent {
-            background-color: #DCF8C6;
+            background-color: #128C7E;
+            color: #E1E1F1;
             align-self: flex-end;
         }
 
         .message.received {
-            background-color: #FFFFFF;
+            background-color: #2E2E40;
+            color: #E1E1F1;
             align-self: flex-start;
         }
 
         .chat-footer {
-            padding: 20px;
-            background-color: #F6F6F6;
             display: flex;
-            gap: 10px;
             align-items: center;
+            padding: 20px;
+            background-color: #2B2D42;
         }
 
-        .chat-footer input[type="text"] {
+        .chat-footer input {
             flex-grow: 1;
-            padding: 10px;
-            font-size: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 20px;
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: 1px solid #3A3B53;
             outline: none;
+            font-size: 1rem;
+            background-color: #1E1E2E;
+            color: #E1E1F1;
         }
 
         .chat-footer button {
+            margin-left: 10px;
             padding: 10px 20px;
+            border-radius: 25px;
             background-color: #128C7E;
-            color: white;
+            color: #E1E1F1;
             border: none;
-            border-radius: 20px;
             cursor: pointer;
             font-size: 1rem;
+            transition: background-color 0.3s ease;
         }
 
         .chat-footer button:hover {
-            background-color: #0D6E5D;
+            background-color: #0E6B5A;
+        }
+
+        /* Scrollbar */
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #3A3B53;
+            border-radius: 5px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background-color: #565778;
         }
     </style>
 </head>
@@ -164,21 +187,21 @@
     <div class="chat-container">
         <!-- Sidebar -->
         <div class="chat-sidebar">
-            <div class="chat-sidebar-header">Your Chats</div>
+            <div class="chat-sidebar-header">Chats</div>
             <div class="user" data-chat="Team">
-                <img src="https://via.placeholder.com/40" alt="Team Chat">
+                <img src="https://via.placeholder.com/45" alt="Team Chat">
                 <span>Team Chat</span>
             </div>
             <div class="user" data-chat="Oscar">
-                <img src="https://via.placeholder.com/40" alt="Oscar">
+                <img src="https://via.placeholder.com/45" alt="Oscar">
                 <span>Oscar</span>
             </div>
             <div class="user" data-chat="Harieth">
-                <img src="https://via.placeholder.com/40" alt="Harieth">
+                <img src="https://via.placeholder.com/45" alt="Harieth">
                 <span>Harieth</span>
             </div>
             <div class="user" data-chat="Dakirb">
-                <img src="https://via.placeholder.com/40" alt="Dakirb">
+                <img src="https://via.placeholder.com/45" alt="Dakirb">
                 <span>Dakirb</span>
             </div>
         </div>
@@ -186,7 +209,7 @@
         <!-- Chat Area -->
         <div class="chat-area">
             <div class="chat-header">
-                <img src="https://via.placeholder.com/40" id="chat-header-img" alt="Chat User">
+                <img src="https://via.placeholder.com/45" id="chat-header-img" alt="Chat">
                 <span id="chat-header-name">Team Chat</span>
             </div>
             <div class="chat-messages" id="chat-messages"></div>
@@ -198,49 +221,39 @@
     </div>
 
     <script>
-        // Simulated chat data
-        const chats = {
-            Team: [],
-            Oscar: [],
-            Harieth: [],
-            Dakirb: []
-        };
+        const chats = { Team: [], Oscar: [], Harieth: [], Dakirb: [] };
         let currentChat = "Team";
 
+        const chatMessages = document.getElementById("chat-messages");
         const chatHeaderName = document.getElementById("chat-header-name");
         const chatHeaderImg = document.getElementById("chat-header-img");
-        const chatMessages = document.getElementById("chat-messages");
         const messageInput = document.getElementById("message-input");
-        const sendButton = document.getElementById("send-button");
 
-        // Render messages
         function renderMessages() {
             chatMessages.innerHTML = "";
-            chats[currentChat].forEach((msg) => {
+            chats[currentChat].forEach(msg => {
                 const div = document.createElement("div");
-                div.classList.add("message", msg.sender === "You" ? "sent" : "received");
+                div.className = `message ${msg.sender === "You" ? "sent" : "received"}`;
                 div.textContent = msg.content;
                 chatMessages.appendChild(div);
             });
         }
 
-        // Send a message
-        sendButton.addEventListener("click", () => {
-            const message = messageInput.value.trim();
-            if (message) {
-                chats[currentChat].push({ sender: "You", content: message });
-                messageInput.value = "";
-                renderMessages();
-            }
-        });
-
-        // Switch chat
-        document.querySelectorAll(".chat-sidebar .user").forEach((user) => {
+        document.querySelectorAll(".chat-sidebar .user").forEach(user => {
             user.addEventListener("click", () => {
                 currentChat = user.dataset.chat;
                 chatHeaderName.textContent = currentChat;
                 renderMessages();
             });
+        });
+
+        document.getElementById("send-button").addEventListener("click", () => {
+            const content = messageInput.value.trim();
+            if (content) {
+                chats[currentChat].push({ sender: "You", content });
+                messageInput.value = "";
+                renderMessages();
+            }
         });
 
         renderMessages();
