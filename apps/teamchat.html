@@ -6,12 +6,6 @@
     <title>Team Chat</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: #121212;
@@ -20,7 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            margin: 0;
         }
 
         .chat-container {
@@ -38,6 +32,7 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            justify-content: flex-end;
             gap: 10px;
             padding: 20px;
             overflow-y: auto;
@@ -66,22 +61,8 @@
             align-self: flex-start;
         }
 
-        .message img {
-            max-width: 200px;
-            border-radius: 10px;
-        }
-
-        .message .actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: #FF5C93;
-            cursor: pointer;
-        }
-
         .chat-sidebar {
-            width: 200px;
+            width: 250px;
             background-color: #2A2A3D;
             display: flex;
             flex-direction: column;
@@ -93,6 +74,7 @@
             color: #FF5C93;
             font-size: 1.2rem;
             margin-bottom: 10px;
+            text-align: center;
         }
 
         .chat-sidebar .user {
@@ -147,6 +129,9 @@
 </head>
 <body>
     <div class="chat-container">
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chat-messages"></div>
+
         <!-- Chat Sidebar -->
         <div class="chat-sidebar">
             <h2>Members</h2>
@@ -156,9 +141,6 @@
             <div class="user" data-chat="Dakirb">Dakirb</div>
             <div class="user" data-chat="Weirdo">Weirdo</div>
         </div>
-
-        <!-- Chat Messages -->
-        <div class="chat-messages" id="chat-messages"></div>
     </div>
 
     <!-- Chat Footer -->
@@ -169,73 +151,46 @@
     </div>
 
     <script>
-        let currentChat = "Team";
+        // Initialize user data
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (!loggedInUser) {
+            alert("Unauthorized access. Redirecting to login...");
+            window.location.href = "index.html";
+        }
+
+        // Display current user's name in the console for debugging
+        console.log("Logged in as:", loggedInUser.name);
+
+        // Chat data
         const messages = { Team: [], Oscar: [], Harieth: [], Dakirb: [], Weirdo: [] };
         const chatMessages = document.getElementById("chat-messages");
         const messageInput = document.getElementById("message-input");
         const fileInput = document.getElementById("file-input");
         const sendButton = document.getElementById("send-button");
+        let currentChat = "Team";
 
+        // Render messages
         function renderMessages() {
             chatMessages.innerHTML = "";
-            messages[currentChat].forEach((msg, index) => {
-                const messageDiv = document.createElement("div");
-                messageDiv.classList.add("message", msg.sender === "Me" ? "sent" : "received");
-
-                if (msg.type === "text") {
-                    messageDiv.innerHTML = `
-                        <span>${msg.sender}: ${msg.content}</span>
-                        <div class="actions">
-                            <span onclick="editMessage(${index})">Edit</span>
-                            <span onclick="deleteMessage(${index})">Delete</span>
-                        </div>
-                    `;
-                } else if (msg.type === "image") {
-                    messageDiv.innerHTML = `
-                        <span>${msg.sender}:</span>
-                        <img src="${msg.content}" alt="Image">
-                        <div class="actions">
-                            <span onclick="deleteMessage(${index})">Delete</span>
-                        </div>
-                    `;
-                }
-
-                chatMessages.appendChild(messageDiv);
+            messages[currentChat].forEach(msg => {
+                const div = document.createElement("div");
+                div.classList.add("message", msg.sender === loggedInUser.name ? "sent" : "received");
+                div.textContent = `${msg.sender}: ${msg.content}`;
+                chatMessages.appendChild(div);
             });
         }
 
-        function sendMessage(type, content) {
-            if (content) {
-                messages[currentChat].push({ sender: "Me", type, content });
-                renderMessages();
+        // Send message
+        sendButton.addEventListener("click", () => {
+            const message = messageInput.value.trim();
+            if (message) {
+                messages[currentChat].push({ sender: loggedInUser.name, content: message });
                 messageInput.value = "";
-                fileInput.value = "";
-            }
-        }
-
-        function editMessage(index) {
-            const newContent = prompt("Edit your message:", messages[currentChat][index].content);
-            if (newContent) {
-                messages[currentChat][index].content = newContent;
                 renderMessages();
-            }
-        }
-
-        function deleteMessage(index) {
-            messages[currentChat].splice(index, 1);
-            renderMessages();
-        }
-
-        sendButton.addEventListener("click", () => sendMessage("text", messageInput.value.trim()));
-        fileInput.addEventListener("change", () => {
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = () => sendMessage("image", reader.result);
-                reader.readAsDataURL(file);
             }
         });
 
+        // Switch chat
         document.querySelectorAll(".chat-sidebar .user").forEach(user => {
             user.addEventListener("click", () => {
                 currentChat = user.dataset.chat;
