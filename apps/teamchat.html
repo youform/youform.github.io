@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Team Chat</title>
+    <title>Team Chat</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,21 +14,26 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1E1E2E;
+            background-color: #121212;
             color: #E1E1F1;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
         }
 
         .container {
             width: 90%;
             max-width: 400px;
-            background-color: #232536;
+            background-color: #1E1E2E;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .container.active {
+            display: block;
         }
 
         .container h1 {
@@ -42,7 +47,7 @@
             width: 100%;
             padding: 12px;
             margin-bottom: 20px;
-            background-color: #1E1E2E;
+            background-color: #232536;
             border: 1px solid #333;
             border-radius: 8px;
             color: #E1E1F1;
@@ -82,10 +87,23 @@
             overflow: hidden;
         }
 
+        .chat-container.active {
+            display: flex;
+        }
+
         .chat-sidebar {
             width: 30%;
             background-color: #232536;
             overflow-y: auto;
+            border-right: 2px solid #2B2D42;
+        }
+
+        .chat-sidebar .chat-header {
+            padding: 15px;
+            background-color: #2B2D42;
+            color: white;
+            text-align: center;
+            font-weight: bold;
         }
 
         .chat-area {
@@ -97,7 +115,9 @@
         .chat-header {
             padding: 15px;
             background-color: #2B2D42;
-            color: #FFF;
+            color: white;
+            text-align: center;
+            font-weight: bold;
         }
 
         .chat-messages {
@@ -109,6 +129,7 @@
         .chat-footer {
             padding: 15px;
             display: flex;
+            background-color: #232536;
         }
 
         .chat-footer input {
@@ -116,12 +137,14 @@
             padding: 10px;
             border: none;
             border-radius: 5px;
+            color: white;
+            background-color: #2A2B3C;
         }
 
         .chat-footer button {
             margin-left: 10px;
             background-color: #128C7E;
-            color: #FFF;
+            color: white;
             border: none;
             padding: 10px;
             border-radius: 5px;
@@ -143,7 +166,7 @@
     <div class="chat-container" id="chat-container">
         <div class="chat-sidebar">
             <div class="chat-header">Chats</div>
-            <div class="user">Team Chat</div>
+            <div class="user" id="team-chat">Team Chat</div>
         </div>
         <div class="chat-area">
             <div class="chat-header" id="chat-header">Team Chat</div>
@@ -176,19 +199,19 @@
 
         // Login Functionality
         loginButton.addEventListener("click", () => {
-            const pin = document.getElementById("pin").value;
-            const password = document.getElementById("password").value;
+            const pin = document.getElementById("pin").value.trim();
+            const password = document.getElementById("password").value.trim();
 
             if (users[pin] && users[pin].password === password) {
                 localStorage.setItem("loggedInUser", JSON.stringify(users[pin]));
-                loginContainer.style.display = "none";
-                chatContainer.style.display = "flex";
+                loginContainer.classList.remove("active");
+                chatContainer.classList.add("active");
             } else {
                 errorMessage.textContent = "Invalid PIN or Password.";
             }
         });
 
-        // Send Message
+        // Send Message Functionality
         sendButton.addEventListener("click", () => {
             const message = messageInput.value.trim();
             if (message) {
@@ -198,6 +221,11 @@
                 messageInput.value = "";
             }
         });
+
+        // Display login form on load
+        window.onload = () => {
+            loginContainer.classList.add("active");
+        };
     </script>
 </body>
 </html>
