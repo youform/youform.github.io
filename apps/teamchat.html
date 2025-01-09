@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Team Chat</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <title> Team Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,75 +13,63 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #121212;
             color: #E1E1F1;
             display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .sidebar {
-            width: 300px;
-            background-color: #1C1C2D;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
-        }
-
-        .sidebar .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #FF5C93;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar .menu-item {
-            display: flex;
+            justify-content: center;
             align-items: center;
-            padding: 15px 20px;
+            height: 100vh;
+        }
+
+        .auth-container, .chat-container {
+            width: 90%;
+            max-width: 600px;
+            background-color: #1E1E2E;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .auth-container h1, .chat-header {
+            color: #FF5C93;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .auth-container input, .chat-footer input {
+            width: 90%;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
             border-radius: 8px;
-            color: #A0A1B4;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            text-decoration: none;
+            background-color: #2A2A3D;
+            color: #E1E1F1;
+            margin-bottom: 10px;
+            outline: none;
         }
 
-        .sidebar .menu-item img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 15px;
-        }
-
-        .sidebar .menu-item.active,
-        .sidebar .menu-item:hover {
+        .auth-container button, .chat-footer button {
+            width: 90%;
+            padding: 10px;
+            font-size: 1rem;
             background-color: #FF5C93;
-            color: white;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .auth-container button:hover, .chat-footer button:hover {
+            background-color: #FF3B73;
         }
 
         .chat-container {
-            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            background-color: #1C1C2D;
-        }
-
-        .chat-header {
-            padding: 20px;
-            background-color: #2A2A3D;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .chat-header h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
+            overflow: hidden;
         }
 
         .chat-messages {
@@ -91,173 +78,120 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
             background-color: #121212;
         }
 
-        .chat-messages .message {
-            max-width: 60%;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 1rem;
-            line-height: 1.5;
+        .message {
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 75%;
             word-wrap: break-word;
+            color: #FFFFFF;
         }
 
-        .chat-messages .message.sent {
+        .message.sent {
+            background-color: #4CAF50;
             align-self: flex-end;
-            background-color: #FF5C93;
-            color: white;
         }
 
-        .chat-messages .message.received {
+        .message.received {
+            background-color: #2A2A3D;
             align-self: flex-start;
-            background-color: #2A2A3D;
-            color: #E1E1F1;
-        }
-
-        .chat-input {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background-color: #2A2A3D;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .chat-input input {
-            flex-grow: 1;
-            padding: 12px;
-            background-color: #1C1C2D;
-            border: 1px solid #333;
-            color: #E1E1F1;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin-right: 10px;
-        }
-
-        .chat-input button {
-            background-color: #FF5C93;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .chat-input button:hover {
-            background-color: #E14E84;
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="logo">Dashboard</div>
-        <div id="user-list"></div>
+    <!-- Authentication -->
+    <div class="auth-container" id="auth-container">
+        <h1>Team Chat Login</h1>
+        <input type="text" id="username" placeholder="Enter your name" required>
+        <input type="password" id="password" placeholder="Enter your password" required>
+        <input type="number" id="pin" placeholder="Enter your PIN" required>
+        <button id="login-button">Login</button>
     </div>
 
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1 id="chat-header">Team Chat</h1>
-        </div>
-
-        <div class="chat-messages" id="chat-messages">
-            <!-- Messages will appear dynamically here -->
-        </div>
-
-        <div class="chat-input">
-            <input type="text" id="message-input" placeholder="Type a message...">
-            <button onclick="sendMessage()">Send</button>
+    <!-- Chat -->
+    <div class="chat-container" id="chat-container" style="display: none;">
+        <div class="chat-header">Team Chat</div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-footer">
+            <input type="text" id="message-input" placeholder="Type a message..." />
+            <button id="send-button">Send</button>
         </div>
     </div>
 
     <script>
-        // Mocked users data
-        const users = {
-            '8944': { name: 'Daniel', profilePic: 'https://via.placeholder.com/40' },
-            '6944': { name: 'Dakirb', profilePic: 'https://via.placeholder.com/40' },
-            '0944': { name: 'Oscar', profilePic: 'https://via.placeholder.com/40' },
-            '8089': { name: 'Harieth', profilePic: 'https://via.placeholder.com/40' },
-            '1012': { name: 'Arthur', profilePic: 'https://via.placeholder.com/40' }
+        // Allowed users with passwords and PINs
+        const allowedUsers = {
+            "Oscar": { password: "oscar123", pin: 1234 },
+            "Harieth": { password: "harieth123", pin: 5678 },
+            "Dakirb": { password: "dakirb123", pin: 9012 },
+            "Weirdo": { password: "weirdo123", pin: 3456 }
         };
 
-        const loggedInUser = '8089'; // Assume this is the logged-in user ID
-        const chatMessages = document.getElementById('chat-messages');
-        const userList = document.getElementById('user-list');
-        const chatHeader = document.getElementById('chat-header');
-        let selectedUser = null;
+        // Authentication elements
+        const authContainer = document.getElementById("auth-container");
+        const chatContainer = document.getElementById("chat-container");
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password");
+        const pinInput = document.getElementById("pin");
+        const loginButton = document.getElementById("login-button");
 
-        // Populate user list excluding logged-in user
-        Object.entries(users).forEach(([pin, user]) => {
-            if (pin !== loggedInUser) {
-                const userElement = document.createElement('div');
-                userElement.className = 'menu-item';
-                userElement.innerHTML = `<img src="${user.profilePic}" alt="${user.name}">${user.name}`;
-                userElement.onclick = () => selectUser(pin);
-                userList.appendChild(userElement);
-            }
-        });
+        // Chat elements
+        const chatMessages = document.getElementById("chat-messages");
+        const messageInput = document.getElementById("message-input");
+        const sendButton = document.getElementById("send-button");
 
-        // Select a user to chat
-        function selectUser(pin) {
-            selectedUser = pin;
-            chatHeader.textContent = `Chat with ${users[pin].name}`;
-            loadMessages(pin);
+        // Store messages
+        const messages = JSON.parse(localStorage.getItem("teamChatMessages")) || [];
 
-            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-            event.target.closest('.menu-item').classList.add('active');
-        }
-
-        // Load messages for the selected user
-        function loadMessages(pin) {
-            chatMessages.innerHTML = '';
-            const messages = getMessages(pin) || [];
-            messages.forEach(displayMessage);
-        }
-
-        // Send a message
-        function sendMessage() {
-            const input = document.getElementById('message-input');
-            const message = input.value.trim();
-            if (message && selectedUser) {
-                const messages = getMessages(selectedUser) || [];
-                const newMessage = { text: message, type: 'sent' };
-                messages.push(newMessage);
-                saveMessages(selectedUser, messages);
-                displayMessage(newMessage);
-
-                // Simulated reply
-                setTimeout(() => {
-                    const reply = { text: `Reply: ${message}`, type: 'received' };
-                    messages.push(reply);
-                    saveMessages(selectedUser, messages);
-                    displayMessage(reply);
-                }, 1000);
-
-                input.value = '';
-            }
-        }
-
-        // Display a message
-        function displayMessage(message) {
-            const messageElement = document.createElement('div');
-            messageElement.className = `message ${message.type}`;
-            messageElement.textContent = message.text;
-            chatMessages.appendChild(messageElement);
+        // Render messages
+        function renderMessages() {
+            chatMessages.innerHTML = "";
+            messages.forEach(msg => {
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message", msg.sender === usernameInput.value ? "sent" : "received");
+                messageDiv.textContent = `${msg.sender}: ${msg.text}`;
+                chatMessages.appendChild(messageDiv);
+            });
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Manage localStorage messages
-        function getMessages(pin) {
-            return JSON.parse(localStorage.getItem(`chat_${pin}`));
+        // Send message
+        function sendMessage() {
+            const text = messageInput.value.trim();
+            if (text) {
+                const message = { sender: usernameInput.value, text };
+                messages.push(message);
+                localStorage.setItem("teamChatMessages", JSON.stringify(messages));
+                renderMessages();
+                messageInput.value = "";
+            }
         }
 
-        function saveMessages(pin, messages) {
-            localStorage.setItem(`chat_${pin}`, JSON.stringify(messages));
-        }
+        // Authenticate user
+        loginButton.addEventListener("click", () => {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+            const pin = parseInt(pinInput.value.trim());
 
-        // Automatically select the first available user
-        selectUser(Object.keys(users).find(pin => pin !== loggedInUser));
+            if (allowedUsers[username] && allowedUsers[username].password === password && allowedUsers[username].pin === pin) {
+                alert("Login successful!");
+                authContainer.style.display = "none";
+                chatContainer.style.display = "flex";
+                renderMessages();
+            } else {
+                alert("Invalid credentials. Please try again.");
+            }
+        });
+
+        // Chat functionality
+        sendButton.addEventListener("click", sendMessage);
+        messageInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
     </script>
 </body>
 </html>
+
