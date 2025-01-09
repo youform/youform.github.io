@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Team Chat</title>
+    <title>Team Chat</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
+        /* General and Sidebar Styles */
         * {
             margin: 0;
             padding: 0;
@@ -17,9 +19,57 @@
             background-color: #121212;
             color: #E1E1F1;
             display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1C1C2D;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .sidebar .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FF5C93;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: #A0A1B4;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .sidebar .menu-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar .menu-item:hover {
+            background-color: #2A2A3D;
+        }
+
+        .sidebar .menu-item.active {
+            background-color: #FF5C93;
+            color: white;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
         }
 
         .auth-container, .chat-container {
@@ -102,22 +152,34 @@
     </style>
 </head>
 <body>
-    <!-- Authentication -->
-    <div class="auth-container" id="auth-container">
-        <h1>Team Chat Login</h1>
-        <input type="text" id="username" placeholder="Enter your name" required>
-        <input type="password" id="password" placeholder="Enter your password" required>
-        <input type="number" id="pin" placeholder="Enter your PIN" required>
-        <button id="login-button">Login</button>
+    <div class="sidebar">
+        <div class="logo">Dashboard</div>
+        <a href="yfmembers" class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="yfaccount.html" class="menu-item"><i class="fas fa-user"></i> Account</a>
+        <a href="yfsettings.html" class="menu-item"><i class="fas fa-cogs"></i> Settings</a>
+        <a href="yfupdates.html" class="menu-item"><i class="fas fa-bell"></i> Updates</a>
+        <a href="chat.html" class="menu-item active"><i class="fas fa-comments"></i> Chat</a>
+        <a href="login.html" class="menu-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
     </div>
 
-    <!-- Chat -->
-    <div class="chat-container" id="chat-container" style="display: none;">
-        <div class="chat-header">Team Chat</div>
-        <div class="chat-messages" id="chat-messages"></div>
-        <div class="chat-footer">
-            <input type="text" id="message-input" placeholder="Type a message..." />
-            <button id="send-button">Send</button>
+    <div class="main-content">
+        <!-- Authentication -->
+        <div class="auth-container" id="auth-container">
+            <h1>Team Chat Login</h1>
+            <input type="text" id="username" placeholder="Enter your name" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <input type="number" id="pin" placeholder="Enter your PIN" required>
+            <button id="login-button">Login</button>
+        </div>
+
+        <!-- Chat -->
+        <div class="chat-container" id="chat-container" style="display: none;">
+            <div class="chat-header">Team Chat</div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-footer">
+                <input type="text" id="message-input" placeholder="Type a message..." />
+                <button id="send-button">Send</button>
+            </div>
         </div>
     </div>
 
@@ -194,4 +256,3 @@
     </script>
 </body>
 </html>
-
