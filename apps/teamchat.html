@@ -172,6 +172,7 @@
     </div>
 
     <script>
+        // Mocked users data
         const users = {
             '8944': { name: 'Daniel', profilePic: 'https://via.placeholder.com/40' },
             '6944': { name: 'Dakirb', profilePic: 'https://via.placeholder.com/40' },
@@ -180,18 +181,21 @@
             '1012': { name: 'Arthur', profilePic: 'https://via.placeholder.com/40' }
         };
 
+        const loggedInUser = '8089'; // Assume this is the logged-in user ID
         const chatMessages = document.getElementById('chat-messages');
         const userList = document.getElementById('user-list');
         const chatHeader = document.getElementById('chat-header');
         let selectedUser = null;
 
-        // Populate user list
+        // Populate user list excluding logged-in user
         Object.entries(users).forEach(([pin, user]) => {
-            const userElement = document.createElement('div');
-            userElement.className = 'menu-item';
-            userElement.innerHTML = `<img src="${user.profilePic}" alt="${user.name}">${user.name}`;
-            userElement.onclick = () => selectUser(pin);
-            userList.appendChild(userElement);
+            if (pin !== loggedInUser) {
+                const userElement = document.createElement('div');
+                userElement.className = 'menu-item';
+                userElement.innerHTML = `<img src="${user.profilePic}" alt="${user.name}">${user.name}`;
+                userElement.onclick = () => selectUser(pin);
+                userList.appendChild(userElement);
+            }
         });
 
         // Select a user to chat
@@ -252,8 +256,8 @@
             localStorage.setItem(`chat_${pin}`, JSON.stringify(messages));
         }
 
-        // Automatically select the first user
-        selectUser(Object.keys(users)[0]);
+        // Automatically select the first available user
+        selectUser(Object.keys(users).find(pin => pin !== loggedInUser));
     </script>
 </body>
 </html>
