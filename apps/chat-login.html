@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #E1E1F1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #1E1E2E;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #FF5C93;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background-color: #2A2A3D;
+            border: 1px solid #333;
+            color: #E1E1F1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #FF5C93;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .login-container button:hover {
+            background-color: #FF357C;
+        }
+
+        .contact-support {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .contact-support a {
+            color: #FF5C93;
+            text-decoration: none;
+        }
+
+        .contact-support a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .alternative-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="text" id="pin" placeholder="Enter your PIN" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <button type="submit">Log In</button>
+        </form>
+
+        <div class="contact-support">
+            <p>Need help? <a href="mailto:support@yourwebsite.com">Contact Support</a></p>
+        </div>
+
+        <div class="error-message" id="error-message"></div>
+    </div>
+
+    <script>
+        // Predefined user credentials
+        const users = {
+            '8944': { password: 'daniel121', name: 'Daniel', profilePic: 'https://via.placeholder.com/40' },
+            '6944': { password: 'dakirb121', name: 'Dakirb', profilePic: 'https://via.placeholder.com/40' },
+            '0944': { password: 'password121', name: 'Oscar', profilePic: 'https://via.placeholder.com/40' },
+            '8089': { password: 'iluvlife121', name: 'Harieth', profilePic: 'https://via.placeholder.com/40' },
+            '1012': { password: 'nahrlly121', name: 'Arthur', profilePic: 'https://via.placeholder.com/40' }
+        };
+
+        // Handle the login form submission
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const pin = document.getElementById('pin').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Check if the PIN and password match the predefined credentials
+            if (users[pin] && users[pin].password === password) {
+                // Store the user data in localStorage for session persistence
+                localStorage.setItem('loggedInUser', JSON.stringify({
+                    name: users[pin].name,
+                    profilePic: users[pin].profilePic
+                }));
+
+                // Redirect to the dashboard after successful login
+                window.location.href = 'yfmembers.html';
+            } else {
+                // Display an error message if credentials are incorrect
+                errorMessage.textContent = 'Invalid PIN or password. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>
