@@ -18,18 +18,19 @@
             background-color: #121212;
             color: #E1E1F1;
             display: flex;
+            flex-direction: row-reverse;
             height: 100vh;
             overflow: hidden;
         }
 
         .sidebar {
-            width: 250px;
+            width: 300px;
             background-color: #1C1C2D;
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
+            box-shadow: -2px 0 15px rgba(0, 0, 0, 0.6);
         }
 
         .sidebar .logo {
@@ -79,11 +80,6 @@
         .chat-header h1 {
             font-size: 1.5rem;
             font-weight: 600;
-        }
-
-        .chat-header .user-list {
-            display: flex;
-            gap: 15px;
         }
 
         .chat-messages {
@@ -159,16 +155,12 @@
 <body>
     <div class="sidebar">
         <div class="logo">Dashboard</div>
-        <div class="menu-item active">Team Chat</div>
-        <div class="menu-item">Harieth</div>
-        <div class="menu-item">Daniel</div>
-        <div class="menu-item">Oscar</div>
-        <div class="menu-item">Dakirb</div>
+        <div id="user-list"></div>
     </div>
 
     <div class="chat-container">
         <div class="chat-header">
-            <h1>Team Chat</h1>
+            <h1 id="chat-header">Team Chat</h1>
         </div>
 
         <div class="chat-messages" id="chat-messages">
@@ -182,18 +174,60 @@
     </div>
 
     <script>
+        const users = {
+            '8944': { name: 'Daniel', profilePic: 'https://via.placeholder.com/40' },
+            '6944': { name: 'Dakirb', profilePic: 'https://via.placeholder.com/40' },
+            '0944': { name: 'Oscar', profilePic: 'https://via.placeholder.com/40' },
+            '8089': { name: 'Harieth', profilePic: 'https://via.placeholder.com/40' },
+            '1012': { name: 'Arthur', profilePic: 'https://via.placeholder.com/40' }
+        };
+
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        const userList = document.getElementById('user-list');
         const chatMessages = document.getElementById('chat-messages');
+        let selectedUser = null;
+
+        // Redirect if no user is logged in
+        if (!loggedInUser) {
+            window.location.href = 'index.html';
+        }
+
+        // Populate sidebar with user list
+        for (const [pin, user] of Object.entries(users)) {
+            if (user.name !== loggedInUser.name) {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.textContent = user.name;
+                menuItem.onclick = () => selectUser(user.name, pin);
+                userList.appendChild(menuItem);
+            }
+        }
+
+        function selectUser(userName, pin) {
+            selectedUser = pin;
+            document.getElementById('chat-header').textContent = `Chat with ${userName}`;
+            chatMessages.innerHTML = ''; // Clear chat messages for the selected user
+        }
 
         function sendMessage() {
             const input = document.getElementById('message-input');
             const message = input.value.trim();
-            if (message) {
+            if (message && selectedUser) {
                 const messageElement = document.createElement('div');
                 messageElement.classList.add('message', 'sent');
                 messageElement.textContent = message;
                 chatMessages.appendChild(messageElement);
                 input.value = '';
                 chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Simulate a reply
+                setTimeout(() => {
+                    const replyElement = document.createElement('div');
+                    replyElement.classList.add('message', 'received');
+                    replyElement.textContent = `${users[selectedUser].name} received: ${message}`;
+                    chatMessages.appendChild(replyElement);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
             }
         }
     </script>
