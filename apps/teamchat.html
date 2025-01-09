@@ -3,12 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Chat</title>
+    <title>Advanced Team Chat</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        /* Style content remains the same as the previous code */
-        /* Refer to the earlier code for styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #E1E1F1;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: #1C1C2D;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .sidebar .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #FF5C93;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: #A0A1B4;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .sidebar .menu-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .sidebar .menu-item.active,
+        .sidebar .menu-item:hover {
+            background-color: #FF5C93;
+            color: white;
+        }
+
+        .chat-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #1C1C2D;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background-color: #2A2A3D;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #121212;
+        }
+
+        .chat-messages .message {
+            max-width: 60%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chat-messages .message.sent {
+            align-self: flex-end;
+            background-color: #FF5C93;
+            color: white;
+        }
+
+        .chat-messages .message.received {
+            align-self: flex-start;
+            background-color: #2A2A3D;
+            color: #E1E1F1;
+        }
+
+        .chat-input {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #2A2A3D;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 12px;
+            background-color: #1C1C2D;
+            border: 1px solid #333;
+            color: #E1E1F1;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        .chat-input button {
+            background-color: #FF5C93;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            background-color: #E14E84;
+        }
     </style>
 </head>
 <body>
@@ -23,7 +162,7 @@
         </div>
 
         <div class="chat-messages" id="chat-messages">
-            <!-- Messages will appear here dynamically -->
+            <!-- Messages will appear dynamically here -->
         </div>
 
         <div class="chat-input">
@@ -41,48 +180,51 @@
             '1012': { name: 'Arthur', profilePic: 'https://via.placeholder.com/40' }
         };
 
-        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || { name: "You" };
-        const userList = document.getElementById('user-list');
         const chatMessages = document.getElementById('chat-messages');
+        const userList = document.getElementById('user-list');
+        const chatHeader = document.getElementById('chat-header');
         let selectedUser = null;
 
-        // Redirect if no user is logged in
-        if (!loggedInUser) {
-            window.location.href = 'index.html';
-        }
+        // Populate user list
+        Object.entries(users).forEach(([pin, user]) => {
+            const userElement = document.createElement('div');
+            userElement.className = 'menu-item';
+            userElement.innerHTML = `<img src="${user.profilePic}" alt="${user.name}">${user.name}`;
+            userElement.onclick = () => selectUser(pin);
+            userList.appendChild(userElement);
+        });
 
-        // Populate sidebar with user list
-        for (const [pin, user] of Object.entries(users)) {
-            if (user.name !== loggedInUser.name) {
-                const menuItem = document.createElement('div');
-                menuItem.className = 'menu-item';
-                menuItem.textContent = user.name;
-                menuItem.onclick = () => selectUser(user.name, pin);
-                userList.appendChild(menuItem);
-            }
-        }
-
-        function selectUser(userName, pin) {
+        // Select a user to chat
+        function selectUser(pin) {
             selectedUser = pin;
-            document.getElementById('chat-header').textContent = `Chat with ${userName}`;
+            chatHeader.textContent = `Chat with ${users[pin].name}`;
             loadMessages(pin);
+
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.menu-item').classList.add('active');
         }
 
+        // Load messages for the selected user
+        function loadMessages(pin) {
+            chatMessages.innerHTML = '';
+            const messages = getMessages(pin) || [];
+            messages.forEach(displayMessage);
+        }
+
+        // Send a message
         function sendMessage() {
             const input = document.getElementById('message-input');
             const message = input.value.trim();
             if (message && selectedUser) {
                 const messages = getMessages(selectedUser) || [];
-                const messageObject = { sender: loggedInUser.name, text: message, type: 'sent' };
-                messages.push(messageObject);
+                const newMessage = { text: message, type: 'sent' };
+                messages.push(newMessage);
                 saveMessages(selectedUser, messages);
+                displayMessage(newMessage);
 
-                // Display the sent message
-                displayMessage(messageObject);
-
-                // Simulate a reply
+                // Simulated reply
                 setTimeout(() => {
-                    const reply = { sender: users[selectedUser].name, text: `Received: ${message}`, type: 'received' };
+                    const reply = { text: `Reply: ${message}`, type: 'received' };
                     messages.push(reply);
                     saveMessages(selectedUser, messages);
                     displayMessage(reply);
@@ -92,20 +234,16 @@
             }
         }
 
+        // Display a message
         function displayMessage(message) {
             const messageElement = document.createElement('div');
-            messageElement.classList.add('message', message.type);
-            messageElement.textContent = `${message.sender}: ${message.text}`;
+            messageElement.className = `message ${message.type}`;
+            messageElement.textContent = message.text;
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        function loadMessages(pin) {
-            chatMessages.innerHTML = ''; // Clear chat window
-            const messages = getMessages(pin) || [];
-            messages.forEach(displayMessage);
-        }
-
+        // Manage localStorage messages
         function getMessages(pin) {
             return JSON.parse(localStorage.getItem(`chat_${pin}`));
         }
@@ -114,13 +252,8 @@
             localStorage.setItem(`chat_${pin}`, JSON.stringify(messages));
         }
 
-        // Auto-select the first user for chat on page load
-        (function autoSelectFirstUser() {
-            const firstUserPin = Object.keys(users)[0];
-            if (firstUserPin) {
-                selectUser(users[firstUserPin].name, firstUserPin);
-            }
-        })();
+        // Automatically select the first user
+        selectUser(Object.keys(users)[0]);
     </script>
 </body>
 </html>
